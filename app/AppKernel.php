@@ -19,12 +19,12 @@ class AppKernel extends Kernel
             new \FOS\UserBundle\FOSUserBundle(),
             new \HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
             new \FOS\RestBundle\FOSRestBundle(),
+			new Ulogin\AuthBundle\UloginAuthBundle(),        
             new \JMS\SerializerBundle\JMSSerializerBundle(),
             new Acme\EdelaBundle\AcmeEdelaBundle(),
             new Acme\UserBundle\AcmeUserBundle(),
             new \Acme\ApiBundle\AcmeApiBundle(),
-            new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
-
+            new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),			
             // Add your dependencies
             new Sonata\CoreBundle\SonataCoreBundle(),
             new Sonata\BlockBundle\SonataBlockBundle(),
@@ -39,7 +39,7 @@ class AppKernel extends Kernel
 
             // Then add SonataAdminBundle
             new Sonata\AdminBundle\SonataAdminBundle(),
-            new Acme\AdminBundle\AcmeAdminBundle(),
+            new Acme\AdminBundle\AcmeAdminBundle(),            
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

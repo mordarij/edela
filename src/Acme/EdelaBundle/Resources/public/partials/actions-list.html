@@ -1,4 +1,4 @@
-<div class="main" ng-show="!loading" ng-class="mainClass">
+<div class="main" ng-show="!loading" ng-class="mainClass" onclick="$('.pop-up-calendar').hide();$('.pop-up-calendar').addClass('ng-hide');">
 <div class="content">
 <div class="planned-business" ng-if="!!actions && actions.length > 0">
     <div class="box tool" ng-repeat="tool in tools|filter:{is_enabled:true}" ng-controller="tool.controller">
@@ -12,17 +12,17 @@
 
     <div ng-repeat="action in actions|filterDelayed:false|orderBy:position" class="box dragbox"
          ng-class="{solving:action.progress, 'box-purpose-digital':vars.action_types[action.action_type_id].tkey!='done'}">
-        <h3 ng-class="{important:action.is_important}">{{ action.title }} {{ action.position }}</h3>
+        <h3 ng-class="{important:action.is_important}"><a href="javascript:void(0)" style="text-decoration: none;color:inherit;" title="{{ action.title_full }}">{{ action.title }}</a></h3>
 
         <div class="box-holder">
             <span class="btn-move"></span>
 
             <div class="progresbar-holder" ng-click="showStatistics=true">
                 <div class="progresbar">
-                    <span style=" width: {{ action.done / action.repeat_amount * 100 }}%"></span>
+                    <span style=" width: {{ (action.done / action.repeat_amount * 100) }}%"></span>
                 </div>
                 <div class="box-note-progres"><span
-                        class="btn-note-progres">{{ action.done / action.repeat_amount * 100 }}%</span></div>
+                        class="btn-note-progres">{{ (action.done / action.repeat_amount * 100) | number: 1}}%</span></div>
             </div>
             <div class="box-content">
                 <div class="img-runtime" ng-click="action.changeProgress()" ng-class="{disabled:!action.isExecutable()}"
@@ -122,8 +122,8 @@
                     <li><span>{{ action.repeat_amount }}</span>Общее количество</li>
                     <li><span>{{ action.done }}</span>Выполнено</li>
                     <li><span>{{ action.repeat_amount - action.done }}</span>Не выполено</li>
-                    <li><span>10.12.2015</span>Дата начала</li>
-                    <li><span class="date-end">10.12.2015</span>Дата окончания</li>
+                    <li><span>{{ action.format_start_time }}</span>Дата начала</li>
+                    <li><span class="date-end">{{ action.date_finish }}</span>Дата окончания</li>
                 </ul>
             </div>
             <div class="notes-case" ng-class="{display:action.showNotes}">
@@ -152,8 +152,8 @@
 
         <div class="box-new-daily-deal-holder">
             <div class="box-content box-case">
-                <a href="javascript:void(0)" ng-click="display.showNew=true" class="add-case"><span>+ Добавить <br/>ежедневное дело</span></a>
-                <a href="#actions/samples?goal={{ goal }}" class="examples-cases">Примеры ежедневных дел</a>
+                <a href="javascript:void(0)" onclick="$('.new_action').focus();" ng-click="display.showNew=true;" class="add-case"><span>+ Добавить <br/>ежедневное дело</span></a>
+                <!-- <a href="#actions/samples?goal={{ goal }}" class="examples-cases">Примеры ежедневных дел</a>-->
             </div>
             <div class="box-new-daily-deal" ng-class="{display:display.showNew}">
                 <form ng-submit="addAction()">
@@ -179,8 +179,8 @@
 
         <div class="box-new-daily-deal-holder">
             <div class="box-content box-case">
-                <a href="javascript:void(0)" ng-click="display.showNew=true" class="add-case"><span>+ Добавить <br/>ежедневное дело</span></a>
-                <a href="#actions/samples?goal={{ goal }}" class="examples-cases">Примеры ежедневных дел</a>
+                <a href="javascript:void(0)" onclick="$('.new_action').focus();"  ng-click="display.showNew=true" class="add-case"><span>+ Добавить <br/>ежедневное дело</span></a>
+                <!-- <a href="#actions/samples?goal={{ goal }}" class="examples-cases">Примеры ежедневных дел</a>-->
             </div>
             <div class="box-new-daily-deal" ng-class="{display:display.showNew}">
                 <form ng-submit="addAction()">
@@ -201,26 +201,27 @@
             <h3>Начать</h3>
 
             <p>
-                Добавьте новое ежедневно дело,
+                Добавьте новое ежедневное дело,
                 <br> это будет первый шаг к заветной цели!</p>
         </div>
         <div class="note">
-            <p>Примеры ежедневны дел — это готовый план действий, в котором подробно и пошагово расписаны все этапы
+            <!-- <p>Примеры ежедневны дел — это готовый план действий, в котором подробно и пошагово расписаны все этапы
                 к
                 достижению цели.</p>
-
+ 			-->
             <p>
                 Видео: «<a href="#">Начало работы</a>»
             </p>
         </div>
     </div>
 </div>
-<div ng-click="gotoStats()" class="progress-bar-holder">
+<div ng-click="//gotoStats()" class="progress-bar-holder">
     <div class="progress-bar">
         <span style="width:{{ progress.num | number: 1 }}%"></span>
     </div>
     <span class="note" ng-bind-template="{{ progress.num | number: 1 }}%"></span>
 </div>
+<!-- 
 <div class="container box-add-case add-add-box-add-case">
     <form ng-submit="addTask()">
         <fieldset>
@@ -252,7 +253,8 @@
 			                                        <a href="javascript:"
                                                        ng-click="task.expanded=true; addTask(task, $event)">+
                                                         Подзадача</a>
-			                                        <a href="javascript:" ng-click="task.editPopup($event)">Изменить</a>
+			                                        <a href="javascript:" ng-click="editTask(task, $event)">Изменить</a>
+			                                        <a href="javascript:" ng-click="removeTask(task, $event)">Удалить</a>
 			                                   </span>
         </div>
         <div class="btn-move" ng-if="false"></div>
@@ -282,7 +284,7 @@
             ng-class="{important:task.is_important, 'deal-done':task.done}"></li>
     </ol>
 </div>
-
+ 
 <div class="social-list">
     <h3>Поделиться результатами</h3>
 
@@ -297,58 +299,10 @@
         </ul>
     </div>
 </div>
+-->
 </div>
 </div>
-<div class="adjournment-proceedings" ng-show="!loading">
-    <div class="holder">
-        <div class="heading" ng-click="showDelayed=!showDelayed">
-            Отложенные дела (<span ng-bind="(actions|filterDelayed:true).length"></span>)
-        </div>
-        <div class="adjournment-proceedings-content" ng-show="showDelayed">
-            <div class="box-holder">
-                <div class="box" ng-repeat="action in actions|filterDelayed:true">
-                    <h3 ng-class="{important:action.is_important}">{{ action.title }}</h3>
 
-                    <div class="box-content">
-                        <span class="play icon-play" ng-click="runDelayed(action)">
-                            <span class="tooltip"><span><span><span><span>Начать выполнения</span></span></span></span></span>
-                        </span>
-
-                        <div class="row-nav">
-                            <a href="javascript:void(0)" class="settings-mission" ng-click="action.editPopup($event)">Настройки</a>
-                            <a href="javascript:void(0)" class="mark icon-uniE60F">
-                                <span class="tooltip"><span><span><span><span>Назначить дату <br> начать выполнения</span></span></span></span></span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="box">
-                    <h3></h3>
-
-                    <div class="box-new-daily-deal-holder">
-                        <div class="box-content box-case">
-                            <a href="javascript:void(0)" ng-click="display.showNew=true" class="add-case"><span>+ Добавить отложенное<br/>ежедневное дело</span></a>
-                            <a href="#actions/samples?goal={{ goal }}" class="examples-cases">Примеры ежедневных дел</a>
-                        </div>
-                        <div class="box-new-daily-deal" ng-class="{display:display.showNew}">
-                            <form ng-submit="addAction(true)">
-                                <p>Новое ежедневное дело</p>
-                                <textarea class="new_action" data-delayed="1" rows="1" cols="1"
-                                          ng-model="newAction.title" placeholder="Название..."></textarea>
-
-                                <div class="row" style="padding: 0">
-                                    <button type="submit" class="btn">Добавить</button>
-                                    <button type="reset" ng-click="display.showNew=false" class="btn btn-white">Отмена
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 <div style="display: none">
     <!-- pop-up-history-problems -->

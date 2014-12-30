@@ -1,0 +1,2 @@
+<script src="//ulogin.ru/js/ulogin.js"></script>
+<div id="uLogin_{{ uLoginID }}" data-uloginid="{{ uLoginID }}"  data-ulogin="display=small;fields=first_name,last_name,email;optional=city;verify=1;providers=vkontakte,facebook,googleplus,odnoklassniki;redirect_uri={{ url("ulogin_auth_index",{"backurl":path(app.request.attributes.get('_route'),app.request.attributes.get('_route_params'))})|url_encode }}"></div>

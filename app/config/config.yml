@@ -30,7 +30,6 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
-
 # Assetic Configuration
 assetic:
     debug:          "%kernel.debug%"
@@ -164,3 +163,5 @@ sonata_block:
         sonata.admin.block.admin_list:
             contexts:   [admin]
         # Your other blocks
+
+        

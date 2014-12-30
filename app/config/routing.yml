@@ -18,8 +18,14 @@ acme_user:
 acme_edela:
     resource: "@AcmeEdelaBundle/Resources/config/routing.yml"
     prefix:   /
+ 
 
 acme_api:
     type: rest
     resource: "@AcmeApiBundle/Resources/config/routing_rest.yml"
     prefix: /api
+
+ulogin_auth_index:
+    resource: "@UloginAuthBundle/Resources/config/routing.xml"
+
+    

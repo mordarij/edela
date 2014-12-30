@@ -31,6 +31,7 @@ security:
                 resource_owners:
                     vkontakte:           "/user/snlogin/check-vk"
                     facebook:           "/user/snlogin/check-fb"
+                    google:		"/user/snlogin/check-google"
                 oauth_user_provider:
                     service: my_user_provider
 

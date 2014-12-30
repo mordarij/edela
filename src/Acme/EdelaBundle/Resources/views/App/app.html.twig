@@ -31,7 +31,7 @@
         if (currentUserId != displayUserId){
             window.location.hash = '/display';
         } else if (!window.location.hash){
-            window.location.hash = '/goals';
+            window.location.hash = '/';
         }
     </script>
     {% block javascripts %}
@@ -47,13 +47,13 @@
         '@AcmeEdelaBundle/Resources/public/js/jquery/jquery.mousewheel.js'
         '@AcmeEdelaBundle/Resources/public/js/jquery/jquery.jscrollpane.js'
         '@AcmeEdelaBundle/Resources/public/js/jquery/dateformat.js'
-        '@AcmeEdelaBundle/Resources/public/js/jquery/dateformat-i18n.js'
+        '@AcmeEdelaBundle/Resources/public/js/jquery/dateformat-i18n.js'        
         '@AcmeEdelaBundle/Resources/public/js/jquery/intlTelInput.min.js'
         '@AcmeEdelaBundle/Resources/public/js/jquery/slideblock.js'
         '@AcmeEdelaBundle/Resources/public/js/jquery/script.js'
         '@AcmeEdelaBundle/Resources/public/js/angular/angular.min.js'
         '@AcmeEdelaBundle/Resources/public/js/angular/d3.v3.min.js'
-        '@AcmeEdelaBundle/Resources/public/js/angular/*'
+        '@AcmeEdelaBundle/Resources/public/js/angular/*'        
         '@AcmeEdelaBundle/Resources/public/js/angular/data/app.js'
         '@AcmeEdelaBundle/Resources/public/js/angular/data/controllers.js'
         '@AcmeEdelaBundle/Resources/public/js/angular/data/*' %}
@@ -81,26 +81,18 @@
                             <li><a href="http://vk.com/edela" class="vk">vk</a></li>
                             <li><a href="http://youtube.com/user/edelacom1" class="yutube">yutube</a></li>
                         </ul>
-                        <a href="http://e-dela.livejournal.com">Блог</a>
+                        <!--<a href="http://e-dela.livejournal.com">Блог</a>-->
                     </div>
                     <div class="col2">
+                    	<!--
                         <div class="text-error">
                             <a href="#">Нашли ошибку на сайте?</a>
                             Выделите текст и нажмите Ctrl+Enter
-                        </div>
+                        </div>-->
                         <a href="http://edela.reformal.ru/">Вопросы, предложения</a>
                     </div>
                 </div>
-                <div class="row row-partners">
-                    <span>Партнеры:</span>
-                    <ul>
-                        <li><a href="http://drvd.ru/" target="_blank"><img src="/bundles/acmeedela/images/partners/1.png" /></a></li>
-                        <li><a href="http://vivsharm.ru/" target="_blank"><img src="/bundles/acmeedela/images/partners/2.png" /></a></li>
-                        <li><a href="http://nablagovseh.ru/index.php?route=product/product&product_id=72" target="_blank"><img src="/bundles/acmeedela/images/partners/3.png" /></a></li>
-                        <li><a href="http://isolovey.ru/" target="_blank"><img src="/bundles/acmeedela/images/partners/4.png" /></a></li>
-                        <li><a href="http://beelady.ru/intro" target="_blank"><img src="/bundles/acmeedela/images/partners/5.png" /></a></li>
-                    </ul>
-                </div>
+
             </div>
         </footer>
 

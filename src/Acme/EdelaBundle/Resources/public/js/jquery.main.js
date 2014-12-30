@@ -2,6 +2,7 @@
 
 
 jQuery(function(){
+
     initContentHeight();
     window.onresize = function(event){
         initContentHeight();
@@ -60,17 +61,17 @@ $(function () {
         divresize('.goal', 125, 118);
     });
 });
-
-$(function () {
-    function divresize(block, headerHeight, footerHeight) {
-        var windowHeight = $("body").height(); //определяем высоту окна браузера
-        $(block).css('height', windowHeight - headerHeight - footerHeight); //устанавливаем высоту блока(равно высоте окна за вычетом шапки и подвала)
-    }
-    divresize('.landing-container', 50, 0); //вызываем функцию изменения размера блока
-    $(window).bind("resize", function(){ //при изменении размера окна вызываем функцию
-        divresize('.landing-container', 50, 0);
-    });
-});
+//
+//$(function () {
+//    function divresize(block, headerHeight, footerHeight) {
+//        var windowHeight = $("body").height(); //определяем высоту окна браузера
+//        $(block).css('height', windowHeight - headerHeight - footerHeight); //устанавливаем высоту блока(равно высоте окна за вычетом шапки и подвала)
+//    }
+//    //divresize('.landing-container', 50, 0); //вызываем функцию изменения размера блока
+//    $(window).bind("resize", function(){ //при изменении размера окна вызываем функцию
+//        divresize('.landing-container', 50, 0);
+//    });
+//});
 
 
 $(document).ready(function(){
@@ -525,7 +526,8 @@ $(document).ready(function(){
 		}
 
 /*
-		$('.tools-slider').each(function(){                var select = $(this).find('.tools-slider-variant');
+		$('.tools-slider').each(function(){
+                var select = $(this).find('.tools-slider-variant');
 				var slider = $(this).find('.tools-slider-scroller');
 
                 slider.slider({
@@ -534,7 +536,8 @@ $(document).ready(function(){
 					range: "min",
 					value: select[ 0 ].selectedIndex + 1,
 					slide: function( event, ui ) {select[0].selectedIndex = ui.value - 1;}
-				});		});
+				});
+		});
 
 */
 
@@ -614,9 +617,11 @@ $(function(){
 
 
 
-     $('#main-calendar-gotocurrent').click(function(){     	   $( "#main-calendar" ).datepicker( "setDate", "now");
+     $('#main-calendar-gotocurrent').click(function(){
+     	   $( "#main-calendar" ).datepicker( "setDate", "now");
 
-     	   return false;     });
+     	   return false;
+     });
      $('#main-calendar-next').click(function(){
      	   var currentDate = $( "#main-calendar" ).datepicker( 'getDate', '+1d' );
      	   currentDate.setDate(currentDate.getDate()+1);

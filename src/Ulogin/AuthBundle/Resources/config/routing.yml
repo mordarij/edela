@@ -1,0 +1,3 @@
+ulogin_auth_index:
+    pattern: /ulogin/auth
+    defaults: { _controller: UloginAuthBundle:Auth:index,_method:POST }

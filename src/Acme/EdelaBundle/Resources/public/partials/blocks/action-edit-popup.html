@@ -1,23 +1,15 @@
-<div style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; z-index: 555; opacity: .3;background-color: black;"></div>
+<div style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; z-index: 555; opacity: .6;background-color: black;"></div>
 <div class="pop-up pop-up-history-problems pop-setting-goals new-pop-setting-goals"
      id="pop-up-setting-goals"
-     style=" position: absolute; left: 30%; z-index: 555; top: 0; /*display: none;*/">
+     style=" position: fixed; left: 30%; z-index: 555; top: 0; /*display: none;*/">
 
 <form>
 <fieldset>
 <ul class="nav-setting">
     <li><a href="#tab1" class="tab tab-basic" ng-class="{active:settings.tab=='tab1'}" ng-click="settings.tab='tab1'">Основные</a>
     </li>
-    <li><a href="#tab2" class="tab tab-case-type" ng-class="{active:settings.tab=='tab2'}" ng-click="settings.tab='tab2'">Тип
-        дела</a></li>
-    <li><a href="#tab3" class="tab tab-time" ng-class="{active:settings.tab=='tab3'}"
-           ng-click="settings.tab='tab3'">Время</a></li>
     <li><a href="#tab4" class="tab tab-note" ng-class="{active:settings.tab=='tab4'}" ng-click="settings.tab='tab4'">Заметка</a>
     </li>
-    <li><a href="#tab5" class="tab tab-tags" ng-class="{active:settings.tab=='tab5'}"
-           ng-click="settings.tab='tab5'">Теги</a></li>
-    <li><a href="#tab6" class="tab tab-joint-implementation" ng-class="{active:settings.tab=='tab6'}"
-           ng-click="settings.tab='tab6'">Совместное выполнение</a></li>
     <li><a href="#tab7" class="tab tab-components-case" ng-class="{active:settings.tab=='tab7'}"
            ng-click="settings.tab='tab7'">Составляющие дела</a></li>
 </ul>
@@ -30,7 +22,7 @@
         <label><span>Название</span></label>
 
         <div class="row-content">
-            <input type="text" class="form-input" placeholder="Название дела" ng-model="action.title">
+            <input type="text" class="form-input" placeholder="Название дела" ng-model="action.title" id="name_action">
         </div>
         <div class="row-content" ng-if="goals.length > 0">
             <a href="#" ng-if="action.goal.title"
@@ -107,7 +99,7 @@
         </div>
     </div>
     <div class="row row-number-times">
-        <label><span><span>Количество<a class="icon-uniE60A" href="#"><span class="tooltip"><span><span><span><span> если текст длинный то ix </span></span></span></span></span></a> выполнений</span></span></label>
+        <label><span><span>Количество выполнений</span></span></label>
 
         <div class="row-content">
             <input type="text" class="form-input" ng-model="action.repeat_amount" placeholder="Число"
@@ -121,40 +113,8 @@
 
         </div>
     </div>
-    <div class="row row-reminder ">
-        <label><span><span>Напоминание<a class="icon-uniE60A" href="#"><span class="tooltip"><span><span><span><span> если текст длинный то ix </span></span></span></span></span></a></span></span></label>
-
-        <div class="row-content">
-            <div class="row-holder">
-                <div class="row">
-                    <button type="button" class="btn"
-                            ng-class="{'btn-green':action.is_sms_notification, 'btn-white':!action.is_sms_notification}"
-                            ng-click="action.is_sms_notification=!action.is_sms_notification">SMS
-                    </button>
-                    <button type="button" class="btn"
-                            ng-class="{'btn-green':action.is_email_notification, 'btn-white':!action.is_email_notification}"
-                            ng-click="action.is_email_notification=!action.is_email_notification">Почта
-                    </button>
-                </div>
-                <div class="row row-time-select row-reminder-time">
-                    <label>Время напоминания:</label>
-                    <input type="text" ng-model="action.notification_time.hour" class="form-input" style="width: 20px"/>
-                    <select ng-if="false" class="selectpicker col sel nya-selectpicker" data-container="body"
-                            ng-model="action.notification_time.hour" ng-options="hour for hour in times.hours">
-                    </select>
-                    <span class="col">:</span>
-                    <input ng-model="action.notification_time.minute" type="text" class="form-input" style="width: 20px" />
-                    <select ng-if="false"  class="selectpicker col sel nya-selectpicker" data-container="body"
-                            ng-model="action.notification_time.minute" ng-options="minute for minute in times.minutes">
-                    </select>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
     <div class="row ">
-        <label><span><span>Важность<a class="icon-uniE60A" href="#"><span class="tooltip"><span><span><span><span> если текст длинный то ix </span></span></span></span></span></a></span></span></label>
+        <label><span><span>Важность</span></span></label>
 
         <div class="row-content">
             <button type="button" class="btn"
@@ -163,38 +123,13 @@
             </button>
         </div>
     </div>
-    <div class="row row-privacy">
-        <div class="row-holder">
-            <div class="row">
-                <label><span>Приватность</span></label>
-
-                <div class="row-content">
-                    <ul class="privacy-list">
-                        <li class="radio">
-                            <input id="see" type="radio" checked="checked" name="privacy" ng-model="action.isPrivate"
-                                   ng-value="false">
-                            <label for="see" ng-class="{focus:!action.isPrivate}">
-                                <i class="icon-see"></i>Сделать видимым
-                            </label>
-                        </li>
-                        <li class="radio">
-                            <input id="nosee" type="radio" name="privacy" ng-model="action.isPrivate" ng-value="true">
-                            <label for="nosee" ng-class="{focus:action.isPrivate}">
-                                <i class="icon-nosee"></i>Скрыть видимость
-                            </label>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 <div id="tab2" class="box-tab" ng-show="settings.tab=='tab2'">
     <div class="heading">
         Тип дела
     </div>
     <div class="row">
-        <label><span><span>Типы<a class="icon-uniE60A" href="#"><span class="tooltip"><span><span><span><span> если текст длинный то ix </span></span></span></span></span></a><br> дел</span></span></label>
+        <label><span><span>Типы<br> дел</span></span></label>
 
         <div class="row-content">
             <div class="row-holder">
@@ -217,7 +152,7 @@
         </div>
     </div>
     <div class="row ">
-        <label><span><span>Динамика<a class="icon-uniE60A" href="#"><span class="tooltip"><span><span><span><span> если текст длинный то ix </span></span></span></span></span></a> выполнения</span></span></label>
+        <label><span><span>Динамика выполнения</span></span></label>
 
         <div class="row-content">
             <select class="selectpicker sel sel2 nya-selectpicker" ng-model="action.dynamic_type_id"
@@ -246,7 +181,7 @@
         Время
     </div>
     <div class="row row-time-to-perform ">
-        <label><span><span>Время на<a class="icon-uniE60A" href="#"><span class="tooltip"><span><span><span><span> если текст длинный то ix </span></span></span></span></span></a> выполнение</span></span></label>
+        <label><span><span>Время на выполнение</span></span></label>
 
         <div class="row-content">
             <div class="row-holder">
@@ -318,7 +253,7 @@
 
         <div class="row-content">
             <div style="width: 94%;">
-                <textarea ng-model="action.note"/>
+                <textarea ng-model="action.note" placeholder="Напишите заметку..."></textarea>
             </div>
         </div>
     </div>
@@ -330,7 +265,7 @@
     <div class="row row-components-business ">
         <div class="row-holder">
             <div class="row">
-                <label><span><span>Теги<a class="icon-uniE60A" href="#"><span class="tooltip"><span><span><span><span> если текст длинный то ix </span></span></span></span></span></a></span></span></label>
+                <label><span><span>Теги</span></span></label>
 
                 <div class="row-content">
                     <input type="text" class="form-input new_tag" placeholder="Название" ng-model="newTag.title">
@@ -394,7 +329,7 @@
     <div class="row row-components-business components-business ">
         <div class="row-holder">
             <div class="row">
-                <label><span><span>Составляющие<a class="icon-uniE60A" href="#"><span class="tooltip"><span><span><span><span> если текст длинный то ix </span></span></span></span></span></a> дела</span></span></label>
+                <label><span><span>Составляющие дела</span></span></label>
 
                 <div class="row-content">
                     <input type="text" class="form-input" class="new_subaction" placeholder="Название" ng-model="newSubaction.title">
@@ -413,9 +348,7 @@
 <div class="row-btn-holder">
     <ul class="row-btn-serv">
         <li><a href="javascript:" ng-click="remove()" class="red-mark">Удалить задачу</a></li>
-        <li><a href="javascript:void(0)" ng-click="action.toggleDelay(); showEditPopup = false;">{{ action.isDelayed() ?
-            'Начать выполнение' : 'Отложить дело' }}</a></li>
-        <li><a href="#">Начать заново</a></li>
+        <li><a href="javascript:" ng-click="action.startAgain();save()">Начать заново</a></li>
     </ul>
 
 
@@ -670,7 +603,7 @@
 
     <div class="row-content">
         <div style="width: 94%;">
-            <textarea ng-model="action.note"/>
+            <textarea ng-model="action.note">Напишите заметку...</textarea>
         </div>
     </div>
 </div>
@@ -760,9 +693,9 @@
 <div class="row-btn-holder">
     <ul class="row-btn-serv">
         <li><a href="javascript:" ng-click="remove()" class="red-mark">Удалить задачу</a></li>
-        <li><a href="javascript:void(0)" ng-click="action.toggleDelay(); showEditPopup = false;">{{ action.isDelayed() ?
-            'Начать выполнение' : 'Отложить дело' }}</a></li>
         <li><a href="#">Начать заново</a></li>
+        <li><a href="javascript:void(0)" ng-click="action.toggleDelay(); showEditPopup = false;">{{ action.isDelayed() ?
+            'Начать выполнение' : 'Отложить дело' }}</a></li>        
     </ul>
 
 

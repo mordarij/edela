@@ -20,7 +20,7 @@ use Doctrine\ORM\Query\Expr\Join;
 class ActionRepository extends EntityRepository
 {
 
-    public function getActions(User $user, \DateTime $date = null, Goal $goal = null)
+    public function getActions(User $user, \DateTime $date = null, Goal $goal = null, $deleted = false)
     {
 
         if (!$date) {
@@ -33,10 +33,12 @@ class ActionRepository extends EntityRepository
         $actions = $builder->from('AcmeEdelaBundle:UserAction', 'ua')
             ->select('a.id as id')
             ->addSelect('a.title as title')
+            ->addSelect('a.title as title_full')
             ->addSelect('uap.result as progress')
             ->addSelect('uap.note as progress_note')
             ->addSelect('a.repeatAmount as repeat_amount')
             ->addSelect('ua.startAt as start_time')
+            ->addSelect('DATE_FORMAT(ua.startAt, \'%d.%m.%Y\') as format_start_time')            
             ->addSelect('ua.position as position')
             ->addSelect('ua.periodicity as periodicity')
             ->addSelect('ua.periodicityInterval as periodicity_interval')
@@ -68,6 +70,10 @@ class ActionRepository extends EntityRepository
                 ->setParameter('goal', $goal);
         }
 
+        if (!$deleted){
+         //   $actions->andWhere('ua.is_deleted=0');
+        }
+
         $orX = $builder->expr()->orX();
         $orX->add($builder->expr()->gt('BIT_AND(ua.periodicity, :dayOfWeek)', '0'));
         $orX->add($builder->expr()->eq('MOD(DATE_DIFF(ua.createdAt, :date), ua.periodicityInterval)', '0'));
@@ -78,11 +84,12 @@ class ActionRepository extends EntityRepository
         $actions->orderBy('ua.position');
         $result = $actions->getQuery()->getArrayResult();
         foreach ($result as $key => $action) {
-            $result[$key]['action_time'] = $result[$key]['action_time'] ? $result[$key]['action_time']->format('H:i') : null;
+        	$result[$key]['action_time'] = $result[$key]['action_time'] ? $result[$key]['action_time']->format('H:i') : null;
             $result[$key]['action_time_start'] = $result[$key]['action_time_start'] ? $result[$key]['action_time_start']->format('H:i') : null;
             $result[$key]['action_time_finish'] = $result[$key]['action_time_finish'] ? $result[$key]['action_time_finish']->format('H:i') : null;
             $result[$key]['notification_time'] = $result[$key]['notification_time'] ? $result[$key]['notification_time']->format('H:i') : null;
             $result[$key]['goal'] = ['id' => $action['goal_id'], 'title' => $action['goal_title']];
+            $result[$key]['date_finish'] = date("d.m.Y", strtotime($result[$key]['format_start_time'])+ (24*3600*($result[$key]['periodicity_interval']*$result[$key]['repeat_amount']))); 
         }
 
         return $result;

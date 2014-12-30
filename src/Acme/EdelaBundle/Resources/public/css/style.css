@@ -397,3 +397,58 @@ div.scroll-up{
 .progress-bar-holder {
  clear: both;
 }
+
+
+.nav-setting{
+    padding-left: 185px;
+}
+.landing .landing-container{
+    padding: 0;
+    height: auto;
+}
+
+.landing  .landing-container-content {
+    box-shadow: none;
+    padding-bottom: 0;
+}
+
+.landing  .footer {
+    background: none;
+    bottom: auto;
+}
+
+.landing  .footer .holder {
+    width: 310px;
+}
+
+.landing  .video-frame iframe{
+    width: 333px;
+    height: 208px;
+}
+
+.landing  .btn-frame button.btn-yellow{
+    margin-left: 0;
+}
+
+.landing  .landing-container-content h1 {
+    font: 77px "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.landing-container button{
+	height: 40px !important;
+	padding: 0px !important;
+}
+.landing-container .video-frame div.title{
+	margin-bottom: 8px;
+	font-style: italic;
+	color:#999;
+}
+.social_title{
+	color:#999;
+	text-align: center;
+	margin-top:0;
+	font-size:12px;
+}
+.line-login{
+	border-top:1px #ccc solid;
+	margin-top:10px;
+}

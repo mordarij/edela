@@ -1,65 +1,30 @@
 <div class="row">
     <strong class="logo"><a href="#">E-dela<span></span></a></strong>
     <ul class="user-menu">
-        <li><a href="javascript:void(0)" ng-click="showBalance=!showBalance" class="cost bill"><span
-                ng-bind="profile.bill"></span><span>asd</span></a></li>
-        <div class="balans" ng-show="showBalance">
-            <div style="padding:20px;">
-                <div align="right"><img src="/bundles/acmeedela/images/btn-close6.png" style="cursor:pointer;"
-                                        ng-click="showBalance=false"></div>
-                <!-- Закрыть пополнение-->
-                <div style="height:30px">Пополнить баланс монет:</div>
-                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                    <tr>
-                        <td><input ng-model="balance" type="text"/></td>
-                        <td width="50%" height="15" align="center" valign="middle" class="balansbut"
-                            ng-click="gotoPayment(balance);showBalance=false">Пополнить
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-        <li><a href="#profile/levels" class="like"><span class="current" ng-bind="profile.exp"></span></a></li>
-        <li><a href="#profile" class="user">{{ profile.name }}</a>
-
+        <li><a href="javascript:" class="user">{{ profile.name }}</a>
+        <a class="logout" href="../user/logout">&nbsp;</a>
+<!--
             <div class="pop-up-user-nav">
                 <div class="pop-up-user-nav-content">
                     <ul>
                         <li><a href="../user/logout">Выход</a></li>
-                        <li><a href="#/profile">Личный кабинет</a></li>
                     </ul>
-                    <div class="row-fill-up-balance">
-                        <label>Пополнить баланс:</label>
-
-                        <div class="row">
-                            <input class="form-input" type="text" placeholder="300 руб.">
-                            <button class="btn">Пополнить</button>
-                        </div>
-                    </div>
                 </div>
-            </div>
+            </div>-->
         </li>
     </ul>
     <div class="box-date">
         <ul class="date-nav" ng-if="calendar.enabled">
-            <li><a href="javascript:" ng-click="calendar.goYesterday()" class="prev">prev</a></li>
+            <li><a href="javascript:" ng-click="calendar.goYesterday()" class="prev"> < </a></li>
             <li ng-click="calendar.extended=!calendar.extended"><span ng-bind="calendar.date.format('dd mmmm')"></span>
                 <em
                         ng-bind-template="({{ calendar.date.format('dddd') }})"></em></li>
-            <li><a href="javascript:" ng-click="calendar.goTomorrow()" class="next">next</a></li>
+            <li><a href="javascript:" ng-click="calendar.goTomorrow()" class="next"> > </a></li>
         </ul>
         <div class="pop-up-calendar" ng-show="calendar.extended">
             <div class="row">
                 <a href="#" id="main-calendar-gotocurrent" class="btn btn-white"
                    ng-click="calendar.goToday()">Сегодня</a>
-
-                <div class="col">
-                    <a href="javascript:" class="icon-uniE60A"><span
-                            class="tooltip"><span><span><span><span> если текст длинный то ix </span></span></span></span></span></a>
-                    <a href="javascript:"  ng-click="dayoff.add()"  class="btn btn-grey" ng-if="profile.available_dayoffs<1">Добавить еще...</a>
-                    <a href="javascript:"  ng-click="dayoff.add()"  class="btn btn-grey" ng-if="profile.available_dayoffs>0">Выходной</a>
-                    <span class="icon-day-off" ng-class="{'empty-day-off':profile.available_dayoffs==0}" ng-bind="profile.available_dayoffs"></span>
-                </div>
             </div>
             <div>
                 <div id="main-calendar" topcalendar ng-model="calendar.date"></div>
@@ -68,154 +33,10 @@
     </div>
 
 </div>
-<div class="add-nav">
-    <div class="still-nav">
-        <span class="btn-still" ng-click="menu.show=!menu.show">Еще <i class="icon-uniE601"></i></span>
 
-        <div class="pop-up-holder">
-            <div class="pop-up-slide" ng-show="menu.show">
-                <div class="pop-up">
-                    <ul class="serv-nav">
-                        <li><a href="#statistics"><i class="icon-statistics"></i>Статистика</a></li>
-                        <li><a href="#/actions/samples"><i class="icon-uniE608"></i>Примеры дел</a></li>
-                        <li><a href="#help"><i class="icon-uniE600"></i>Помощь</a></li>
-                        <li><a href="#achievements"><i class="icon-uniE600"></i>Достижения</a></li>
-                        <!--<li><a href="#affiliate"><i class="icon-baks"></i>Партнерство</a></li>-->
-                        <li><a href="#profile/payment/history"><i class="icons icon-basket"></i>История оплаты</a></li>
-                    </ul>
-                    <ul class="add-serv-nav">
-                        <li><a href="#/license">Политика конфиденциальности</a></li>
-                        <li><a href="javascript:" onclick="$('#sh_button').click()">Техническая поддержка</a></li>
-                        <li><a href="#/about">О компании</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    <ul class="add-nav-list">
-        <li ng-class="menuClass('goals')"><a href="#goals">Цели</a></li>
-        <li ng-class="menuClass('')"><a href="#">План дня</a></li>
-        <li ng-class="menuClass('friends')"><a href="#friends">Друзья</a></li>
-        <li ng-class="menuClass('tools')"><a href="#tools">Инструменты</a></li>
-        <!--<li ng-class="menuClass('achievements')"><a href="#achievements">Достижения</a></li>-->
-    </ul>
-    <div class="serv">
-        <div class="chat" ng-controller="ChatController">
-            <a href="javascript:void(0)" class="btn-chat" ng-click="showChat=!showChat">Чат</a>
-
-            <div id="pop-up-chat" class="pop-up-chat">
-                <div class="row">
-                    <a href="#" class="seting">Настройки</a>
-                </div>
-                <div class="row-user">
-                    <img src="/bundles/acmeedela/images/img60.jpg" width="38" height="42">
-                    <span ng-bind="current.fullname"></span>
-                    <a href="#" class="btn-seting"></a>
-                </div>
-                <div class="inline">В сети (<span ng-bind="onlineFriends().length"></span>)</div>
-                <div class="list-friends scroll-pane" scrollpane>
-                    <ul>
-                        <li ng-repeat="friend in friends" ng-class="{online:friend.is_online}"
-                            ng-click="selectChat(friend)">
-                            <a href="#" class="ava"><img src="/bundles/acmeedela/images/img60.jpg" width="38"
-                                                         height="42"></a>
-                            <a href="javascript:"
-                               ng-bind-template="{{friend.fullname}} ({{(messages|filter:{is_read:0,sender_id:friend.id}).length}})"></a>
-                        </li>
-                    </ul>
-                </div>
-                <!--<a href="#" class="add-friends-to-chat">+ Добавить друга в чат</a>-->
-                <div style="width: 300px;box-shadow: -5px 6px 7px rgba(0, 0, 0, 0.1); background-color: white; height: 100%;position: absolute;top: 0;left: -300px;"
-                     ng-if="currentChat && showChat">
-                    <div style="line-height: 50px;border-bottom: 3px solid #ffd500;"><span
-                            ng-bind="currentChat.fullname"></span></div>
-                    <div style="overflow-y: scroll;position: absolute;top: 70px;bottom: 40px;width: 100%;">
-                        <ul style="">
-                            <li ng-repeat="message in messages|filter:currentChatMessage|orderBy:created_at">
-                                <span ng-init="readMessage(message)"
-                                      ng-bind="message.sender_id == currentChat.id ? currentChat.fullname : 'Я'"></span>:
-                                <span ng-bind="message.text"></span>
-                            </li>
-
-                        </ul>
-                    </div>
-                    <div style="position: absolute;bottom: 0;width: 100%;">
-                        <form ng-submit="sendMessage()">
-                            <input ng-class="{sending: sending}" type="text" ng-model="newMessage.text"
-                                   style="border: 1px solid #ccc;width: 87%;line-height: 20px;font-size: .85em;"/>
-                            <button type="submit" style="background: none; border: 0; line-height: 20px; color:#229552"
-                                    class="fa fa-check"></button>
-                        </form>
-                    </div>
-
-                </div>
-
-
-            </div>
-        </div>
-        <div class="mes" ng-cloak>
-            <span ng-if="false" class="btn-mes icon-uniE60F" ng-click="menu.notifications=!menu.notifications"><span ng-if="profile.notifications.length > 0">{{ profile.notifications.length }}</span></span>
-
-            <div class="pop-up-message-wrapper" ng-show="menu.notifications">
-                <div class="pop-up-message-center">
-                    <div class="pop-up-content">
-                        <h3>Центр сообщений</h3>
-
-                        <div class="item-holder">
-                            <div class="item" ng-repeat="notification in profile.notifications">
-                                <div class="item-content" ng-click="notificationRead(notification, false, $event)">
-                                    <img ng-if="notification.icon" src="{{ notification.icon }}" width="90" height="90">
-
-                                    <div class="item-text">
-                                        {{ notification.text }}<br/>
-                                        <a href="javascript:" ng-repeat="(title, action) in notification.actions"
-                                           ng-show="title!='default'"
-                                           ng-click="notificationRead(notification, action, $event)"
-                                           ng-bind="title"></a>
-                                        <span class="icon-users"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item" ng-if="false">
-                                <div class="item-content">
-                                    <img ng-if="notification.icon" src="/{{ notification.icon }}" width="90"
-                                         height="90">
-
-                                    <div class="item-text">
-                                        <strong class="name">Соловей Игорь</strong>
-                                        <span class="info">Добавил вас в друзья</span>
-                                        <span class="icon-users"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item" ng-if="false">
-                                <div class="item-content">
-                                    <img src="/bundles/acmeedela/images/img52.jpg" width="90" height="90">
-
-                                    <div class="item-text">
-                                        Читать книгу
-                                        <a href="#" class="add">Добавленное<br/> в избранное</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="#" class="read-mail-message">Прочитанные соощения</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 <div class="breadcrumbs-holder" ng-if="breadcrumbsEnabled" ng-mouseleave="menu.search=false"
      ng-mouseenter="menu.search=true">
     <div class="bh1">
-        <form action="#" class="form-search">
-            <fieldset>
-                <input type="search" placeholder="Поиск" ng-model="searchText" ng-click="searchFocus=true"
-                       ng-class="{display:menu.search || searchText.length > 0 || searchFocus}">
-                <button type="submit"></button>
-            </fieldset>
-        </form>
         <ul class="breadcrumbs">
             <li ng-repeat="item in breadcrumbs">
                 <span ng-if="item.active && !item.click">{{ item.caption }}</span>
@@ -257,8 +78,12 @@
     </div>
     <div class="btn-holder">
         <button class="btn btn-green" type="button" ng-if="profile.bill >= dayoff.select.amount">Приобрести</button>
-        <button class="btn btn-yellow" ng-click="dayoff.recharge()" type="button" ng-if="profile.bill < dayoff.select.amount">Пополнить</button>
+        <button class="btn btn-yellow" ng-click="dayoff.recharge()" type="button"
+                ng-if="profile.bill < dayoff.select.amount">Пополнить
+        </button>
         <button class="btn btn-white" ng-click="dayoff.popup=false" type="button">Отмена</button>
     </div>
 </div>
+<!-- 
 <div class="scroll-up"><a href="javascript:$('body').scrollTop(0);"><i class="fa fa-chevron-up"></i> Наверх</a></div>
+ -->
