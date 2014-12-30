@@ -1,0 +1,70 @@
+<div class="main" ng-show="!loading" ng-class="mainClass">
+    <h1>Как найти знаковых:</h1>
+    <div class="row add-btn-row">
+        <button class="btn" type="button" ng-click="showPopup()">+ Отправить приглашение</button>
+        <p>Добавьте своих знакомых в друзья, чтобы следить за их достижениями</p>
+    </div>
+    <div class="two-columns add-two-columns">
+        <div class="content">
+            <div class="user-found">
+                <strong class="founds-user">Найдено <span ng-bind="users.length"></span></strong>
+                <div class="box-user" ng-repeat="user in users">
+                    <img src="{{ user.photo }}" width="50">
+                    <div class="text">
+                        <strong class="user-name"><a href="javascript:" ng-bind="user.fullname"></a></strong>
+                        <span class="status" ng-class="{online:user.is_online}">{{ user.is_online ? 'В сети' : 'Не в сети' }}</span>
+                        <button type="button" ng-click="addFriend(user)" class="btn btn-white" ng-if="friends.indexOf(user.id) == -1">+ Добавить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <aside>
+            <div class="search-friends">
+                <form ng-submit="find()">
+                    <fieldset>
+                        <div class="row">
+                            <label for="search">Поиск</label>
+                            <input id="search" type="text" class="form-input" ng-model="criteria.name" placeholder="Имя или адрес эл. почты:">
+                        </div>
+                        <div class="row">
+                            <label for="search-user">Поиск людей из</label>
+                            <input id="search-user" type="text" class="form-input" placeholder="Город">
+                            <input type="text" class="form-input" placeholder="Цели">
+                        </div>
+                        <div class="row-btn">
+                            <button type="submit" class="btn btn-blue">Поиск</button>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </aside>
+    </div>
+</div>
+        <div class="shadow" style="position: absolute; width: 100%; height: 100%; background: #000000; opacity: .3; top: 0;left: 0; z-index: 555;" ng-show="invite.popup"></div>
+<div class="pop-up pop-up-add-friend" ng-show="invite.popup" id="pop-up-add-friend1" style=" position: absolute; left: 50%;  margin-left: -250px; z-index: 555; top: 0;">
+    <h3>Пригласить друга</h3>
+    <form ng-submit="sendInvite()">
+        <fieldset>
+            <div class="row add-row">
+                <label for="from"><strong>От кого</strong></label>
+                <input id="from" type="text" ng-model="invite.from">
+            </div>
+            <div class="row">
+                <label for="name"><span class="icon icon-name"></span>Имя друга</label>
+                <input id="name" type="text" ng-model="invite.name">
+            </div>
+            <div class="row">
+                <label for="phone"><span class="icon icon-phone"></span>Телефон друга</label>
+                <input id="phone" type="tel" ng-model="invite.phone">
+            </div>
+            <div class="row">
+                <label for="mail"><span class="icon icon-mail"></span>Почта друга</label>
+                <input id="mail" type="email" ng-model="invite.email">
+            </div>
+            <div class="btn-row">
+                <button class="btn btn-blue" type="button" ng-click="sendInvite()">Отправить</button>
+                <button class="btn btn-white" type="button" ng-click="invite.popup=false">Отмена</button>
+            </div>
+        </fieldset>
+    </form>
+</div>

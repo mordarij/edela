@@ -1,0 +1,33 @@
+{% extends "AcmeAdminBundle::layout.html.twig" %}
+
+{% block content %}
+<h1 class="page-header">Примеры ежедневных дел</h1>
+    <div class="col-md-4">
+    <h3>Категории</h3>
+    <table class="table table-bordered table-condensed table-hover table-striped">
+        <thead><tr>
+            <td>Название</td>
+            <td>Количество дел</td>
+        </tr></thead>
+        <tbody>
+        {% for category in categories %}
+            <td>{{ category.title }}</td>
+            <td>{{ category.samples.count }}</td>
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
+    <h3>Примеры дел</h3>
+    <table class="table table-bordered table-condensed table-hover table-striped">
+        <thead><tr>
+            <td>Название</td>
+            <td>Категории</td>
+        </tr></thead>
+        <tbody>
+        {% for sample in samples %}
+            <td>{{ sample.title }}</td>
+            <td>{% for category in sample.categories %} {{ category.title }}{% endfor %}</td>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -1,0 +1,69 @@
+<div class="main" ng-show="!loading" ng-class="mainClass">
+    <div class="content">
+        <h1>Мои награды</h1>
+
+        <p>Чем больше и усерднее Вы тренируетесь, тем больше наград Вы получаете. Собирайте награды, повышайте опыт и
+            достигайте своих целей.</p>
+
+        <div class="shelf">
+            <div class="shelf-row" ng-repeat="row in doneAchievements">
+                <img ng-repeat="achievement in row" src="/uploads/achievementimages/{{ achievement.image }}" width="120" height="120"/>
+            </div>
+        </div>
+        <h2>Все награды</h2>
+
+        <div class="all-awards">
+            <div class="item" ng-repeat="achievement in achievements|filter:notDone">
+                <div class="img-col">
+                    <img src="/uploads/achievementimages/{{ achievement.image }}" width="120" height="120"/>
+                </div>
+                <div class="item-text">
+                    <h2>{{ achievement.title }}</h2>
+
+                    <p>{{ achievement.description }}</p>
+                </div>
+                <div class="progress-col">
+                    <div class="progress">
+                        <span style=" width: {{ achievement.progress }}%"></span>
+                    </div>
+                    {{ achievement.progress }}%
+                </div>
+                <div class="like-col">
+                    <span class="like">+ {{ achievement.exp_reward }} <i class="icon-uniE60D"></i></span>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="comment">
+            <form action="#">
+                <fieldset>
+                    <img src="images/img5.jpg" width="50" height="50"/>
+
+                    <div class="content-holder">
+                        <textarea cols="1" rows="1"></textarea>
+
+                        <div class="row">
+                            <button type="button" class="btn btn-blue">Отправить</button>
+                            <button type="reset" class="btn btn-white">Отмена</button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <div class="social-list">
+            <h3>Поделиться своими целями </h3>
+
+            <div class="social-list-holder">
+                <ul>
+                    <li><a class="vk" href="#">vk</a></li>
+                    <li><a class="fb" href="#">fb</a></li>
+                    <li><a class="google-plus" href="#">google plus</a></li>
+                    <li><a class="twitter" href="#">twitter</a></li>
+                    <li><a class="ok" href="#">ok</a></li>
+                    <li><a class="ya" href="#">ya</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

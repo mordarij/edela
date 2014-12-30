@@ -1,0 +1,7 @@
+parameters:
+    events.action_complete: event.action.complete
+    events.subaction_complete: event.subaction.complete
+    events.task_complete: event.task.complete
+    events.action_add: event.action.add
+    events.task_add: event.task.add
+    events.action_invite: event.action.invite

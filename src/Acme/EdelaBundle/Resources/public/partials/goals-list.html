@@ -1,0 +1,63 @@
+<div class="main" ng-show="!loading" ng-class="mainClass">
+    <div class="content" ng-if="!goals || goals.length == 0">
+        <div class="content-center box-add-target">
+            <div class="content-holder">
+                <h1>Начать</h1>
+
+                <h2>Рвите стереотипы, меняйтесь внешне и внутренне.<br/>
+                    Откладывать больше нельзя!<br/>
+                    Настало время для достижения целей!</h2>
+
+                <p>Добавьте, в коллаж мечты, свою первую цель!</p>
+
+                <form class="add-target" name="addGoalForm" ng-submit="addGoal()">
+                    <fieldset>
+                        <label for="my-goal">Моя цель:</label>
+
+                        <div class="row">
+                            <input id="my-goal" type="text" class="form-input" placeholder="Напишите цель которую хотите добавить в коллаж"
+                                   ng-model="newGoal.name">
+                            <button type="submit" class="btn">Добавить</button>
+                        </div>
+                        <div class="note">
+                            <p><a href="#">Как правильно сформулировать цель?</a></p>
+
+                            <p>Видео: «<a href="#">Начало работы</a>»</p>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <form name="addGoalForm" ng-submit="addGoal()" ng-if="goals.length > 0">
+        <fieldset>
+            <label for="add-my-goal">Моя цель:</label>
+            <input id="add-my-goal" type="text" class="form-input" placeholder="Напишите цель которую хотите добавить в коллаж"
+                   ng-model="newGoal.name">
+            <button type="submit" class="btn">Добавить</button>
+        </fieldset>
+    </form>
+</div>
+<div class="goal" ng-if="goals.length > 0" ng-class="'goal goal' + goals.length">
+    <div class="goal-holder">
+        <div class="goal-frame">
+            <div ng-click="gotoActions(goal.id)" class="box" ng-repeat="goal in goals">
+                <img src="/{{ goal.images[0].webPath ? goal.images[0].webPath : 'bundles/acmeedela/images/blankgoal.jpg' }}" width="480" height="320">
+
+                <div class="goal-text">
+                    <div class="goal-text-scroll">
+                        <p>{{ goal.title }}</p>
+                    </div>
+                    <div class="row">
+                        <ul class="info">
+                            <li>Задачи: <span>{{ goal.actions.length }}</span></li>
+                            <!--<li><i class="icon-users"></i><span>30</span></li>-->
+                        </ul>
+                        <a href="#/goals/{{ goal.id }}/edit" class="settings">Настройки</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

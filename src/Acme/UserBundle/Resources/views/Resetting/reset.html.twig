@@ -1,0 +1,10 @@
+{% extends 'AcmeEdelaBundle::layout.html.twig' %}
+{% form_theme form _self %}
+{% use 'AcmeEdelaBundle:Form:fields.html.twig' %}
+{% block content %}
+<h2>{{ "password_reset.title"|trans }}</h2>
+    <form action="{{ path('fos_user_resetting_reset', {'token': token}) }}" method="post" role="form">
+    {{ form_widget(form) }}
+    <button type="submit" class="btn btn-default">{{ 'form.save_new_password'|trans }}</button>
+</form>
+{% endblock %}

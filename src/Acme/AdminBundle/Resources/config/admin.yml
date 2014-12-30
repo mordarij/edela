@@ -1,0 +1,83 @@
+services:
+    sonata.admin.samples:
+        class: Acme\AdminBundle\Admin\SamplesAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Примеры дел", label: "Примеры дел" }
+        arguments:
+            - ~
+            - Acme\EdelaBundle\Entity\Sample
+            - ~
+        calls:
+            - [ setTranslationDomain, [AcmeAdminBundle]]
+
+    sonata.admin.sample_categories:
+        class: Acme\AdminBundle\Admin\SamplesCategoriesAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Примеры дел", label: "Категории" }
+        arguments:
+            - ~
+            - Acme\EdelaBundle\Entity\SampleCategory
+            - ~
+        calls:
+            - [ setTranslationDomain, [AcmeAdminBundle]]
+    sonata.admin.tools:
+            class: Acme\AdminBundle\Admin\ToolsAdmin
+            tags:
+                - { name: sonata.admin, manager_type: orm, group: "Инструменты", label: "Инструменты" }
+            arguments:
+                - ~
+                - Acme\EdelaBundle\Entity\Tool
+                - ~
+            calls:
+                - [ setTranslationDomain, [AcmeAdminBundle]]
+    sonata.admin.achievements:
+            class: Acme\AdminBundle\Admin\AchievementsAdmin
+            tags:
+                - { name: sonata.admin, manager_type: orm, group: "Достижения", label: "Достижения" }
+            arguments:
+                - ~
+                - Acme\EdelaBundle\Entity\Achievement
+                - ~
+            calls:
+                - [ setTranslationDomain, [AcmeAdminBundle]]
+    sonata.admin.levels:
+                class: Acme\AdminBundle\Admin\LevelsAdmin
+                tags:
+                    - { name: sonata.admin, manager_type: orm, group: "Уровни", label: "Уровни" }
+                arguments:
+                    - ~
+                    - Acme\EdelaBundle\Entity\UserLevel
+                    - ~
+                calls:
+                    - [ setTranslationDomain, [AcmeAdminBundle]]
+    sonata.admin.static_pages:
+                    class: Acme\AdminBundle\Admin\StaticPagesAdmin
+                    tags:
+                        - { name: sonata.admin, manager_type: orm, group: "Наполнение", label: "Статичные страницы" }
+                    arguments:
+                        - ~
+                        - Acme\EdelaBundle\Entity\StaticPage
+                        - ~
+                    calls:
+                        - [ setTranslationDomain, [AcmeAdminBundle]]
+
+    sonata.admin.help_topics:
+                        class: Acme\AdminBundle\Admin\HelpTopicsAdmin
+                        tags:
+                            - { name: sonata.admin, manager_type: orm, group: "Наполнение", label: "Помощь" }
+                        arguments:
+                            - ~
+                            - Acme\EdelaBundle\Entity\HelpTopic
+                            - ~
+                        calls:
+                            - [ setTranslationDomain, [AcmeAdminBundle]]
+    sonata.admin.help_questions:
+                            class: Acme\AdminBundle\Admin\HelpQuestionsAdmin
+                            tags:
+                                - { name: sonata.admin, manager_type: orm, group: "Наполнение", label: "Вопросы" }
+                            arguments:
+                                - ~
+                                - Acme\EdelaBundle\Entity\HelpQuestion
+                                - ~
+                            calls:
+                                - [ setTranslationDomain, [AcmeAdminBundle]]

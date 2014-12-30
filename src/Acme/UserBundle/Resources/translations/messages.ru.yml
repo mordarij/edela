@@ -1,0 +1,21 @@
+form:
+    fullname: Имя Фамилия
+    email: Электронная почта
+    password: Пароль
+    password_confirmation: Подтверждение пароля
+    remember_me: Запомнить меня
+    login: Войти
+    timezone: Часовой пояс
+    forget_pass: Забыли пароль?
+    reset: Сбросить пароль
+    email_doesnt_exists: Пользователя с указанным адресом не существует
+    save_new_password: Сохранить новый пароль
+
+registration:
+    email_confirmed: Адрес электронной почты подтвержден
+    title: Регистрация
+    check_email: На указанный адрес электронной почты было выслано письмо для подтверждения регистрации
+
+password_reset:
+    title: Восстановление пароля
+    check_email: На адрес %email% было отправлено письмо со ссылкой для восстановления пароля

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>E-dela</title>
+    <meta name="description" content="text">
+    <meta name="viewport" content="width=device-width">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    {% block stylesheets %}
+        {% stylesheets
+        'bundles/acmeedela/css/all.css'
+        'bundles/acmeedela/css/style.css'  filter='cssrewrite' %}
+        <link href="{{ asset_url }}" rel="stylesheet">
+        {% endstylesheets %}
+    {% endblock %}
+    {% block javascripts %}
+        {% javascripts '@AcmeEdelaBundle/Resources/public/js/jquery-1.10.2.min.js'
+        '@AcmeEdelaBundle/Resources/public/js/*' %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+    {% endblock %}
+</head>
+<body>
+<noscript>
+    <div>Javascript должен быть включен для корректного отображения страницы</div>
+</noscript>
+<div class="wrapper">
+<header class="header">
+    <div class="row">
+        <strong class="logo"><a href="#">E-dela</a></strong>
+        <ul class="user-menu">
+            <li><a href="#" class="cost">150</a></li>
+            <li><a href="#" class="like">650</a></li>
+            <li><a href="#" class="user">Игорь Соловей</a></li>
+        </ul>
+        <ul class="date-nav">
+            <li><a href="#" class="prev">prev</a></li>
+            <li>20 Сентябрь <em>(Понедельник)</em></li>
+            <li><a href="#" class="next">next</a></li>
+        </ul>
+    </div>
+    <div class="add-nav">
+        <div class="still-nav">
+            <span class="btn-still">Еще <i class="icon-uniE601"></i></span>
+            <div class="pop-up-holder">
+                <div class="pop-up-slide">
+                    <div class="pop-up">
+                        <ul class="serv-nav">
+                            <li><a href="#"><i class="icon-statistics"></i>Статистика</a></li>
+                            <li><a href="#"><i class="icon-uniE608"></i>Примеры дел</a></li>
+                            <li><a href="#"><i class="icon-uniE617"></i>Настройки</a></li>
+                            <li><a href="#"><i class="icon-uniE600"></i>Помощь</a></li>
+                        </ul>
+                        <ul class="add-serv-nav">
+                            <li><a href="#">Политика конфиденциальности</a></li>
+                            <li><a href="#">Техническая поддержка</a></li>
+                            <li><a href="#">О компании</a></li>
+                            <li><a href="#">Сотрудничество</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ul class="add-nav-list">
+            <li><a href="#">Цели</a></li>
+            <li class="active"><a href="#">План дня</a></li>
+            <li><a href="#">Друзья</a></li>
+            <li><a href="#">Инструменты</a></li>
+        </ul>
+        <div class="serv">
+            <a href="#">Чат</a>
+            <div class="mes"></div>
+        </div>
+    </div>
+</header>
+<div class="main">
+<div class="content">
+{% block content %}
+
+{% endblock %}
+</div>
+</div>
+<div class="adjournment-proceedings">
+    <div class="holder">
+        <div class="heading">
+            Отложенные дела<i class="icons icons-question"></i>
+            <a href="#" class="open"><span>Развернуть</span><em>Свернуть</em></a>
+        </div>
+        <div class="adjournment-proceedings-content">
+            <div class="box-holder">
+                <div class="box">
+                    <h3>Читать книгу</h3>
+                    <div class="box-content">
+                        <span class="play icon-play"></span>
+                        <div class="row-nav">
+                            <a href="#" class="settings-mission">Настройки</a>
+                            <a href="#" class="mark icon-uniE60F"></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="box">
+                    <h3>Читать книгу</h3>
+                    <div class="box-content">
+                        <span class="play icon-play"></span>
+                        <div class="row-nav">
+                            <a href="#" class="settings-mission">Настройки</a>
+                            <a href="#" class="mark icon-uniE60F"></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="box">
+                    <h3>Читать книгу</h3>
+                    <div class="box-content">
+                        <span class="play icon-play"></span>
+                        <div class="row-nav">
+                            <a href="#" class="settings-mission">Настройки</a>
+                            <a href="#" class="mark icon-uniE60F"></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="box">
+                    <h3></h3>
+                    <div class="box-content box-case">
+                        <a href="#" class="add-case">+ Добавить отложенное
+                            <br/>
+                            ежедневное дело
+                        </a>
+                        <a href="#" class="examples-cases">Примеры ежедневных дел</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="footer">
+    <div class="holder">
+        <div class="col1">
+            <div class="copy">&copy; Ежедневныедела.ру, 2012-2014</div>
+            <ul class="social">
+                <li><a href="#" class="vk">vk</a></li>
+                <li><a href="#" class="yutube">yutube</a></li>
+            </ul>
+            <a href="#">Блог</a>
+        </div>
+        <div class="col2">
+            <div class="text-error">
+                <a href="#">Нашли ошибку на сайте?</a>
+                Выделите текст и нажмите Ctrl+Enter
+            </div>
+            <a href="#">Вопросы, предложения</a>
+        </div>
+    </div>
+</footer>
+</div>
+<script>
+
+    jQuery('.scroll-pane').jScrollPane({
+        autoReinitialise: true,
+        autoReinitialiseDelay: 100
+    });
+
+
+    $('.selectpicker').selectpicker('');
+
+</script>
+<script>
+
+
+
+    $(document).ready(function(){
+
+        var anim_int =  600;
+
+        $('.btn-close').click(function(){
+            $(this).parent().parent().animate({top: "300px"}, anim_int);
+            return false;
+        });
+
+
+        $('.see').click(function(){
+            if($(this).hasClass('icon-nosee')){$(this).removeClass('icon-nosee')}
+            else{$(this).addClass('icon-nosee')}
+            return false;
+        });
+
+
+
+        $('.btn-close-statistics-runtime').click(function(){
+            $(this).parent().parent().animate({top: "-300px"}, anim_int);
+            return false;
+        });
+
+        $('.open').click(function(){
+            $(this).parent().parent().parent().parent().parent().parent().find('.job').animate({top: "0"}, anim_int);
+            return false;
+        });
+
+
+        $('.btn-note-progres').click(function(){
+            $(this).parent().parent().parent().find('.statistics-runtime').animate({top: "0"}, anim_int);
+            return false;
+        });
+
+        $('.note').click(function(){
+            $(this).parent().parent().parent().parent().parent().parent().find('.notes-case').animate({top: "0"}, anim_int);
+            return false;
+        });
+
+        $('.btn-minus').click(function(){
+            var obj = $(this).parent().find('input');
+            var v = parseInt(obj.val());
+            if(v>1){obj.val(v-1)}
+            return false;
+        });
+
+        $('.btn-plus').click(function(){
+            var obj = $(this).parent().find('input');
+            var v = parseInt(obj.val());
+            obj.val(v+1);
+            return false;
+        });
+
+
+        $('#nestable3').nestable();
+
+
+        $('.planned-business').sortable({
+            placeholder: "dd-placeholder",
+            handle: ".btn-move",
+            over: function() {
+                $('.dd-placeholder').stop().animate({
+                    height: 273
+                }, 200);
+            },
+            change: function() {
+                $('.dd-placeholder').stop().animate({
+                    height: 273
+                }, 200);
+            }
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

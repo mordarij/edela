@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ежедневные дела</title>
+
+    {% block stylesheets %}
+        {% stylesheets
+        'bundles/acmeedela/css/all.css'
+        'bundles/acmeedela/css/style.css'  filter='cssrewrite' %}
+        <link href="{{ asset_url }}" rel="stylesheet">
+        {% endstylesheets %}
+    {% endblock %}
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    {#'@AcmeEdelaBundle/Resources/public/js/jquery/jquery-1.10.2.min.js'#}
+    {% block javascripts %}
+        {% javascripts
+        '@AcmeEdelaBundle/Resources/public/js/jquery-1.10.2.min.js'
+        '@AcmeEdelaBundle/Resources/public/js/*'
+        '@AcmeEdelaBundle/Resources/public/js/jquery.main.js' %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+    {% endblock %}
+
+</head>
+<body>
+<noscript>
+    <div>Javascript должен быть включен для корректного отображения страницы</div>
+</noscript>
+<div class="wrapper landing">
+    <div class="w2">
+        <header class="header">
+            <strong class="logo"><a href="#home"><span></span></a></strong>
+
+            <div class="nav">
+                <nav>
+                    <ul id="landing-menu">
+                        <li><a href="#tools">Инструменты</a></li>
+                        <li><a href="#price">Цена?</a></li>
+                        <li><a href="#question">Для кого?</a></li>
+                        <li><a href="#how-to-work">Как пользоваться?</a></li>
+                        <li><a href="#reviews">Отзывы</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="btn-holder">
+                <button type="button" class="btn btn-yellow" onclick="document.location='{{ path('registration') }}'">
+                    Регистрация
+                </button>
+                <button type="button" class="btn btn-red" onclick="document.location='{{ path('login') }}'">Вход
+                </button>
+            </div>
+        </header>
+        <div class="landing-container-box">
+            <div class="home landing-container" id="home">
+                <div class="landing-container-content">
+                    <strong class="logo-big"><a href="#">E-dela</a></strong>
+
+                    <h1><strong>Сервис достижения целей</strong></h1>
+
+                    <p><strong>Самый производительный в мире портал личностного роста!</strong></p>
+
+                    <p>Позволяющий достигать любых ваших целей путем <br>планомерного выполнения ежедневных дел.</p>
+
+                    <div class="btn-holder">
+                        <div class="btn-frame">
+                            <div class="add-btn-frame">
+                                <button type="button" class="btn btn-yellow"
+                                        onclick="document.location='{{ path('registration') }}'">Начало Работы
+                                </button>
+                                <button type="button" class="btn btn-green"
+                                        onclick="document.location='{{ path('login_demo') }}'">Демо-аккаунт
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="video">
+                        <div class="video-holder">
+                            <div class="video-frame">
+                                {#<img src="/bundles/acmeedela/images/img69.jpg"><a href="#" class="btn-play"><i#}
+                                            {#class="icon-play"></i></a>#}
+                                <iframe width="560" height="315" src="//www.youtube.com/embed/z0aeBHjt1-w" frameborder="0" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tools landing-container" id="tools">
+                <div class="landing-container-content">
+                    <div class="holder">
+                        <h1><a href="#">Инструменты</a></h1>
+                        {#<div class="two-columns">#}
+                        {#<div class="col1">#}
+                        <h2>Досутпные сервисы:</h2>
+                        {#</div>#}
+                        {#<div class="col2">#}
+                        {#<h2>Скоро появятся:</h2>#}
+                        {#</div>#}
+                        {#</div>#}
+                        <ul class="gallery-landing-prev">
+                            <li><a href="javascript:" class="icon1"></a></li>
+                            <li><a href="javascript:" class="icon2"></a></li>
+                            <li><a href="javascript:" class="icon3"></a></li>
+                            <li><a href="javascript:" class="icon4"></a></li>
+                            <li><a href="javascript:" class="icon6"></a></li>
+                            {#<li class="two-gallery"><a href="#" class="icon5"></a></li>
+                            <li><a href="#" class="icon6"></a></li>
+                            <li><a href="#" class="icon7"></a></li>
+                            <li><a href="#" class="icon8"></a></li>
+                            <li><a href="#" class="icon9"></a></li>#}
+                        </ul>
+{#                        <div class="text-holder">
+                            <h2>Коллаж Мечты</h2>
+                            <p>e-dela - это уникальный в своем роде портал личностного рости, позволяющий достигать
+                                любых ваших целей путем планомерного выполнения ежедневных дел!</p>
+                        </div>#}
+                        <div class="gallery-landing-big">
+                            <ul>
+                                <li>
+                                    <h2>Коллаж Мечты</h2>
+                                    <p>создайте визуальный образ каждой мечте. Настраивайте каждую цель: разбивайте на задачи и ежедневные дела.</p>
+                                    <img src="/bundles/acmeedela/images/landing/1tool.jpg" width="988">
+                                </li>
+                                <li>
+                                    <h2>План дня</h2>
+                                    <p>контролируйте впяленные ежедневных дел, добавляйте разовые задачи, зарабатывайте опыт и обменивайте его на полезные инструменты.</p>
+                                    <img src="/bundles/acmeedela/images/landing/2tool.jpg" width="988">
+                                </li>
+                                <li>
+                                    <h2>Примеры ежедневных дел</h2>
+                                    <p>добавляйте ежедневные дела из огромной базы. Комментируйте, делитесь, предлагайте свои идеи!</p>
+                                    <img src="/bundles/acmeedela/images/landing/3tool.jpg" width="988">
+                                </li>
+                                <li>
+                                    <h2>Друзья</h2>
+                                    <p>добавляйте в друзья знакомых и единомышленников, выполняйте вместе ежедневные дела, общайтесь в чате, делитесь результатами.</p>
+                                    <img src="/bundles/acmeedela/images/landing/4tool.jpg" width="988">
+                                </li>
+                                <li>
+                                    <h2>Статистика</h2>
+                                    <p>отслеживайте статистку по вашим делам, вашу эффективность, скорость движения к целям.</p>
+                                    <img src="/bundles/acmeedela/images/landing/5tool.jpg" width="988">
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="price landing-container" id="price">
+                <div class="landing-container-content">
+                    <div class="holder">
+                        <div class="text-holder">
+                            <h1><a href="#">Сколько стоит?</a></h1>
+
+                            <h2>УНИКАЛЬНАЯ СИСТЕМА ДОСТИЖЕНИЯ ЦЕЛЕЙ:</h2>
+                            <img src="/bundles/acmeedela/images/img71.jpg" width="619" height="227">
+
+                            <h3>На сайте имеется разменная валюта: ОПЫТ <span class="like"></span></h3>
+
+                            <p><em>Накапливайте Опыт и обменивайте его<br>на дополнительные <span>уникальные инструменты!</span></em>
+                            </p>
+                        </div>
+                        <div class="btn-holder">
+                            <button type="button" class="btn">Начать двигаться к целям</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="question landing-container" id="question">
+                <div class="landing-container-content">
+                    <div class="holder">
+                        <h1><a href="#">Для кого этот сайт?</a></h1>
+
+                        <div class="two-columns">
+                            <div class="col col-text">
+                                <p>Для людей, которые готовы<br>изменить свою судьбу, изменяя себя!</p>
+                                <button type="button" class="btn btn-yellow">Начать двигаться к целям</button>
+                            </div>
+                            <div class="col">
+                                <img src="/bundles/acmeedela/images/img72.jpg" width="420" height="334">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="how-to-work landing-container" id="how-to-work">
+                <div class="landing-container-content">
+                    <div class="holder">
+                        <h1><a href="#">Как происходит работа?</a></h1>
+
+                        <p><em>Три простых шага к осуществлению любой вашей цели:</em></p>
+                        <img src="/bundles/acmeedela/images/landing/tools.jpg" width="798" height="210">
+                        <ul class="step-list">
+                            <li><strong>Самоанализ</strong> - позволит определить ваши цели</li>
+                            <li>Создать <strong>коллаж мечты</strong> из ваших целей</li>
+                            <li>Составляете список <strong>ежедневных дел</strong></li>
+                            <li>Ежедневно делать шажок к их <strong>выполнению</strong></li>
+                        </ul>
+                        <div class="btn-holder">
+                            <button type="button" class="btn btn-red"
+                                    onclick="document.location='{{ path('registration') }}'">Приступить к 1-му шагу:
+                                создать коллаж мечты!
+                            </button>
+                        </div>
+                        <p><em>Дополнительные возможности:</em><br>
+                            <strong>общаетесь с друзьями,</strong> отслеживайте <strong>статистику,</strong><br>
+                            пользуйтесь <strong>инструментами,</strong> система мотивации!</p>
+                    </div>
+                </div>
+            </div>
+            <div class="reviews landing-container" id="reviews">
+                <div class="landing-container-content">
+                    <div class="holder">
+                        <h1><a href="#">Отзывы</a></h1>
+                        <ul class="reviews-list">
+                            <li>
+                                <div class="text">
+                                    <img src="/bundles/acmeedela/images/landing/01.jpg" width="123" height="123">
+
+                                    <p>Очень интересный портал. Ничего лишнего, только полезные инструменты. А главное, все сделано по методике, которая помогает разобраться в себе и начать двигаться к цели!</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="text">
+                                    <img src="/bundles/acmeedela/images/landing/02.jpg" width="123" height="123">
+
+                                    <p>Пользуюсь уже 3 недели, сервис действительно помог с определением цели, а главное потратив всего 15 минут в день, я уже не несколько шагов приблизился к своим целям. Рекомендую!</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="text">
+                                    <img src="/bundles/acmeedela/images/landing/03.jpg" width="123" height="123">
+
+                                    <p>Молодцы! Очень эффективный сайтик. Все очень круто и удобно, а главное бесплатно!</p>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="btn-holder">
+                            <button type="button" class="btn" onclick="document.location='{{ path('registration') }}'">Я
+                                хочу присоедениться!
+                            </button>
+                        </div>
+                        <p><em>Достригайте целей совместно со своими коллегами<br>
+                                абсолютно бесплатно. Никаких ограничений по времени<br>
+                                использования и количеству целей!</em></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="holder">
+                <div class="row">
+                    <div class="col1">
+                        <div class="copy">&copy; Ежедневныедела.ру, 2012-2014</div>
+                        <ul class="social">
+                            <li><a href="http://vk.com/edela" class="vk">vk</a></li>
+                            <li><a href="http://youtube.com/user/edelacom1" class="yutube">yutube</a></li>
+                        </ul>
+                        <a href="http://e-dela.livejournal.com">Блог</a>
+                    </div>
+                    <div class="col2">
+                        <div class="text-error">
+                            <a href="#">Нашли ошибку на сайте?</a>
+                            Выделите текст и нажмите Ctrl+Enter
+                        </div>
+                        <a href="#faq">Вопросы, предложения</a>
+                    </div>
+                </div>
+                <div class="row row-partners">
+                    <span>Партнеры:</span>
+                    <ul>
+                        <li><a href="#"><img src="/bundles/acmeedela/images/img58.jpg"/></a></li>
+                        <li><a href="#"><img src="/bundles/acmeedela/images/img58.jpg"/></a></li>
+                        <li><a href="#"><img src="/bundles/acmeedela/images/img58.jpg"/></a></li>
+                        <li><a href="#"><img src="/bundles/acmeedela/images/img58.jpg"/></a></li>
+                        <li><a href="#"><img src="/bundles/acmeedela/images/img58.jpg"/></a></li>
+                    </ul>
+                </div>
+            </div>
+        </footer>
+        {#<a href="#" class="btn-support">Техподдержка</a>#}
+    </div>
+</div>
+<!-- Start SiteHeart code -->
+<script>
+    (function(){
+        var widget_id = 725294;
+        _shcp =[{widget_id : widget_id}];
+        var lang =(navigator.language || navigator.systemLanguage
+                || navigator.userLanguage ||"ru")
+                .substr(0,2).toLowerCase();
+        var url ="widget.siteheart.com/widget/sh/"+ widget_id +"/"+ lang +"/widget.js";
+        var hcc = document.createElement("script");
+        hcc.type ="text/javascript";
+        hcc.async =true;
+        hcc.src =("https:"== document.location.protocol ?"https":"http")
+                +"://"+ url;
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hcc, s.nextSibling);
+    })();
+</script>
+<!-- End SiteHeart code -->
+</body>
+</html>

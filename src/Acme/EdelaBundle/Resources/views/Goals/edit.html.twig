@@ -1,0 +1,80 @@
+{% extends "AcmeEdelaBundle::base_layout.html.twig" %}
+{% form_theme form _self %}
+{% use 'AcmeEdelaBundle:Form:fields.html.twig' %}
+{% block _edit_goal_slideshow_interval_row %}
+    {{ form_widget(form) }}
+{% endblock %}
+{% block _edit_goal_slideshow_interval_widget %}
+    <div class="form-group">
+        <select {{ block('widget_attributes') }}>
+            {% for choice in choices %}
+                <option value="{{ choice.value }}"
+                        {% if value == choice.value %}selected="selected"{% endif %}>{{ "goal.edit.slideshow_interval"|transchoice(choice.label) }}</option>
+            {% endfor %}
+        </select>
+    </div>
+{% endblock %}
+{% block _edit_goal_priority_widget %}
+    <select {{ block('widget_attributes') }}>
+        {% for choice in choices %}
+            <option value="{{ choice.value }}"
+                    {% if value == choice.value %}selected="selected"{% endif %}>{{ "goal.edit.priority.values"|transchoice(choice.label) }}</option>
+        {% endfor %}
+    </select>
+{% endblock %}
+{% block _edit_goal_is_private_widget %}
+    {% for choice in choices %}
+        <div class="radio">
+            <label>
+                <input type="radio" {{ block('widget_attributes') }} value="{{ choice.value }}"
+                       {% if value[choice.value] %}checked="checked"{% endif %} />{{ "common.privacy.values"|transchoice(choice.label) }}
+            </label>
+        </div>
+    {% endfor %}
+{% endblock %}
+
+{% block _edit_goal_save_row %}
+    {% spaceless %}
+<div class="form-group">
+    {{ form_widget(form) }}
+    {% endspaceless %}
+    {% endblock %}
+    {% block _edit_goal_cancel_row %}
+    {% spaceless %}
+    {{ form_widget(form) }}
+</div>
+    {% endspaceless %}
+{% endblock %}
+
+{% block content %}
+    {{ form(form) }}
+    <h3>{{ "goal.edit.visual"|trans }}</h3>
+    <div style="width:170px; height:170px; border-radius: 10px; border:2px dashed #0088CC; cursor: pointer" class="add-photo">{{ "goal.edit.add_photo"|trans }}</div>
+    <ul class="visual">
+        {% for image in images %}
+            <li><img src="/{{ image.webPath }}"/></li>
+        {% endfor %}
+
+    </ul>
+
+    <script>
+        $(function () {
+            fileUploader.attach('.add-photo', {
+                drop_zone_selector: '.add-photo',
+                enable_multiple: false,
+                target_url: '{{ path('goals_image_upload') }}',
+                file_name: 'form[file]',
+                data: {
+                    'form[goal]': {{ goal.id }}
+                },
+                on_success: function (result) {
+                    if (result.status == 'ok') {
+                        $('<img>').attr('src', '/' + result.path).appendTo($('<li>').appendTo($('ul.visual')));
+                    } else {
+                        alert('error');
+                    }
+                }
+            });
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,106 @@
+<div class="main" ng-show="!loading" ng-class="mainClass">
+    <div class="two-columns">
+        <div class="content">
+            <div class="select-type-treatment">
+                <form action="#">
+                    <fieldset>
+                        <p>Выберите тип обращения:</p>
+                        <div class="row">
+                            <label for="question">Вопрос</label>
+                            <input id="question" type="radio" name="type-mes" checked="checked">
+                            <label for="idea">Идея</label>
+                            <input id="idea" type="radio" name="type-mes">
+                            <label for="problem">Проблема</label>
+                            <input id="problem" type="radio" name="type-mes">
+                            <label for="thanks">Благодарность</label>
+                            <input id="thanks" type="radio" name="type-mes"></div>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="ask-question">
+                <form action="#">
+                    <fieldset>
+                        <div class="row">
+                            <input type="text" class="form-input"  placeholder="Напишите свой вопрос">
+                            <button type="button" class="btn">Спросить</button>
+                        </div>
+                        <ul>
+                            <li>Сортировка:</li>
+                            <li><a href="#">дата добавления</a></li>
+                            <li><a href="#">с ответом</a></li>
+                        </ul>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="questions-suggestions">
+                <div class="item mark-blue">
+                    <div class="question">
+                        <h2><a href="#">Эффективность</a></h2>
+                        <p>Сделайте закачку карт отдельных регионов в программе для минимизации расходов как это уже реализовано в других версиях МЯК.</p>
+                        <em class="cite">Александр Подольский, 26 февраля 2014 20:08</em>
+                    </div>
+                    <div class="answer">
+                        <h3>Официальный ответ</h3>
+                        <p>В связи с появлением HD тайлов размер кешей вырос в 4 раза. Например кеш области не поместится на большинство WP7 устройств. Задача временно замораживается, думаем что делать</p>
+                    </div>
+                </div>
+                <div class="item mark-yellow">
+                    <div class="question">
+                        <h2><a href="#">Эффективность</a></h2>
+                        <p>Сделайте закачку карт отдельных регионов в программе для минимизации расходов как это уже реализовано в других версиях МЯК.</p>
+                        <em class="cite">Александр Подольский, 26 февраля 2014 20:08</em>
+                    </div>
+                </div>
+                <div class="item mark-green">
+                    <div class="question">
+                        <h2><a href="#">Эффективность</a></h2>
+                        <p>Сделайте закачку карт отдельных регионов в программе для минимизации расходов как это уже реализовано в других версиях МЯК.</p>
+                        <em class="cite">Александр Подольский, 26 февраля 2014 20:08</em>
+                    </div>
+                </div>
+                <div class="item mark-yellow">
+                    <div class="question">
+                        <h2><a href="#">Эффективность</a></h2>
+                        <p>Сделайте закачку карт отдельных регионов в программе для минимизации расходов как это уже реализовано в других версиях МЯК.</p>
+                        <em class="cite">Александр Подольский, 26 февраля 2014 20:08</em>
+                    </div>
+                </div>
+                <div class="item mark-red">
+                    <div class="question">
+                        <h2><a href="#">Эффективность</a></h2>
+                        <p>Сделайте закачку карт отдельных регионов в программе для минимизации расходов как это уже реализовано в других версиях МЯК.</p>
+                        <em class="cite">Александр Подольский, 26 февраля 2014 20:08</em>
+                    </div>
+                </div>
+            </div>
+            <div class="question-others">
+                <a href="#">Еще</a>
+            </div>
+        </div>
+        <aside>
+            <div class="popular-questions">
+                <h3>Популярные вопросы:</h3>
+                <p>Для обеспечения безопасности ваших данных, Ответы имеют отдельную регистрацию от Ежедневные дела.</p>
+                <div class="answer">
+                    <strong>Ответ:</strong>
+                    Регистрация займет 10 секунд и не потребует подтверждения Email.
+                </div>
+                <div class="row">
+                    <a class="prev" href="#"><i class="icon-prev"></i> Предыдущий</a>
+                    <a class="next" href="#">Следующий <i class="icon-uniE602"></i></a>
+                </div>
+            </div>
+            <div class="box-list">
+                <h3>Сортировка по категориям:</h3>
+                <ul>
+                    <li><a href="#">Все категории</a></li>
+                    <li><a href="#">Вопросы</a></li>
+                    <li class="active"><a href="#">Идеи</a></li>
+                    <li><a href="#">Проблемы</a></li>
+                    <li><a href="#">Благодарности</a></li>
+                </ul>
+            </div>
+            <p><a href="#" class="small-logo">Ежедневные дела</a> - бесплатный портал личностного роста!</p>
+        </aside>
+    </div>
+</div>

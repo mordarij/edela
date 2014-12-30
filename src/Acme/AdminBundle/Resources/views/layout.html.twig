@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <base href="/{{ app.debug ? 'app_dev.php/' : '' }}admin/" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap 101 Template</title>
+
+    {% block stylesheets %}
+        {% stylesheets
+        'bundles/acmeadmin/css/bootstrap.min.css'
+        'bundles/acmeadmin/css/style.css'
+        filter='cssrewrite' %}
+        <link href="{{ asset_url }}" rel="stylesheet">
+        {% endstylesheets %}
+    {% endblock %}
+
+    {% block javascripts %}
+        {% javascripts
+        '@AcmeEdelaBundle/Resources/public/js/jquery/jquery-1.10.2.min.js'
+        '@AcmeAdminBundle/Resources/public/js/bootstrap.min.js'
+        %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+    {% endblock %}
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="./">Ежедневные дела</a>
+        </div>
+    </div>
+</div>
+
+{% set route = app.request.attributes.get('_route') %}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li {% if route == 'index' %}class="active"{% endif %}><a href="./">Главная</a></li>
+                <li {% if route == 'samples' %}class="active"{% endif %}><a href="{{ path('samples') }}">Примеры дел</a></li>
+                <li {% if route == 'static' %}class="active"{% endif %}><a href="#">Статичные страницы</a></li>
+            </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

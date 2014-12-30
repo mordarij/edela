@@ -1,0 +1,35 @@
+<div class="main" ng-show="!loading" ng-class="mainClass">
+
+    <div class="two-columns">
+        <div class="content">
+            <h1>{{ currentTopic.title }}</h1>
+
+            <div ng-bind-html="currentTopic.text"></div>
+        </div>
+        <aside>
+            <div class="box-list">
+                <h3>Вопросы:</h3>
+                <ul>
+                    <li ng-repeat="topic in topics" ng-class="{active:topic.id==currentTopic.id}">
+                        <a href="#/help/{{ topic.id }}" ng-click="changeTopic(topic.id)">{{ topic.title }}</a></li>
+                </ul>
+            </div>
+            <div class="popular-questions" ng-if="hotQuestion">
+                <h3>Популярные вопросы:</h3>
+
+                <p>{{ hotQuestion.title }}</p>
+
+                <div class="answer">
+                    <strong>Ответ:</strong>
+                    {{ hotQuestion.answer }}
+                </div>
+                <div class="row">
+                    <a href="javascript:void(0)" ng-click="nextHotQuestion()" class="prev"><i class="icon-prev"></i> Предыдущий</a>
+                    <a href="javascript:void(0)" ng-click="prevHotQuestion()" class="next">Следующий <i class="icon-uniE602"></i></a>
+                </div>
+            </div>
+            <p>Не нашли ответа? <a href="javascript:" onclick="$('#sh_button').click()">Напишите нам</a></p>
+        </aside>
+    </div>
+
+</div>

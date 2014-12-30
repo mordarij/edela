@@ -1,0 +1,44 @@
+parameters:
+#    acme_api.example.class: Acme\ApiBundle\Example
+
+services:
+#    acme_api.example:
+#        class: %acme_api.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
+    api.subscriber.experience:
+        class: Acme\ApiBundle\Subscriber\ExperienceSubscriber
+        arguments: [ @doctrine.orm.entity_manager ]
+        tags:
+            - { name:kernel.event_listener, event: %events.action_complete%, method: onActionComplete }
+            - { name:kernel.event_listener, event: %events.task_complete%, method: onTaskComplete }
+    api.subscriber.achievements:
+            class: Acme\ApiBundle\Subscriber\AchievementsSubscriber
+            arguments: [ @doctrine.orm.entity_manager ]
+            tags:
+                - { name: kernel.event_listener, event: %events.action_complete%, method: firstActionDone }
+                - { name: kernel.event_listener, event: %events.action_complete%, method: tenActionDone }
+                - { name: kernel.event_listener, event: %events.action_complete%, method: hundredActionDone }
+                - { name: kernel.event_listener, event: %events.action_add%, method: firstActionAdd }
+                - { name: kernel.event_listener, event: %events.task_add%, method: firstTaskAdd }
+                - { name: kernel.event_listener, event: %events.task_complete%, method: tasks10Complete }
+                - { name: kernel.event_listener, event: %events.task_complete%, method: tasks50Complete }
+                - { name: kernel.event_listener, event: %events.task_complete%, method: tasks200Complete }
+                - { name: kernel.event_listener, event: %events.task_complete%, method: tasks1000Complete }
+
+    api.subscriber.actioninvite:
+            class: Acme\ApiBundle\Subscriber\ActionInviteSubscriber
+            arguments: [ @doctrine.orm.entity_manager ]
+            tags:
+                - { name: kernel.event_listener, event: %events.action_invite%, method: inviteSent }
+
+    api.subscriber.actionprogress:
+            class: Acme\ApiBundle\Subscriber\ActionProgressSubscriber
+            arguments: [ @doctrine.orm.entity_manager, %events.action_complete% ]
+            tags:
+                - {name:kernel.event_listener, event: %events.subaction_complete%, method: subactionComplete }
+    api.sender.email:
+            class: Acme\ApiBundle\Sender\EmailSender
+            arguments: [ @mailer ]
+    api.sender.sms:
+            class: Acme\ApiBundle\Sender\SmsSender
+            arguments: [ %sms% ]

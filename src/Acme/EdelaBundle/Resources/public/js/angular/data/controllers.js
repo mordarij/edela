@@ -1,0 +1,1 @@
+var edelaControllers = angular.module('edelaControllers', []);

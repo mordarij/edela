@@ -1,0 +1,53 @@
+#fos_user_security:
+#    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+
+registration:
+    pattern:  /register
+    defaults: { _controller: AcmeUserBundle:Registration:register }
+
+login:
+    pattern:  /login
+    defaults: { _controller: AcmeUserBundle:Security:login }
+
+login_check:
+    pattern: /login_check
+
+fos_user_security_logout:
+    pattern: /logout
+
+fos_user_resetting_reset:
+    pattern: /reset/{token}
+    defaults: { _controller: AcmeUserBundle:Resetting:reset }
+
+fos_user_resetting_request:
+    pattern: /reset
+    defaults: { _controller: AcmeUserBundle:Resetting:request }
+
+fos_user_registration_confirm:
+    pattern: /confirm/{token}
+    defaults: { _controller: FOSUserBundle:Registration:confirm }
+
+fos_user_registration_confirmed:
+    pattern: /confirmed
+    defaults: { _controller: AcmeUserBundle:Registration:confirmed }
+
+fos_user_registration_check_email:
+    pattern: /check_email
+    defaults: { _controller: AcmeUserBundle:Registration:checkEmail }
+
+hwi_oauth_redirect:
+    resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
+    prefix:   /connect
+
+hwi_oauth_connect:
+    resource: "@HWIOAuthBundle/Resources/config/routing/connect.xml"
+    prefix:   /connect
+
+hwi_oauth_login:
+    resource: "@HWIOAuthBundle/Resources/config/routing/login.xml"
+    prefix:   /snlogin
+
+vk_login:
+    pattern: /snlogin/check-vk
+fb_login:
+    pattern: /snlogin/check-fb

@@ -1,0 +1,94 @@
+<div class="main" ng-show="!loading" ng-class="mainClass">
+    <div class="content">
+        <div class="paymaent">
+            <div class="heading">
+                <a href="#" class="link">История оплаты</a>
+                <h2>К оплате:</h2>
+            </div>
+            <table class="table-paymaent">
+                <tr>
+                    <th class="first-child">Наименование</th>
+                    <th class="cost-col">Стоимость</th>
+                    <th class="btn-col"></th>
+                </tr>
+                <tr>
+                    <td class="first-child">
+                        <div class="checkbox">
+                            <input id="152" type="checkbox" checked="checked">
+                            <label for="152" ng-bind="payment.title"></label>
+                        </div>
+                    </td>
+                    <td class="cost-col"><span ng-bind="payment.amount"></span> руб.</td>
+                    <td><button type="button"><i class="icon-icon-close"></i></button></td>
+                </tr>
+                <tr ng-if="false">
+                    <td class="first-child">
+                        <div class="checkbox">
+                            <input id="153" type="checkbox" checked="checked">
+                            <label for="153">Полный пакет инструментов</label>
+                        </div>
+                    </td>
+                    <td class="cost-col">50 руб.</td>
+                    <td><button type="button"><i class="icon-icon-close"></i></button></td>
+                </tr>
+            </table>
+            <div class="btn-row">
+                <button type="button" class="btn"><span ng-bind="payment.amount"></span> руб.</button>
+                <span>Итого к оплате:</span>
+            </div>
+            <div class="heading">
+                <h2>Выберите способ оплаты:</h2>
+            </div>
+            <div class="twocolumns">
+                <div class="box" ng-click="yaPay()">
+                        <form method="POST" id="yandex-form" action="https://money.yandex.ru/quickpay/confirm.xml">
+                            <input type="hidden" name="receiver" ng-value="yaData.receiver">
+                            <input type="hidden" name="formcomment" value="Ежедневные дела: пополнение баланса">
+                            <input type="hidden" name="short-dest" value="Ежедневные дела: пополнение баланса">
+                            <input type="hidden" name="label" ng-value="yaData.label">
+                            <input type="hidden" name="quickpay-form" value="shop">
+                            <input type="hidden" name="targets" value="Ежедневные дела: пополнение баланса">
+                            <input type="hidden" name="sum" ng-value="payment.amount">
+                            <input type="hidden" name="paymentType" ng-value="yaData.method">
+                            <input type="hidden" name="successURL" ng-value="yaData.success_url">
+                        </form>
+                    <img src="/bundles/acmeedela/images/icon-ya-money.png" width="158" height="69" >
+                    <a href="javascript:" class="link">Яндекс.Деньги</a>
+                </div>
+                <div class="box">
+                    <ul class="payment-methods">
+                        <!--<li><a href="#"><img src="/bundles/acmeedela/images/logo-ya-money.png" width="40" height="26" ></a></li>-->
+                        <li><a href="javascript:" ng-click="pay('Terminals')"><img src="/bundles/acmeedela/images/logo-webmoney.png" width="40" height="26" ></a></li>
+                        <li><a href="javascript:" ng-click="pay('EMoney')"><img src="/bundles/acmeedela/images/logo-mail.png" width="40" height="26" ></a></li>
+                        <li><a href="javascript:" ng-click="pay('BankCard')"><img src="/bundles/acmeedela/images/logo-rbk.png" width="40" height="26" ></a></li>
+                        <li><a href="javascript:" ng-click="pay('Bank')"><img src="/bundles/acmeedela/images/logo1-1.png" width="40" height="26" ></a></li>
+                        <li><a href="javascript:" ng-click="pay('Mobile')"><img src="/bundles/acmeedela/images/logo2.png" width="40" height="26" ></a></li>
+                        <!--<li><a href="#"><img src="/bundles/acmeedela/images/logo3.png" width="40" height="26" ></a></li>-->
+                        <!--<li><a href="#"><img src="/bundles/acmeedela/images/logo4.png" width="40" height="26" ></a></li>-->
+                        <!--<li><a href="#"><img src="/bundles/acmeedela/images/logo5.png" width="40" height="26" ></a></li>-->
+                        <!--<li><a href="#"><img src="/bundles/acmeedela/images/logo6.png" width="40" height="26" ></a></li>-->
+                        <!--<li><a href="#"><img src="/bundles/acmeedela/images/logo7.png" width="40" height="26" ></a></li>-->
+                        <!--<li><a href="#"><img src="/bundles/acmeedela/images/logo8.png" width="40" height="26" ></a></li>-->
+                        <!--<li><a href="#"><img src="/bundles/acmeedela/images/logo9.png" width="40" height="26" ></a></li>-->
+                        <!--<li><a href="#"><img src="/bundles/acmeedela/images/logo10.png" width="40" height="26" ></a></li>-->
+                        <!--<li><a href="#"><img src="/bundles/acmeedela/images/logo11.png" width="40" height="26" ></a></li>-->
+                        <!--<li><a href="#"><img src="/bundles/acmeedela/images/logo12.png" width="40" height="26" ></a></li>-->
+                        <!--<li><a href="#"><img src="/bundles/acmeedela/images/logo13.png" width="40" height="26" ></a></li>-->
+                        <!--<li><a href="#"><img src="/bundles/acmeedela/images/logo14.png" width="40" height="26" ></a></li>-->
+                        <!--<li><a href="#"><img src="/bundles/acmeedela/images/logo15.png" width="40" height="26" ></a></li>-->
+                        <!--<li><a href="#"><img src="/bundles/acmeedela/images/logo16.png" width="40" height="26" ></a></li>-->
+                        <!--<li><a href="#"><img src="/bundles/acmeedela/images/logo17.png" width="40" height="26" ></a></li>-->
+                        <!--<li><a href="#"><img src="/bundles/acmeedela/images/logo18.png" width="40" height="26" ></a></li>-->
+                        <!--<li><a href="#"><img src="/bundles/acmeedela/images/logo19.png" width="40" height="26" ></a></li>-->
+                        <!--<li><a href="#"><img src="/bundles/acmeedela/images/logo20.png" width="40" height="26" ></a></li>-->
+                        <!--<li><a href="#"><img src="/bundles/acmeedela/images/logo21.png" width="40" height="26" ></a></li>-->
+                        <!--<li><a href="#"><img src="/bundles/acmeedela/images/logo22.png" width="40" height="26" ></a></li>-->
+                        <!--<li><a href="#"><img src="/bundles/acmeedela/images/logo23.png" width="40" height="26" ></a></li>-->
+                        <!--<li><a href="#"><img src="/bundles/acmeedela/images/logo24.png" width="40" height="26" ></a></li>-->
+                    </ul>
+                    <a  href="javascript:" ng-click="pay('Other')" class="link">Другим способом</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

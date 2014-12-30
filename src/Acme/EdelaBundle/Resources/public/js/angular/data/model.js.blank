@@ -1,0 +1,52 @@
+edelaApp.factory('User', ['$http', '$rootScope', 'globalVars', '$q', function ($http, $rootScope, globalVars, $q) {
+    function User(userData) {
+        if (userData) {
+            this.setData(userData);
+        }
+    };
+
+    User.prototype = {
+        _init: function () {
+        },
+        setData: function (userData) {
+            angular.extend(this, userData);
+            this._init();
+        }
+    };
+    return User;
+}]);
+
+
+edelaApp.factory('usersManager', ['$http', '$q', 'User', '$filter', function ($http, $q, User, $filter) {
+    var usersManager = {
+        _pool: {},
+        _retrieveInstance: function (userId, userData) {
+            var instance = this._pool[userId];
+
+            if (instance) {
+                instance.setData(userData);
+            } else {
+                instance = new User(userData);
+                this._pool[userId] = instance;
+            }
+
+            return instance;
+        },
+        _search: function (userId) {
+            return this._pool[userId];
+        },
+        _load: function (userId, deferred) {
+            var scope = this;
+
+            $http.get('ourserver/Users/' + userId)
+                .success(function (userData) {
+                    var User = scope._retrieveInstance(userData.id, userData);
+                    deferred.resolve(User);
+                })
+                .error(function () {
+                    deferred.reject();
+                });
+        }
+    };
+    return usersManager;
+}]);

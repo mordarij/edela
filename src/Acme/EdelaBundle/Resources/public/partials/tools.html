@@ -1,0 +1,49 @@
+<div class="main" ng-show="!loading" ng-class="mainClass">
+<div class="content">
+    <div class="planned-business tools-holder">
+        <div class="box tool" ng-repeat="tool in tools" ng-mouseenter="tool.showContent=true" ng-mouseleave="tool.showContent=false">
+            <h3 ng-bind="tool.title"></h3>
+            <div class="box-holder tools-content" ng-class="{display:tool.showContent}">
+                <img ng-src="/uploads/toolimages/{{ tool.picture }}" width="232" height="232" >
+                <div class="text">
+                    <div class="text-scroll scroll-pane" scrollpane>
+                        <h4 ng-bind="tool.title"></h4>
+                        <p ng-bind="tool.shortDescription"></p>
+                        <span class="info">{{ tool.isAvailableToInstall() ? 'Доступно для установки' : (tool.isAvailableToBuy() ? 'Доступно для покупки' : ( tool.is_enabled ? 'Установлено' : 'Не доступно')) }}</span>
+                        <div class="btn-row">
+                            <a href="#detal-pop-up{{tool.id}}" class="btn btn-blue fancybox" fancybox>Подробней</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<div style="display: none;">
+    <div ng-repeat="tool in tools" class="pop-up-tools-detal" id="detal-pop-up{{tool.id}}">
+        <div class="heading">
+            <div class="col">
+                <button type="button" ng-if="tool.is_enabled" class="btn" ng-click="tool.toggleInstall()">Убрать со страницы дел</button>
+                <button type="button" ng-if="tool.isAvailableToInstall()" class="btn" ng-click="tool.toggleInstall()">Установить на страницу дел</button>
+                <button type="button" ng-if="!tool.isAvailableToInstall() && tool.isAvailableToBuy()" class="btn" ng-click="tool.buyExp()">Получить доступ за <span ng-bind="tool.cost">150</span><span class="icon-uniE60D"></span></button>
+                <span ng-if="tool.min_level > 1">Покупка за опыт будет доступная с <strong><span ng-bind="tool.min_level"></span> уровня</strong></span>
+            </div>
+            <h3>Список задач</h3>
+        </div>
+        <div class="pop-up-content">
+            <div class="gallery-tools">
+                <ul class="gallery-prev">
+                    <li><a href="#" class="active"></a></li>
+                </ul>
+                <ul class="gallery-tools">
+                    <li><img ng-src="/uploads/toolimages/{{ tool.bigPicture }}" width="642" height="403" ></li>
+                </ul>
+            </div>
+            <div class="col-text scroll-pane" scrollpane>
+                <div class="col-text-holder" ng-bind-html="tool.description | unsafe">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,774 @@
+<div style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; z-index: 555; opacity: .3;background-color: black;"></div>
+<div class="pop-up pop-up-history-problems pop-setting-goals new-pop-setting-goals"
+     id="pop-up-setting-goals"
+     style=" position: absolute; left: 30%; z-index: 555; top: 0; /*display: none;*/">
+
+<form>
+<fieldset>
+<ul class="nav-setting">
+    <li><a href="#tab1" class="tab tab-basic" ng-class="{active:settings.tab=='tab1'}" ng-click="settings.tab='tab1'">Основные</a>
+    </li>
+    <li><a href="#tab2" class="tab tab-case-type" ng-class="{active:settings.tab=='tab2'}" ng-click="settings.tab='tab2'">Тип
+        дела</a></li>
+    <li><a href="#tab3" class="tab tab-time" ng-class="{active:settings.tab=='tab3'}"
+           ng-click="settings.tab='tab3'">Время</a></li>
+    <li><a href="#tab4" class="tab tab-note" ng-class="{active:settings.tab=='tab4'}" ng-click="settings.tab='tab4'">Заметка</a>
+    </li>
+    <li><a href="#tab5" class="tab tab-tags" ng-class="{active:settings.tab=='tab5'}"
+           ng-click="settings.tab='tab5'">Теги</a></li>
+    <li><a href="#tab6" class="tab tab-joint-implementation" ng-class="{active:settings.tab=='tab6'}"
+           ng-click="settings.tab='tab6'">Совместное выполнение</a></li>
+    <li><a href="#tab7" class="tab tab-components-case" ng-class="{active:settings.tab=='tab7'}"
+           ng-click="settings.tab='tab7'">Составляющие дела</a></li>
+</ul>
+<div class="tabs-area">
+<div id="tab1" class="box-tab" ng-show="settings.tab=='tab1'">
+    <div class="heading">
+        Основные
+    </div>
+    <div class="row">
+        <label><span>Название</span></label>
+
+        <div class="row-content">
+            <input type="text" class="form-input" placeholder="Название дела" ng-model="action.title">
+        </div>
+        <div class="row-content" ng-if="goals.length > 0">
+            <a href="#" ng-if="action.goal.title"
+               ng-bind="action.goal.title"></a></span>
+            <select ng-if="!action.goal.title" ng-model="action.goal.id" class="nya-selectpicker sel"
+                    data-container="body"
+                    ng-options="goal.id as goal.title for goal in goals">
+                <option value="0">Нет</option>
+            </select>
+        </div>
+    </div>
+    <div class="row row-periodicity">
+        <label><span>Периодичность</span></label>
+
+        <div class="row-content">
+            <div class="row-holder">
+                <div class="row">
+                    <ul class="list-selected">
+                        <li>
+                            <label for="monday" ng-class="{focus:action.isDayEnabled(1), disabled:action.periodicity_interval>0}"
+                                   ng-click="action.toggleDay(1)">Пн</label>
+                            <input id="monday" type="checkbox" class="checkbox">
+                        </li>
+                        <li>
+                            <label for="tuesday" ng-class="{focus:action.isDayEnabled(2), disabled:action.periodicity_interval>0}"
+                                   ng-click="action.toggleDay(2)">Вт</label>
+                            <input id="tuesday" type="checkbox" class="checkbox">
+                        </li>
+                        <li>
+                            <label for="wednesday" ng-class="{focus:action.isDayEnabled(3), disabled:action.periodicity_interval>0}"
+                                   ng-click="action.toggleDay(3)">Ср</label>
+                            <input id="wednesday" type="checkbox" class="checkbox" checked="checked">
+                        </li>
+                        <li>
+                            <label for="thursday" ng-class="{focus:action.isDayEnabled(4), disabled:action.periodicity_interval>0}"
+                                   ng-click="action.toggleDay(4)">Чт</label>
+                            <input id="thursday" type="checkbox" class="checkbox">
+                        </li>
+                        <li>
+                            <label for="friday" ng-class="{focus:action.isDayEnabled(5), disabled:action.periodicity_interval>0}"
+                                   ng-click="action.toggleDay(5)">Пт</label>
+                            <input id="friday" type="checkbox" class="checkbox" checked="checked">
+                        </li>
+                        <li>
+                            <label for="saturday" ng-class="{focus:action.isDayEnabled(6), disabled:action.periodicity_interval>0}"
+                                   ng-click="action.toggleDay(6)">Сб</label>
+                            <input id="saturday" type="checkbox" class="checkbox">
+                        </li>
+                        <li>
+                            <label for="sunday" ng-class="{focus:action.isDayEnabled(0), disabled:action.periodicity_interval>0}"
+                                   ng-click="action.toggleDay(0)">Вс</label>
+                            <input id="sunday" type="checkbox" class="checkbox" checked="checked">
+                        </li>
+                        <li class="daily">
+                            <label for="daily" ng-click="action.toggleDayli()" ng-class="{disabled:action.periodicity_interval>0}">Ежедневно</label>
+                            <input id="daily" type="checkbox" class="checkbox">
+                        </li>
+                    </ul>
+                </div>
+                <div class="row">
+                    <select class="selectpicker sel sel3 nya-selectpicker" data-container="body"
+                            ng-model="action.periodicity_interval">
+                        <option value="0">Без интервала</option>
+                        <option value="2">Каждые 2 дня</option>
+                        <option value="3">Каждые 3 дня</option>
+                        <option value="4">Каждые 4 дня</option>
+                    </select>
+                    <span class="text-lable">Интервал выполнения</span>
+                </div>
+                <div class="row" ng-if="false">
+                    Выбрано - 3 дня для выполнения ежедневного дела
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row row-number-times">
+        <label><span><span>Количество<a class="icon-uniE60A" href="#"><span class="tooltip"><span><span><span><span> если текст длинный то ix </span></span></span></span></span></a> выполнений</span></span></label>
+
+        <div class="row-content">
+            <input type="text" class="form-input" ng-model="action.repeat_amount" placeholder="Число"
+                   id="count-number-input">
+            <ul class="list-selected count-number-of-executions">
+                <li ng-click="action.repeat_amount=30" ng-class="{active:action.repeat_amount==30}"><span>30</span></li>
+                <li ng-click="action.repeat_amount=40" ng-class="{active:action.repeat_amount==40}"><span>40</span></li>
+                <li ng-click="action.repeat_amount=60" ng-class="{active:action.repeat_amount==60}"><span>60</span></li>
+                <li ng-click="action.repeat_amount=90" ng-class="{active:action.repeat_amount==90}"><span>90</span></li>
+            </ul>
+
+        </div>
+    </div>
+    <div class="row row-reminder ">
+        <label><span><span>Напоминание<a class="icon-uniE60A" href="#"><span class="tooltip"><span><span><span><span> если текст длинный то ix </span></span></span></span></span></a></span></span></label>
+
+        <div class="row-content">
+            <div class="row-holder">
+                <div class="row">
+                    <button type="button" class="btn"
+                            ng-class="{'btn-green':action.is_sms_notification, 'btn-white':!action.is_sms_notification}"
+                            ng-click="action.is_sms_notification=!action.is_sms_notification">SMS
+                    </button>
+                    <button type="button" class="btn"
+                            ng-class="{'btn-green':action.is_email_notification, 'btn-white':!action.is_email_notification}"
+                            ng-click="action.is_email_notification=!action.is_email_notification">Почта
+                    </button>
+                </div>
+                <div class="row row-time-select row-reminder-time">
+                    <label>Время напоминания:</label>
+                    <input type="text" ng-model="action.notification_time.hour" class="form-input" style="width: 20px"/>
+                    <select ng-if="false" class="selectpicker col sel nya-selectpicker" data-container="body"
+                            ng-model="action.notification_time.hour" ng-options="hour for hour in times.hours">
+                    </select>
+                    <span class="col">:</span>
+                    <input ng-model="action.notification_time.minute" type="text" class="form-input" style="width: 20px" />
+                    <select ng-if="false"  class="selectpicker col sel nya-selectpicker" data-container="body"
+                            ng-model="action.notification_time.minute" ng-options="minute for minute in times.minutes">
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row ">
+        <label><span><span>Важность<a class="icon-uniE60A" href="#"><span class="tooltip"><span><span><span><span> если текст длинный то ix </span></span></span></span></span></a></span></span></label>
+
+        <div class="row-content">
+            <button type="button" class="btn"
+                    ng-class="{'btn-red':action.is_important, 'btn-white':!action.is_important}"
+                    ng-click="action.is_important=!action.is_important">Важное
+            </button>
+        </div>
+    </div>
+    <div class="row row-privacy">
+        <div class="row-holder">
+            <div class="row">
+                <label><span>Приватность</span></label>
+
+                <div class="row-content">
+                    <ul class="privacy-list">
+                        <li class="radio">
+                            <input id="see" type="radio" checked="checked" name="privacy" ng-model="action.isPrivate"
+                                   ng-value="false">
+                            <label for="see" ng-class="{focus:!action.isPrivate}">
+                                <i class="icon-see"></i>Сделать видимым
+                            </label>
+                        </li>
+                        <li class="radio">
+                            <input id="nosee" type="radio" name="privacy" ng-model="action.isPrivate" ng-value="true">
+                            <label for="nosee" ng-class="{focus:action.isPrivate}">
+                                <i class="icon-nosee"></i>Скрыть видимость
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="tab2" class="box-tab" ng-show="settings.tab=='tab2'">
+    <div class="heading">
+        Тип дела
+    </div>
+    <div class="row">
+        <label><span><span>Типы<a class="icon-uniE60A" href="#"><span class="tooltip"><span><span><span><span> если текст длинный то ix </span></span></span></span></span></a><br> дел</span></span></label>
+
+        <div class="row-content">
+            <div class="row-holder">
+                <div class="row">
+                    <select class="selectpicker sel sel1 nya-selectpicker" data-container="body"
+                            ng-model="action.action_type_id">
+                        <option ng-repeat="type in vars.action_types" ng-value="type.id">{{ type.title }}</option>
+                    </select>
+                    <a href="javascript:void(0)" class="link-select-icon" ng-if="false">Выбрать иконку</a>
+                </div>
+                <div class="row row-text"
+                     ng-if="vars.action_types[action.action_type_id].tkey=='time' || vars.action_types[action.action_type_id].tkey=='number'">
+                    Напишите название типа дел (Например: скорость, расстояние, вес, количество страниц...)
+                </div>
+                <div class="row"
+                     ng-if="vars.action_types[action.action_type_id].tkey=='time' || vars.action_types[action.action_type_id].tkey=='number'">
+                    <input type="text" class="form-input" placeholder="Название" ng-model="action.action_type_title">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row ">
+        <label><span><span>Динамика<a class="icon-uniE60A" href="#"><span class="tooltip"><span><span><span><span> если текст длинный то ix </span></span></span></span></span></a> выполнения</span></span></label>
+
+        <div class="row-content">
+            <select class="selectpicker sel sel2 nya-selectpicker" ng-model="action.dynamic_type_id"
+                    data-container="body"
+                    ng-options="type.id as type.title for type in vars.dynamic_types">
+            </select>
+        </div>
+    </div>
+    <div class="row row-examples">
+        <div class="col">
+            <div class="ttl">
+                Не выполненно:
+            </div>
+            <img src="/bundles/acmeedela/images/img59.jpg" width="236" height="236"/>
+        </div>
+        <div class="col">
+            <div class="ttl">
+                Выполненно:
+            </div>
+            <img src="/bundles/acmeedela/images/img77.jpg" width="236" height="236"/>
+        </div>
+    </div>
+</div>
+<div id="tab3" class="box-tab" ng-show="settings.tab=='tab3'">
+    <div class="heading">
+        Время
+    </div>
+    <div class="row row-time-to-perform ">
+        <label><span><span>Время на<a class="icon-uniE60A" href="#"><span class="tooltip"><span><span><span><span> если текст длинный то ix </span></span></span></span></span></a> выполнение</span></span></label>
+
+        <div class="row-content">
+            <div class="row-holder">
+                <div class="row">
+                    <div class="col col-duration">
+                        <div class="row">
+                            <span>Продолжительность</span>
+                        </div>
+                        <div class="row row-time-select">
+                            <select class="selectpicker col sel nya-selectpicker" data-container="body"
+                                    ng-model="action.action_time.hour" ng-options="hour for hour in times.hours">
+                            </select>
+                            <span class="col">:</span>
+                            <select class="selectpicker col sel nya-selectpicker" data-container="body"
+                                    ng-model="action.action_time.minute"
+                                    ng-options="minute for minute in times.minutes">
+                            </select>
+                        </div>
+                        <div class="row">
+                            <span>({{action.action_time.hour}} часов {{action.action_time.minute}} минут)</span>
+                        </div>
+                    </div>
+                    <div class="col col-interim-period">
+                        <div class="row">
+                            <span>Временный период</span>
+                        </div>
+                        <div class="row row-time-select">
+                            <label>Начало</label>
+                            <select class="selectpicker col sel nya-selectpicker" data-container="body"
+                                    ng-model="action.action_time_start.hour" ng-options="hour for hour in times.hours">
+                            </select>
+                            <span class="col">:</span>
+                            <select class="selectpicker col sel nya-selectpicker" data-container="body"
+                                    ng-model="action.action_time_start.minute"
+                                    ng-options="minute for minute in times.minutes">
+                            </select>
+                        </div>
+                        <div class="row row-time-select">
+                            <label>Конец</label>
+                            <select class="selectpicker col sel nya-selectpicker" data-container="body"
+                                    ng-model="action.action_time_finish.hour" ng-options="hour for hour in times.hours">
+                            </select>
+                            <span class="col">:</span>
+                            <select class="selectpicker col sel nya-selectpicker" data-container="body"
+                                    ng-model="action.action_time_finish.minute"
+                                    ng-options="minute for minute in times.minutes">
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row row-must-time-report">
+                    <div class="checkbox">
+                        <input type="checkbox" id="time-report" checked="checked" ng-model="action.is_time_report">
+                        <label for="time-report">Выводить отчет времени на выполнение этого дела <a
+                                class="icons-question icon-uniE600" href="#"></a></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="tab4" class="box-tab" ng-show="settings.tab=='tab4'">
+    <div class="heading">
+        Заметка
+    </div>
+
+    <div class="row row-text-area ">
+        <label><span>Заметки</span></label>
+
+        <div class="row-content">
+            <div style="width: 94%;">
+                <textarea ng-model="action.note"/>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="tab5" class="box-tab" ng-show="settings.tab=='tab5'">
+    <div class="heading">
+        Теги
+    </div>
+    <div class="row row-components-business ">
+        <div class="row-holder">
+            <div class="row">
+                <label><span><span>Теги<a class="icon-uniE60A" href="#"><span class="tooltip"><span><span><span><span> если текст длинный то ix </span></span></span></span></span></a></span></span></label>
+
+                <div class="row-content">
+                    <input type="text" class="form-input new_tag" placeholder="Название" ng-model="newTag.title">
+                    <button type="button" class="btn btn-green" ng-click="action.addTag(newTag.title)">Добавить</button>
+                </div>
+            </div>
+            <div class="row ">
+                <div class="tegs-holder">
+                    <span ng-repeat="tag in action.tags" ng-bind="tag.title" ng-click="action.removeTag(tag)"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="tab6" class="box-tab" ng-show="settings.tab=='tab6'">
+    <div class="heading">
+        Совместное выполнение
+    </div>
+    <p>Пригласить друга для совместного выполнения</p>
+
+    <div class="filter">
+        <dl>
+            <dt>Выполнили (<span ng-bind="(joint|filter:progressed).length"></span>/{{ joint.length }}):</dt>
+            <dd><a href="javascript:" ng-repeat="user in joint|filter:progressed"
+                   ng-bind-template="{{ user.user.fullname }}, "></a></dd>
+        </dl>
+    </div>
+    <div class="collaboration">
+        <div class="collaboration-scroll">
+            <div class="box" ng-repeat="user in joint" ng-class="{solving:user.progress}">
+                <h3><a href="javascript:" ng-bind="user.user.fullname"></a></h3>
+                <img src="{{ user.user.photo }}" width="150" height="160">
+
+                <div class="box-text">
+                    <div class="img-runtime">
+                        <div class="img-runtime-holder">
+                            <span><img src="/bundles/acmeedela/images/img1.png"><img class="performance" src="/bundles/acmeedela/images/img1-performance.png"><img
+                                    class="hover" src="/bundles/acmeedela/images/img1-hover.png"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="progresbar-holder">
+                    <div class="progresbar">
+                        <span style=" width: 30%"></span>
+                    </div>
+                    <div class="box-note-progres"><span class="btn-note-progres">35%</span></div>
+                </div>
+            </div>
+            <div class="box add-friand">
+                <a href="#"><i class="icon-icon-user-add"></i><span>+ Пригласить
+											<br>друга</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="tab7" class="box-tab" ng-show="settings.tab=='tab7'">
+    <div class="heading">
+        Составляющие дела
+    </div>
+    <div class="row row-components-business components-business ">
+        <div class="row-holder">
+            <div class="row">
+                <label><span><span>Составляющие<a class="icon-uniE60A" href="#"><span class="tooltip"><span><span><span><span> если текст длинный то ix </span></span></span></span></span></a> дела</span></span></label>
+
+                <div class="row-content">
+                    <input type="text" class="form-input" class="new_subaction" placeholder="Название" ng-model="newSubaction.title">
+                    <button type="submit" class="btn btn-green" ng-click="addSubaction()">Добавить</button>
+                </div>
+            </div>
+            <div class="row ">
+                <div class="tegs-holder">
+                    <span ng-repeat="subaction in action.subactions">{{ subaction.title }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<div class="row-btn-holder">
+    <ul class="row-btn-serv">
+        <li><a href="javascript:" ng-click="remove()" class="red-mark">Удалить задачу</a></li>
+        <li><a href="javascript:void(0)" ng-click="action.toggleDelay(); showEditPopup = false;">{{ action.isDelayed() ?
+            'Начать выполнение' : 'Отложить дело' }}</a></li>
+        <li><a href="#">Начать заново</a></li>
+    </ul>
+
+
+    <div class="btn-row">
+        <button type="button" class="btn btn-blue" ng-click="save()">Сохранить</button>
+        <button type="button" ng-click="cancelEdit()" class="btn btn-white">Отмена</button>
+    </div>
+</div>
+</fieldset>
+</form>
+
+
+</div>
+<div class="pop-up pop-up-history-problems pop-setting-goals" ng-class="{briefly:settingsBriefly}"
+     id="pop-up-setting-goals"
+     style=" position: absolute; left: 30%; z-index: 555; top: 0; /*display: none;*/" ng-if="false">
+<div class="heading">
+    <div class="text-goal">
+        <span style="float: left; position: relative; top: 6px;">Цель: <a href="#" ng-if="action.goal.title"
+                                                                          ng-bind="action.goal.title"></a></span>
+        <select ng-if="!action.goal.title" ng-model="action.goal.id" class="nya-selectpicker sel" data-container="body"
+                ng-options="goal.id as goal.title for goal in goals">
+            <option value="0">Нет</option>
+        </select>
+    </div>
+    <ul class="btn-setting-goals">
+        <li ng-class="{active:settingsBriefly}"><a href="javascript:void(0)" ng-click="settingsBriefly=true">Кратко</a>
+        </li>
+        <li ng-class="{active:!settingsBriefly}"><a href="javascript:void(0)"
+                                                    ng-click="settingsBriefly=false">Расширено</a></li>
+    </ul>
+</div>
+<div class="row setting-briefly">
+    <label><span><span>Типы<a class="icon-uniE60A" href="#"></a><br> дел</span></span></label>
+
+    <div class="row-content">
+        <div class="row-holder">
+            <div class="row">
+                <select class="selectpicker sel sel1 nya-selectpicker" data-container="body"
+                        ng-model="action.action_type_id">
+                    <option ng-repeat="type in vars.action_types" ng-value="type.id">{{ type.title }}</option>
+                </select>
+                <a href="javascript:void(0)" class="link-select-icon">Выбрать иконку</a>
+            </div>
+            <div class="row row-text"
+                 ng-if="vars.action_types[action.action_type_id].tkey=='time' || vars.action_types[action.action_type_id].tkey=='number'">
+                Напишите название типа дел (Например: скорость, расстояние, вес, количество страниц...)
+            </div>
+            <div class="row"
+                 ng-if="vars.action_types[action.action_type_id].tkey=='time' || vars.action_types[action.action_type_id].tkey=='number'">
+                <input type="text" class="form-input" placeholder="Название" ng-model="action.action_type_title">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row setting-briefly">
+    <label><span><span>Динамика<a class="icon-uniE60A" href="#"></a> выполнения</span></span></label>
+
+    <div class="row-content">
+        <select class="selectpicker sel sel2 nya-selectpicker" ng-model="action.dynamic_type_id" data-container="body"
+                ng-options="type.id as type.title for type in vars.dynamic_types">
+        </select>
+    </div>
+</div>
+<div class="row">
+    <label><span>Название</span></label>
+
+    <div class="row-content">
+        <input type="text" class="form-input" placeholder="Название дела" ng-model="action.title">
+    </div>
+</div>
+<div class="row row-periodicity">
+    <label><span>Периодичность</span></label>
+
+    <div class="row-content">
+        <div class="row-holder">
+            <div class="row">
+                <ul class="list-selected">
+                    <li>
+                        <label for="monday" ng-class="{focus:action.isDayEnabled(1)}"
+                               ng-click="action.toggleDay(1)">Пн</label>
+                        <input id="monday" type="checkbox" class="checkbox">
+                    </li>
+                    <li>
+                        <label for="tuesday" ng-class="{focus:action.isDayEnabled(2)}"
+                               ng-click="action.toggleDay(2)">Вт</label>
+                        <input id="tuesday" type="checkbox" class="checkbox">
+                    </li>
+                    <li>
+                        <label for="wednesday" ng-class="{focus:action.isDayEnabled(3)}" ng-click="action.toggleDay(3)">Ср</label>
+                        <input id="wednesday" type="checkbox" class="checkbox" checked="checked">
+                    </li>
+                    <li>
+                        <label for="thursday" ng-class="{focus:action.isDayEnabled(4)}" ng-click="action.toggleDay(4)">Чт</label>
+                        <input id="thursday" type="checkbox" class="checkbox">
+                    </li>
+                    <li>
+                        <label for="friday" ng-class="{focus:action.isDayEnabled(5)}"
+                               ng-click="action.toggleDay(5)">Пт</label>
+                        <input id="friday" type="checkbox" class="checkbox" checked="checked">
+                    </li>
+                    <li>
+                        <label for="saturday" ng-class="{focus:action.isDayEnabled(6)}" ng-click="action.toggleDay(6)">Сб</label>
+                        <input id="saturday" type="checkbox" class="checkbox">
+                    </li>
+                    <li>
+                        <label for="sunday" ng-class="{focus:action.isDayEnabled(0)}"
+                               ng-click="action.toggleDay(0)">Вс</label>
+                        <input id="sunday" type="checkbox" class="checkbox" checked="checked">
+                    </li>
+                    <li class="daily">
+                        <label for="daily" ng-click="action.toggleDayli()">Ежедневно</label>
+                        <input id="daily" type="checkbox" class="checkbox">
+                    </li>
+                </ul>
+            </div>
+            <div class="row">
+                <select class="selectpicker sel sel3 nya-selectpicker" data-container="body"
+                        ng-model="action.periodicity_interval">
+                    <option value="0">Без интервала</option>
+                    <option value="2">Каждые 2 дня</option>
+                    <option value="3">Каждые 3 дня</option>
+                    <option value="4">Каждые 4 дня</option>
+                </select>
+                <span class="text-lable">Интервал выполнения</span>
+            </div>
+            <div class="row" ng-if="false">
+                Выбрано - 3 дня для выполнения ежедневного дела
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row row-number-times">
+    <label><span><span>Количество<a class="icon-uniE60A" href="#"></a> выполнений</span></span></label>
+
+    <div class="row-content">
+        <input type="text" class="form-input" ng-model="action.repeat_amount" placeholder="Число"
+               id="count-number-input">
+        <ul class="list-selected count-number-of-executions">
+            <li ng-click="action.repeat_amount=30" ng-class="{active:action.repeat_amount==30}"><span>30</span></li>
+            <li ng-click="action.repeat_amount=40" ng-class="{active:action.repeat_amount==40}"><span>40</span></li>
+            <li ng-click="action.repeat_amount=60" ng-class="{active:action.repeat_amount==60}"><span>60</span></li>
+            <li ng-click="action.repeat_amount=90" ng-class="{active:action.repeat_amount==90}"><span>90</span></li>
+        </ul>
+    </div>
+</div>
+
+<div class="row row-time-to-perform setting-briefly">
+    <label><span><span>Время на<a class="icon-uniE60A" href="#"></a> выполнение</span></span></label>
+
+    <div class="row-content">
+        <div class="row-holder">
+            <div class="row">
+                <div class="col col-duration">
+                    <div class="row">
+                        <span>Продолжительность</span>
+                    </div>
+                    <div class="row row-time-select">
+                        <select class="selectpicker col sel nya-selectpicker" data-container="body"
+                                ng-model="action.action_time.hour" ng-options="hour for hour in times.hours">
+                        </select>
+                        <span class="col">:</span>
+                        <select class="selectpicker col sel nya-selectpicker" data-container="body"
+                                ng-model="action.action_time.minute" ng-options="minute for minute in times.minutes">
+                        </select>
+                    </div>
+                    <div class="row">
+                        <span>({{action.action_time.hour}} часов {{action.action_time.minute}} минут)</span>
+                    </div>
+                </div>
+                <div class="col col-interim-period">
+                    <div class="row">
+                        <span>Временный период</span>
+                    </div>
+                    <div class="row row-time-select">
+                        <label>Начало</label>
+                        <select class="selectpicker col sel nya-selectpicker" data-container="body"
+                                ng-model="action.action_time_start.hour" ng-options="hour for hour in times.hours">
+                        </select>
+                        <span class="col">:</span>
+                        <select class="selectpicker col sel nya-selectpicker" data-container="body"
+                                ng-model="action.action_time_start.minute"
+                                ng-options="minute for minute in times.minutes">
+                        </select>
+                    </div>
+                    <div class="row row-time-select">
+                        <label>Конец</label>
+                        <select class="selectpicker col sel nya-selectpicker" data-container="body"
+                                ng-model="action.action_time_finish.hour" ng-options="hour for hour in times.hours">
+                        </select>
+                        <span class="col">:</span>
+                        <select class="selectpicker col sel nya-selectpicker" data-container="body"
+                                ng-model="action.action_time_finish.minute"
+                                ng-options="minute for minute in times.minutes">
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-must-time-report">
+                <div class="checkbox">
+                    <input type="checkbox" id="time-report" checked="checked" ng-model="action.is_time_report">
+                    <label for="time-report">Выводить отчет времени на выполнение этого дела <a
+                            class="icons-question icon-uniE600" href="#"></a></label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row setting-briefly">
+    <label><span><span>Важность<a class="icon-uniE60A" href="#"></a></span></span></label>
+
+    <div class="row-content">
+        <button type="button" class="btn" ng-class="{'btn-red':action.is_important, 'btn-white':!action.is_important}"
+                ng-click="action.is_important=!action.is_important">Важное
+        </button>
+    </div>
+</div>
+
+<div class="row row-reminder setting-briefly">
+    <label><span><span>Напоминание<a class="icon-uniE60A" href="#"></a></span></span></label>
+
+    <div class="row-content">
+        <div class="row-holder">
+            <div class="row">
+                <button type="button" class="btn"
+                        ng-class="{'btn-green':action.is_sms_notification, 'btn-white':!action.is_sms_notification}"
+                        ng-click="action.is_sms_notification=!action.is_sms_notification">SMS
+                </button>
+                <button type="button" class="btn"
+                        ng-class="{'btn-green':action.is_email_notification, 'btn-white':!action.is_email_notification}"
+                        ng-click="action.is_email_notification=!action.is_email_notification">Почта
+                </button>
+            </div>
+            <div class="row row-time-select row-reminder-time">
+                <label>Время напоминания:</label>
+                <select class="selectpicker col sel nya-selectpicker" data-container="body"
+                        ng-model="action.notification_time.hour" ng-options="hour for hour in times.hours">
+                </select>
+                <span class="col">:</span>
+                <select class="selectpicker col sel nya-selectpicker" data-container="body"
+                        ng-model="action.notification_time.minute" ng-options="minute for minute in times.minutes">
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row row-text-area setting-briefly">
+    <label><span>Заметки</span></label>
+
+    <div class="row-content">
+        <div style="width: 94%;">
+            <textarea ng-model="action.note"/>
+        </div>
+    </div>
+</div>
+
+<div class="row row-components-business components-business setting-briefly"
+     ng-if="vars.action_types[action.action_type_id].tkey=='done'">
+    <div class="row-holder">
+        <div class="row">
+            <label><span><span>Составляющие<a class="icon-uniE60A" href="#"></a> дела</span></span></label>
+
+            <div class="row-content">
+                <input type="text" class="form-input" placeholder="Название" ng-model="newSubaction.title">
+                <button type="button" class="btn btn-green" ng-click="action.addSubaction(newSubaction.title)">
+                    Добавить
+                </button>
+            </div>
+        </div>
+        <div class="row ">
+            <div class="row-components-business">
+                <span ng-repeat="subaction in action.subactions">{{ subaction.title }}</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row row-joint-implementation">
+    <label><span><span>Совместное<a class="icon-uniE60A" href="#"></a> выполнение</span></span></label>
+
+    <div class="row-content">
+        <a href="#actions/{{action.id}}/joint" class="btn-add">+ Пригласить друга для совместного выполнения</a>
+    </div>
+    <ul class="user-adds">
+        <li ng-if="false">
+            <ul>
+                <li><a href="#">Написать</a></li>
+                <li><a href="#">Удалить</a></li>
+            </ul>
+            <a href="#">Соловей Игорь</a>
+        </li>
+    </ul>
+</div>
+
+<div class="row row-components-business setting-briefly">
+    <div class="row-holder">
+        <div class="row">
+            <label><span><span>Теги<a class="icon-uniE60A" href="#"></a></span></span></label>
+
+            <div class="row-content">
+                <input type="text" class="form-input" placeholder="Название" ng-model="newTag.title">
+                <button type="button" class="btn btn-green" ng-click="action.addTag(newTag.title)">Добавить</button>
+            </div>
+        </div>
+        <div class="row ">
+            <div class="tegs-holder">
+                <span ng-repeat="tag in action.tags" ng-bind="tag.title" ng-click="action.removeTag(tag)"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row row-privacy">
+    <div class="row-holder">
+        <div class="row">
+            <label><span>Приватность</span></label>
+
+            <div class="row-content">
+                <ul class="privacy-list">
+                    <li class="radio">
+                        <input id="see" type="radio" checked="checked" name="privacy" ng-model="action.isPrivate"
+                               ng-value="false">
+                        <label for="see" ng-class="{focus:!action.isPrivate}">
+                            <i class="icon-see"></i>Сделать видимым
+                        </label>
+                    </li>
+                    <li class="radio">
+                        <input id="nosee" type="radio" name="privacy" ng-model="action.isPrivate" ng-value="true">
+                        <label for="nosee" ng-class="{focus:action.isPrivate}">
+                            <i class="icon-nosee"></i>Скрыть видимость
+                        </label>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row-btn-holder">
+    <ul class="row-btn-serv">
+        <li><a href="javascript:" ng-click="remove()" class="red-mark">Удалить задачу</a></li>
+        <li><a href="javascript:void(0)" ng-click="action.toggleDelay(); showEditPopup = false;">{{ action.isDelayed() ?
+            'Начать выполнение' : 'Отложить дело' }}</a></li>
+        <li><a href="#">Начать заново</a></li>
+    </ul>
+
+
+    <div class="btn-row">
+        <button type="button" class="btn btn-blue" ng-click="save()">Сохранить</button>
+        <button type="button" ng-click="cancelEdit()" class="btn btn-white">Отмена</button>
+    </div>
+</div>
+</div>

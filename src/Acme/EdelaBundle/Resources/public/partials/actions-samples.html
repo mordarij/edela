@@ -1,0 +1,214 @@
+<div ng-show="addPopup" class="pop-up pop-up-history-problems pop-setting-goals add-pop-setting-goals add-add-pop-setting-goals" id="add-pop-setting-goals" style=" position: absolute; left: 50%;  margin-left: -250px; z-index: 555; top: 0; display: block;">
+
+    <div class="row">
+        <label><span><span>Категория дела</span></span></label>
+        <div class="row-content">
+            <select class="selectpicker sel sel2">
+                <option>Спорт</option>
+                <option>Спорт</option>
+                <option>Спорт</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row">
+        <label><span>Название</span></label>
+        <div class="row-content">
+            <input type="text" class="form-input" placeholder="Читать книгу">
+        </div>
+    </div>
+
+    <div class="row">
+        <label><span>Цель ежедневного дела</span></label>
+        <div class="row-content">
+            <input type="text" class="form-input" placeholder="Образование">
+        </div>
+    </div>
+
+    <div class="row row-periodicity">
+        <label><span>Периодичность</span></label>
+        <div class="row-content">
+            <div class="row-holder">
+                <div class="row">
+                    <ul class="list-selected">
+                        <li>
+                            <label for="monday">Пн</label>
+                            <input id="monday" type="checkbox" class="checkbox" checked="checked">
+                        </li>
+                        <li>
+                            <label for="tuesday">Вт</label>
+                            <input id="tuesday" type="checkbox" class="checkbox">
+                        </li>
+                        <li>
+                            <label for="wednesday">Ср</label>
+                            <input id="wednesday" type="checkbox" class="checkbox" checked="checked">
+                        </li>
+                        <li>
+                            <label for="thursday">Чт</label>
+                            <input id="thursday" type="checkbox" class="checkbox">
+                        </li>
+                        <li>
+                            <label for="friday">Пт</label>
+                            <input id="friday" type="checkbox" class="checkbox" checked="checked">
+                        </li>
+                        <li>
+                            <label for="saturday">Сб</label>
+                            <input id="saturday" type="checkbox" class="checkbox">
+                        </li>
+                        <li>
+                            <label for="resurrection">Вс</label>
+                            <input id="resurrection" type="checkbox" class="checkbox" checked="checked">
+                        </li>
+                        <li class="daily">
+                            <label for="daily">Ежедневно</label>
+                            <input id="daily" type="checkbox" class="checkbox">
+                        </li>
+                    </ul>
+                </div>
+                <div class="row">
+                    <select class="selectpicker sel sel3">
+                        <option>Каждые 2 дня</option>
+                        <option>Каждые 2 дня</option>
+                        <option>Каждые 2 дня</option>
+                    </select>
+                    <span>Интервал выполнения</span>
+                </div>
+                <div class="row">
+                    Выбрано - 3 дня для выполнения ежедневного дела
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row row-number-times">
+        <label><span><span>Количество<a class="icon-uniE60A" href="#"></a> выполнений</span></span></label>
+        <div class="row-content">
+            <input type="text" class="form-input" placeholder="Число" id="count-number-input">
+            <ul class="list-selected count-number-of-executions">
+                <li><span>30</span></li>
+                <li><span>40</span></li>
+                <li class="active"><span>60</span></li>
+                <li><span>90</span></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="row row-text-area">
+        <label><span>Заметки</span></label>
+        <div class="row-content">
+            <img alt="photo" src="/bundles/acmeedela/images/img-text.jpg"  >
+        </div>
+    </div>
+
+    <div class="row" ng-if="false">
+        <label><span>Изображение<a class="icon-uniE60A" href="#"></a></span></label>
+        <div class="row-content">
+            <div class="box-add-photo">
+                <div class="btn-add-case">
+                    <span>+ Добавить фотографию</span>
+                    <em><input type="file"></em>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <label><span>Изображение<a class="icon-uniE60A" href="#"></a></span></label>
+        <div class="row-content">
+            <div class="box-add-photo">
+                <a class="btn-add-case" href="#"><span>+ Добавить фотографию</span></a>
+                <div class="added-photo">
+                    <img alt="photo" src="/bundles/acmeedela/images/img6.jpg" width="125" height="125">
+                    <span class="mark"></span>
+                    <a href="#" class="btn-close">
+                        <span class="tooltip"><span><span><span><span>Удалить</span></span></span></span></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="btn-row">
+        <div class="col-text">
+            <div class="text-holder">
+                <p>После проверки модератором, мы сообщим вам о результатах размещения нового дела в базе данных</p>
+                <em>Спасибо за сотрудничество с e-dela.com</em>
+            </div>
+        </div>
+        <div class="col-btn">
+            <div class="text-holder">
+                <button type="button" ng-click="addPopup=false" class="btn">Сохранить</button>
+                <button type="button" ng-click="addPopup=false" class="btn btn-white">Отмена</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="main" ng-show="!loading" ng-class="mainClass">
+    <div class="two-columns">
+        <div class="content">
+            <div class="daily-business">
+                <div class="item" ng-repeat="sample in samples|filter:{categories:filterCat}">
+                    <div class="item-content">
+                        <img src="{{ sample.image }}">
+
+                        <div class="item-text">
+                            <h2>{{ sample.title }}</h2>
+
+                            <div class="row">
+                                <a href="javascript:void(0)" ng-if="!sample.added" ng-click="addAction(sample)"
+                                   class="btn">Добавить</a>
+
+                                <div class="info">{{ sample.info }}</div>
+                            </div>
+                            <dl>
+                                <dt ng-if="sample.goal">Цель:</dt>
+                                <dd ng-if="sample.goal">{{ sample.goal }}</dd>
+                                <dt ng-if="sample.note">Заметка:</dt>
+                                <dd ng-if="sample.note">{{ sample.note }}</dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <!--<a href="#" class="btn-more-comments">Показать все 5 комментариев</a>-->
+                    <!--<div class="comments-list">-->
+                        <!--<div class="comment-item">-->
+                            <!--<div class="comment-item-holder">-->
+                                <!--<img src="/bundles/acmeedela/images/img7.jpg" width="50" height="50">-->
+
+                                <!--<div class="comment-item-text">-->
+                                    <!--<h3><a href="#">Татьяна Тарасова</a></h3>-->
+
+                                    <!--<p>Очень легкий и хороший проект, мне понравилось</p>-->
+                                    <!--<ul class="comment-info">-->
+                                        <!--<li><em class="date">4 фев в 7:01</em></li>-->
+                                        <!--<li><a href="#">Ответить</a></li>-->
+                                    <!--</ul>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="comment add-comment">-->
+                        <!--<form action="#">-->
+                            <!--<fieldset>-->
+                                <!--<div class="content-holder">-->
+                                    <!--<textarea cols="1" rows="1">Комментировать..</textarea>-->
+                                <!--</div>-->
+                            <!--</fieldset>-->
+                        <!--</form>-->
+                    <!--</div>-->
+                </div>
+            </div>
+        </div>
+        <aside>
+            <div class="box-list">
+                <h3>Категории ежедневных дел</h3>
+                <ul>
+                    <li ng-repeat="category in categories" ng-class="{active:filterCat==category.title}"><a href="javascript:void(0)" ng-click="$parent.filterCat=category.title">{{
+                        category.title }}</a></li>
+                </ul>
+            </div>
+            <a href="javascript:void(0)" ng-click="addPopup=true" ng-if="false" class="btn-add-daily-business">+ Добавить<br/>ежедневное дело
+            </a>
+            <!--<a href="#" class="btn-add-daily-business">+ Добавить<br/> ежедневное дело</a>-->
+        </aside>
+    </div>
+</div>

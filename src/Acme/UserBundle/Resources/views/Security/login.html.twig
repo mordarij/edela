@@ -1,0 +1,120 @@
+{% extends 'AcmeEdelaBundle::blank.html.twig' %}
+{#{% form_theme form 'AcmeEdelaBundle:Form:fields.html.twig' %}#}
+{% block content %}
+
+    <div class="box-login">
+        <strong class="logo"><a href="#">E-dela<span></span></a></strong>
+
+        <h1>Чтобы запустить e-dela, войдите в свой аккаунт.</h1>
+
+        <div class="form-holder">
+            <div class="box">
+                <h3>Вход в систему</h3>
+                {{ form_start(form, { 'attr': { role: 'form', name: 'f-input' }, action: path("login_check")  } ) }}
+                <div class="allert">
+                    {{ error|trans({}, 'FOSUserBundle') }}
+                    {{ form_errors(form) }}
+                    {% for field in form.children %}
+                        {{ form_errors(field) }}
+                    {% endfor %}
+                </div>
+                <div class="row">
+                    {{ form_widget(form._username, { attr: { class: 'form-input', placeholder: 'form.email'|trans } }) }}
+                </div>
+                <div class="row">
+                    {{ form_widget(form._password, { attr: { class: 'form-input', placeholder: 'form.password'|trans } }) }}
+                </div>
+                <div class="row btn-row">
+                    {{ form_widget(form._csrf_token) }}
+                    <button type="submit" class="btn"><span>{{ 'form.login'|trans }}</span></button>
+                </div>
+                <div class="row add-row">
+                    <a href="javascript:showRestore();">Забыли пароль?</a>
+
+                    <div class="checkbox">
+                        {{ form_widget(form._remember_me) }}
+                        {#<input id="system" type="checkbox">#}
+                        <label for="_remember_me">Остаться в системе</label>
+                    </div>
+                </div>
+                </form>
+            </div>
+            <div class="box box-password-reset">
+                <h3>Восстановление пароля</h3>
+
+                <div class="allert" style="display: none;">
+                    Указанный адрес не найден
+                </div>
+                {{ form_start(resetForm, { 'attr': { role: 'form', name: 'f-input', class: 'reset-form' }, action: path("fos_user_resetting_request")  } ) }}
+                <div class="row">
+                    {{ form_widget(resetForm.username, { attr: { class: 'form-input', placeholder: 'form.email'|trans } }) }}
+                    {{ form_widget(resetForm._token) }}
+                    {#<input type="text" class="form-input" placeholder="Укажите свою электронную почту"/>#}
+                </div>
+                <div class="row btn-row">
+                    <button type="submit" class="btn">Отправить пароль на почту</button>
+                </div>
+                </form>
+                <a href="#" class="close"></a>
+            </div>
+            <div class="box box-success">
+                <p>Мы отправили на вашу почту письмо с новым паролем!</p>
+
+                <p class="blue">
+                    Проверить почту на <a href="#">mail.ru</a>
+                </p>
+                <a href="#" class="close"></a>
+            </div>
+            <div class="line">
+                <span class="l1"></span>
+                <span class="l2"></span>
+                <span class="l3"></span>
+                <span class="l4"></span>
+            </div>
+        </div>
+        <div class="box-social">
+            <strong><a href="{{ path('registration') }}">Регистрация</a></strong>
+
+            <p>Если вы зарегистрированы на одном из этих сайтов, то для входа использовать их учетную запись.</p>
+
+            <div class="social-list">
+                <div class="social-list-holder">
+                    <ul>
+                        <li><a href="{{ hwi_oauth_login_url('vkontakte') }}" class="vk">vk</a></li>
+                        <li><a href="{{ hwi_oauth_login_url('facebook') }}" class="fb">vk</a></li>
+                        {#<li><a href="#" class="fb">fb</a></li>#}
+                        {#<li><a href="#" class="google-plus">google plus</a></li>#}
+                        {#<li><a href="#" class="twitter">twitter</a></li>#}
+                        {#<li><a href="#" class="ok">ok</a></li>#}
+                        {#<li><a href="#" class="ya">ya</a></li>#}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function showRestore() {
+            $('.box-success').hide();
+            $('.box-password-reset').show();
+        }
+        $(document).ready(function () {
+            $('a.close').click(function () {
+                $('.box-success, .box-password-reset').hide();
+                return false;
+            });
+            $('form.reset-form').submit(function () {
+                var action = $(this).attr('action');
+                $.post(action, $(this).serialize(), function (data) {
+                    if (data.success) {
+                        $('.box-success').show();
+                        $('.box-password-reset').hide();
+                    } else {
+                        $('.box-password-reset .allert').show();
+                    }
+                }, 'json');
+                return false;
+            });
+        });
+    </script>
+{% endblock %}
+

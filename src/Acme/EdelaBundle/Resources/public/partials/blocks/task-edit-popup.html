@@ -1,0 +1,142 @@
+<div style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; z-index: 555; opacity: .3;background-color: black;"></div>
+<div class="pop-up pop-up-history-problems pop-setting-goals add-pop-setting-goals" id="add-pop-setting-goals1"
+     style=" position: absolute; left: 50%;  margin-left: -250px; z-index: 555; top: 0;">
+    <div class="heading">
+        <div class="text-goal">
+        <span style="float: left; position: relative; top: 6px;">Цель: <a href="#" ng-if="task.goal_title"
+                                                                          ng-bind="task.goal_title"></a></span>
+            <select ng-if="!task.goal_title" ng-model="task.goal_id" class="nya-selectpicker sel" data-container="body"
+                    ng-options="goal.id as goal.title for goal in goals">
+                <option value="0">Нет</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row">
+        <label><span>Название</span></label>
+
+        <div class="row-content">
+            <input type="text" placeholder="Читать книгу" ng-model="task.title">
+        </div>
+    </div>
+
+    <div class="row row-day">
+        <label><span>Дата</span></label>
+
+        <div class="row-content">
+            <div class="select-holder">
+                <select class="selectpicker sel sel5 nya-selectpicker" data-container="body" ng-model="task.date.day"
+                        ng-options="day as day for day in getDaysInMonth(task.date.year, task.date.month)">
+                </select>
+                <select class="selectpicker sel sel5 nya-selectpicker" data-container="body" ng-model="task.date.month"
+                        ng-options="month.id as month.title for month in months">
+                </select>
+                <select class="selectpicker sel sel6 nya-selectpicker" data-container="body" ng-model="task.date.year"
+                        ng-options="year as year for year in years">
+                </select>
+            </div>
+            <button type="button" class="btn btn-white">Календарь</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <label><span><span>Важность<a class="icon-uniE60A" href="#"></a></span></span></label>
+
+        <div class="row-content">
+            <button type="button" class="btn" ng-class="{'btn-red':task.is_important, 'btn-white':!task.is_important}"
+                    ng-click="task.is_important=!task.is_important">Важное
+            </button>
+            <button type="button" class="btn" ng-class="{'btn-red':task.is_urgent, 'btn-white':!task.is_urgent}"
+                    ng-click="task.is_urgent=!task.is_urgent">Срочное
+            </button>
+        </div>
+    </div>
+
+    <div class="row row-reminder">
+        <label><span><span>Напоминание<a class="icon-uniE60A" href="#"></a></span></span></label>
+
+        <div class="row-content">
+            <div class="row-holder">
+                <div class="row">
+                    <button type="button" class="btn"
+                            ng-class="{'btn-green':task.is_sms_notification, 'btn-white':!task.is_sms_notification}"
+                            ng-click="task.is_sms_notification=!task.is_sms_notification">SMS
+                    </button>
+                    <button type="button" class="btn btn-white" ng-if="false">Почта</button>
+                </div>
+                <div class="row row-time-select row-reminder-time">
+                    <label>Время напоминания:</label>
+                    <select class="selectpicker col sel nya-selectpicker" data-container="body"
+                            ng-model="task.notification_time.hour" ng-options="hour for hour in times.hours">
+                    </select>
+                    <span class="col">:</span>
+                    <select class="selectpicker col sel nya-selectpicker" data-container="body"
+                            ng-model="task.notification_time.minute" ng-options="minute for minute in times.minutes">
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row row-text-area">
+        <label><span>Заметки</span></label>
+
+        <div class="row-content">
+            <div style="width: 94%;">
+                <textarea ng-model="task.note"/>
+            </div>
+        </div>
+    </div>
+
+    <div class="row row-components-business">
+        <div class="row-holder">
+            <div class="row">
+                <label><span><span>Теги<a class="icon-uniE60A" href="#"></a></span></span></label>
+
+                <div class="row-content">
+                    <input type="text" class="form-input" placeholder="Название" ng-model="newTag.title">
+                    <button type="button" class="btn btn-green" ng-click="task.addTag(newTag.title)">Добавить</button>
+                </div>
+            </div>
+            <div class="row ">
+                <div class="tegs-holder">
+                    <span ng-repeat="tag in task.tags" ng-bind="tag.title" ng-click="task.removeTag(tag)"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row row-privacy">
+        <div class="row-holder">
+            <div class="row">
+                <label><span>Преватность</span></label>
+
+                <div class="row-content">
+                    <ul class="privacy-list">
+                        <li class="radio">
+                            <input id="see1" type="radio" checked="checked" name="privacy">
+                            <label for="see1">
+                                <i class="icon-see"></i>Сделать видимым
+                            </label>
+                        </li>
+                        <li class="radio">
+                            <input id="nosee1" type="radio" name="privacy">
+                            <label for="nosee1">
+                                <i class="icon-nosee"></i>Скрыть видимость
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <ul class="row-btn-serv">
+        <li><a href="#" class="red-mark">Удалить задачу</a></li>
+    </ul>
+
+    <div class="btn-row">
+        <button type="button" class="btn" ng-click="save()">Сохранить</button>
+        <button type="button" class="btn btn-white" ng-click="cancelEdit()">Отмена</button>
+    </div>
+</div>

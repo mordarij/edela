@@ -1,0 +1,173 @@
+<style>
+
+    svg {
+        font: 10px sans-serif;
+    }
+
+    .area {
+        fill: none;
+        stroke-width: 5px;
+        stroke: #055FBC;
+        clip-path: url(#clip);
+    }
+
+     .context .area {
+        stroke-width: 2px;
+    }
+
+    .focus .bar{
+        fill: #ccc;
+    }
+
+    .focus .bar:hover{
+        fill: #055FBC;
+    }
+
+
+    .axis path,
+    .axis line {
+        fill: none;
+        stroke: #ddd;
+    }
+
+    .axis text {
+        fill: #666;
+        font-size: 1.6em;
+        margin-left: 10px;
+    }
+
+
+    .brush .extent {
+        stroke: #fff;
+        fill-opacity: .125;
+        fill: #055FBC;
+        shape-rendering: crispEdges;
+    }
+
+    .brush .background {
+        stroke: #ccc;
+        fill: none;
+    }
+    .brush .resize rect{
+        fill-opacity: .3;
+    }
+
+    .d3-tip {
+        position: absolute;
+        font-size: 1.4em;
+        pointer-events: none;
+        text-align: center;
+    }
+
+
+    .d3-tip strong{
+        color: red;
+    }
+
+
+</style>
+<div class="main" ng-show="!loading" ng-class="mainClass">
+
+    <div class="content">
+        <div class="statistics-box">
+            <div class="item">
+                <div class="heading">
+                    <span class="col"><a href="#">Как рассчитывается эффективность?</a></span>
+                    <h2>Ваша эффективность</h2>
+                </div>
+                <div class="statistics-box-text">
+                    <p>На этом графике учитываются пользователи, просмотревшие записи сообщества на стене или в разделе Мои Новости. Также она показывает на сколько вы эффективно двигаетесь к своим целям!</p>
+                </div>
+                <div class="schedule">
+                    <div d3 d3-data="progress" d3-renderer="efficiencyRenderer"></div>
+                </div>
+
+            </div>
+            <div class="item">
+                <div class="heading">
+                    <span class="col" ng-if="false">последний лучший результат: <a href="#">22.10.2014</a></span>
+                    <h2>Проценты выполнения дел по дням</h2>
+                </div>
+                <div class="schedule">
+                    <!--<img alt="photo" src="/bundles/acmeedela/images/img-cx2.jpg" width="985" height="364" >-->
+                    <div d3 d3-data="progress" d3-renderer="progressRenderer">
+                        <h2>Данные появятся после 24:00</h2>
+                    </div>
+                </div>
+
+            </div>
+            <div class="item" ng-if="actions">
+                <div class="heading">
+                    <h2>Выполнение дел</h2>
+                </div>
+                <table class="perform-case">
+                    <thead>
+                    <tr>
+                        <th>Название</th>
+                        <th class="col">%</th>
+                        <th class="col"><span class="icon-noted"></span></th>
+                        <th class="col"><span class="icon-notnoted"></span></th>
+                        <th class="col">Дата начала</th>
+                        <!--<th class="col">Дата окончания</th>-->
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="action in actions">
+                        <th><span ng-bind="action.title"></span></th>
+                        <td><span class="mark-green" ng-bind-template="{{(100 * action.done_count/action.total_count)|number:1}}%"></span></td>
+                        <td ng-bind="action.done_count">50</td>
+                        <td ng-bind="action.total_count - action.done_count">20</td>
+                        <td ng-bind="action.start_date">10.10.2012</td>
+                        <!--<td></td>-->
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="item" ng-if="false">
+                <div class="heading">
+                    <h2>Время выполнения</h2>
+                </div>
+                <table class="perform-case">
+                    <thead>
+                    <tr>
+                        <th>Название</th>
+                        <th class="col">Последнее время</th>
+                        <th class="col">Общее время</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th><span>Тренировка</span></th>
+                        <td>00:32:23</td>
+                        <td>20:32:23</td>
+                    </tr>
+                    <tr>
+                        <th><span>Чтение</span></th>
+                        <td>00:32:23</td>
+                        <td>20:32:23</td>
+                    </tr>
+                    <tr>
+                        <th><span>Подтягивание</span></th>
+                        <td>00:32:23</td>
+                        <td>20:32:23</td>
+                    </tr>
+                    <tr>
+                        <th>Пить чистую воду</th>
+                        <td>00:32:23</td>
+                        <td>20:32:23</td>
+                    </tr>
+                    <tr>
+                        <th><span>Просмотр видео по урокам Photoshopervssvsvsv</span></th>
+                        <td>00:32:23</td>
+                        <td>20:32:23</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="link-row">
+                <a href="#">Сбросить все денные и начато все заново!</a>
+            </div>
+        </div>
+    </div>
+
+</div>

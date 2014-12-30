@@ -1,0 +1,105 @@
+{% extends 'AcmeEdelaBundle::blank.html.twig' %}
+{#{% form_theme form 'AcmeEdelaBundle:Form:fields.html.twig' %}#}
+{% block content %}
+    <div class="box-login box-registration">
+        <strong class="logo"><a href="#">E-dela<span></span></a></strong>
+
+        <h1>Регистрация в системе e-dela.</h1>
+
+        <div class="form-holder">
+            <div class="box">
+                {{ form_start(form, { 'attr': { role: 'form', name: 'f-input' }, action: path('registration')  } ) }}
+                <div class="secsion">
+                    <h3>Регистрация</h3>
+
+                    <div class="allert">
+                        {% for field in form.children %}
+                            {% if field.first is defined %}
+                                {{ form_errors(field.first) }}
+                            {% else %}
+                                {{ form_errors(field) }}
+
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="row">
+                        {{ form_widget(form.fullname, { attr: { class: 'form-input', placeholder: 'form.fullname'|trans } }) }}
+                    </div>
+
+                    {% for passwordField in form.plainPassword %}
+                        <div class="row">
+                            {{ form_widget(passwordField, { 'attr': {'class': 'form-input', placeholder: passwordField.vars.label|trans} }) }}
+                        </div>
+                    {% endfor %}
+                    <div class="row">
+                        {{ form_widget(form.email, { attr: { class: 'form-input', placeholder: 'form.email'|trans } }) }}
+                    </div>
+                </div>
+                <div class="secsion box-time-zone">
+                    <h3>Укажите ваш часовой пояс</h3>
+
+                    <div class="row row-select">
+                        {{ form_widget(form.timezone, { attr: { class: 'selectpicker', placeholder: 'form.timezone'|trans } }) }}
+                    </div>
+                    <p>
+                        <a href="#">Для чего указывать часовой пояс?</a>
+                    </p>
+                </div>
+                {#<div class="secsion promo-code">
+                    <div class="row add-row">
+                        <div class="checkbox">
+                            <input id="p-code" type="checkbox">
+                            <label for="p-code">У меня есть промо-код <i class="icons icons-question"></i></label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <input type="text" class="form-input"  placeholder="Промо-код"/>
+                    </div>
+                </div>#}
+                <p>
+                    Регистрируясь в системе, вы принимаете <a href="#">Условия использования</a>
+                    и соглашаетесь с <a href="#">Политикой конфиденциальности</a>
+                </p>
+
+                <div class="row btn-row">
+                    {{ form_widget(form._token) }}
+                    <button type="submit" class="btn">{{ 'registration.submit'|trans({}, 'FOSUserBundle') }}</button>
+                </div>
+                </form>
+            </div>
+            <div class="line">
+                <span class="l1"></span>
+                <span class="l2"></span>
+                <span class="l3"></span>
+                <span class="l4"></span>
+            </div>
+        </div>
+        <div class="box-social">
+            <strong>Уже есть учетная запись? <a href="{{ path('login') }}">Войти</a></strong>
+
+            <p>Если вы зарегистрированы на одном из этих сайтов, то для входа использовать их учетную запись.</p>
+
+            <div class="social-list">
+                <div class="social-list-holder">
+                    <ul>
+                        <li><a href="{{ hwi_oauth_login_url('vkontakte') }}" class="vk">vk</a></li>
+                        <li><a href="{{ hwi_oauth_login_url('facebook') }}" class="fb">fb</a></li>
+                        {#<li><a href="#" class="fb">fb</a></li>#}
+                        {#<li><a href="#" class="google-plus">google plus</a></li>#}
+                        {#<li><a href="#" class="twitter">twitter</a></li>#}
+                        {#<li><a href="#" class="ok">ok</a></li>#}
+                        {#<li><a href="#" class="ya">ya</a></li>#}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $('.selectpicker').selectpicker({
+                style: 'btn-default',
+                size: 4
+            });
+        });
+    </script>
+{% endblock %}

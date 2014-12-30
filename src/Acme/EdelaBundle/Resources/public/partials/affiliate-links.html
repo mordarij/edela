@@ -1,0 +1,72 @@
+<div class="main" ng-show="!loading" ng-class="mainClass">
+
+
+    <div class="content" ng-if="links.length > 0">
+        <p>Мы автоматически создали для вас первую партнерскую ссылку для площадки.</p>
+        <div class="box-links-portals">
+            <div class="row-top">
+                <button type="button" ng-click="addLink()" class="btn">+ Добавить ссылку</button>
+                <div class="col">
+                    <span>Ваш промо-код:</span>
+                    <strong ng-bind="promo.title"></strong>
+                </div>
+            </div>
+            <div class="table-links-portals">
+                <table>
+                    <tr>
+                        <th class="col-ttl">Наименование площадки</th>
+                        <th class="col-sales-funnel">Воронка продаж</th>
+                        <th>Ссылка</th>
+                        <th></th>
+                    </tr>
+                    <tr ng-repeat="link in links">
+                        <td class="col-ttl"><strong><a href="#">Источник 1</a></strong></td>
+                        <td class="col-sales-funnel">0 — 0 — 0</td>
+                        <td><span>http://e-dela.com/?p=<span ng-bind="link.title"></span></span></td>
+                        <td>
+                            <ul>
+                                <li><a href="#">Переименовать </a></li>
+                                <li><a href="#">Поделиться</a></li>
+                                <li><a href="#" class="link-close">х</a></li>
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="box-login box-form-add" ng-if="links.length == 0">
+        <h1>Партнерская программа.<br>Получи 80% от всех приглашенных друзей.</h1>
+        <div class="form-holder">
+            <div class="box">
+                <form role="form" ng-submit="addPromo(promo)" name="f-input">
+                    <div class="secsion">
+                        <div class="text-holder">
+                            <p>Придумайте свой пичный промо-код!</p>
+                            <p>Он должен быть простым, чтобы можно было сказать его любому человеку в устной форме (когда нет возможности скинуть ссыпку)</p>
+                            <p><span class="mark-red">Важно! Код нельзя будет изменить в дальнейшем.</span></p>
+                        </div>
+                        <h3>Промо-код:</h3>
+                        <div class="row">
+                            <input type="text" class="form-input" ng-model="promo.title" placeholder="Напишите код"/>
+                        </div>
+                        <div class="row btn-row">
+                            <button type="submit" class="btn">Создать</button>
+                        </div>
+                        <p>Код должен состоять из латинских букв, цифр и дефисов (не менее 6 символов).</p>
+                        <p>Не исполняйте большие буквы! Все большие буквы сохраняются как маленькие!</p>
+                    </div>
+                </form>
+            </div>
+            <div class="line">
+                <span class="l1"></span>
+                <span class="l2"></span>
+                <span class="l3"></span>
+                <span class="l4"></span>
+            </div>
+        </div>
+    </div>
+
+</div>

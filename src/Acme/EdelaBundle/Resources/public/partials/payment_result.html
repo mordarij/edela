@@ -1,0 +1,41 @@
+<div class="main" ng-show="!loading" ng-class="mainClass">
+
+
+    <div class="payment-adopted-pop-up" ng-if="result=='success'">
+        <div class="box">
+            <h2>Платеж был проведен.</h2>
+            <ul>
+                <li>Название платежа <span ng-bind="payment.title"></span></li>
+                <li ng-if="payment.is_processed">Дата и время оплаты <span ng-bind="payment.processed_at"></span></li>
+                <li>Стоимость <span ng-bind-template="{{ payment.sum }} руб."></span></li>
+            </ul>
+            <div class="link-row">
+                Все детали платежа - в вашей <a href="#/profile/payment/history">истории</a>.
+            </div>
+        </div>
+        <div class="box-info">
+            <h3>Есть вопросы?</h3>
+            <p>Загляните в раздел &laquo;<a href="#">Помощь</a>&raquo;. Или написать <a href="#">нашей службе</a>
+                поддержки.</p>
+        </div>
+    </div>
+
+
+    <div class="payment-adopted-pop-up payment-no-failure" ng-if="result=='fail'">
+        <div class="box">
+            <h2>Платеж не был проведен.</h2>
+            <div class="box-text">
+                <p>Проверьте правильность введенных вами данных.</p>
+                <p>И повторите попытку.</p>
+            </div>
+        </div>
+        <div class="box-info">
+            <h3>Есть вопросы?</h3>
+            <p>Загляните в раздел &laquo;<a href="#">Помощь</a>&raquo;. Или написать <a href="#">нашей службе</a>
+                поддержки.</p>
+        </div>
+    </div>
+
+
+
+</div>

@@ -1,0 +1,180 @@
+<div class="main" ng-show="!loading" ng-class="mainClass">
+<div class="content">
+<div class="filter">
+    <dl>
+        <dt>Выполнили (<span ng-bind="(users|filter:progressed).length"></span>/{{ users.length }}):</dt>
+        <dd><a href="javascript:" ng-repeat="user in users|filter:progressed" ng-bind-template="{{ user.user.fullname }}, "></a></dd>
+    </dl>
+</div>
+<div class="collaboration">
+    <div class="box" ng-repeat="user in users" ng-class="{solving:user.progress}">
+        <h3><a href="javascript:" ng-bind="user.user.fullname"></a></h3>
+        <img src="{{ user.user.photo }}" width="150" height="160">
+        <div class="box-text">
+            <div class="img-runtime">
+                <div class="img-runtime-holder">
+                    <span><img src="/bundles/acmeedela/images/img1.png"><img class="performance" src="/bundles/acmeedela/images/img1-performance.png"><img class="hover" src="/bundles/acmeedela/images/img1-hover.png"></span>
+                </div>
+            </div>
+        </div>
+        <div class="progresbar-holder">
+            <div class="progresbar">
+                <span style=" width: 30%"></span>
+            </div>
+            <div class="box-note-progres"><span class="btn-note-progres">35%</span></div>
+        </div>
+    </div>
+    <div class="box add-friand">
+        <a href="#"><i class="icon-icon-user-add"></i><span>+ Пригласить
+							<br>друга</span>
+        </a>
+    </div>
+</div>
+<div class="comment">
+    <form action="#">
+        <fieldset>
+            <img width="50" height="50" src="images/img5.jpg">
+            <div class="content-holder">
+                <textarea rows="1" cols="1"></textarea>
+                <div class="row">
+                    <button class="btn btn-blue" type="button">Отправить</button>
+                    <button class="btn btn-white" type="reset">Отмена</button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>
+<div class="comments-list">
+    <div class="comment-item">
+        <div class="comment-item-holder">
+            <img width="50" height="50" src="images/img7.jpg">
+            <div class="comment-item-text">
+                <h3><a href="#">Татьяна Тарасова</a></h3>
+                <p>Очень легкий и хороший проект, мне понравилось</p>
+                <ul class="comment-info">
+                    <li><em class="date">4 фев в 7:01</em></li>
+                    <li><a href="#">Ответить</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="comments-list">
+            <div class="comment-item">
+                <div class="comment-item-holder">
+                    <img width="50" height="50" src="images/img7.jpg">
+                    <div class="comment-item-text">
+                        <h3><a href="#">Татьяна Тарасова</a></h3>
+                        <p>Очень легкий и хороший проект, мне понравилось</p>
+                        <ul class="comment-info">
+                            <li><em class="date">4 фев в 7:01</em></li>
+                            <li><a href="#">Ответить</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="comment-item">
+                <div class="comment-item-holder">
+                    <img width="50" height="50" src="images/img7.jpg">
+                    <div class="comment-item-text">
+                        <h3><a href="#">Татьяна Тарасова</a></h3>
+                        <p>Очень легкий и хороший проект, мне понравилось</p>
+                        <ul class="comment-info">
+                            <li><em class="date">4 фев в 7:01</em></li>
+                            <li><a href="#">Ответить</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="comment-item">
+        <div class="comment-item-holder">
+            <img width="50" height="50" src="images/img7.jpg">
+            <div class="comment-item-text">
+                <h3><a href="#">Татьяна Тарасова</a></h3>
+                <p>Очень легкий и хороший проект, мне понравилось</p>
+                <ul class="comment-info">
+                    <li><em class="date">4 фев в 7:01</em></li>
+                    <li><a href="#">Ответить</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<div class="adjournment-proceedings" ng-show="!loading">
+    <div class="holder">
+        <div class="heading">
+            Отложенные дела<i class="icons icons-question"></i>
+            <a href="javascript:void(0)" ng-click="showDelayed=!showDelayed" class="open"><span>Развернуть</span><em>Свернуть</em></a>
+        </div>
+        <div class="adjournment-proceedings-content" ng-show="showDelayed">
+            <div class="box-holder">
+                <div class="box" ng-repeat="action in actions|filterDelayed:true">
+                    <h3>{{ action.title }}</h3>
+
+                    <div class="box-content">
+                        <span class="play icon-play" ng-click="runDelayed(action)">
+                            <span class="tooltip"><span><span><span><span>Начать выполнения</span></span></span></span></span>
+                        </span>
+
+                        <div class="row-nav">
+                            <a href="javascript:void(0)" class="settings-mission" ng-click="action.editPopup($event)">Настройки</a>
+                            <a href="javascript:void(0)" class="mark icon-uniE60F">
+                                <span class="tooltip"><span><span><span><span>Назначить дату <br> начать выполнения</span></span></span></span></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="box">
+                    <h3></h3>
+
+                    <div class="box-new-daily-deal-holder">
+                        <div class="box-content box-case">
+                            <a href="javascript:void(0)" ng-click="display.showNew=true" class="add-case"><span>+ Добавить отложенное<br/>ежедневное дело</span></a>
+                            <a href="#actions/samples?goal={{ goal }}" class="examples-cases">Примеры ежедневных дел</a>
+                        </div>
+                        <div class="box-new-daily-deal" ng-class="{display:display.showNew}">
+                            <form ng-submit="addAction(true)">
+                                <p>Новое ежедневное дело</p>
+                                <textarea rows="1" cols="1" ng-model="newAction.title" placeholder="Название..."></textarea>
+
+                                <div class="row" style="padding: 0">
+                                    <button type="submit" class="btn">Добавить</button>
+                                    <button type="reset" ng-click="display.showNew=false" class="btn btn-white">Отмена</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="display: none">
+    <!-- pop-up-history-problems -->
+    <div class="pop-up pop-up-history-problems" id="pop-up-history">
+        <div class="heading">
+            <h3>История задач</h3>
+        </div>
+        <div class="box-history-problems">
+            <ul>
+                <li class="item" ng-repeat="task in doneTasks"><span ng-bind="task.title"></span><em class="date" ng-bind="task.date"></em></li>
+            </ul>
+        </div>
+        <div class="history-problems-nav" ng-if="false">
+            <a href="#" class="btn-prev">Раньше</a>
+            <a href="#" class="btn-next">Позже</a>
+        </div>
+    </div>
+</div>
+<div class="pop-up pop-up-history-problems pop-setting-goals" ng-class="{briefly:settingsBriefly}"
+     id="pop-up-setting-goals"
+     style=" position: absolute; left: 50%;  margin-left: -250px; z-index: 555; top: 0; /*display: none;*/"
+     ng-show="showEditPopup" ng-controller="ActionsEditController"
+     ng-include="'/bundles/acmeedela/partials/blocks/action-edit-popup.html'"></div>
+<div class="pop-up pop-up-history-problems pop-setting-goals add-pop-setting-goals" id="add-pop-setting-goals1"
+     style=" position: absolute; left: 50%;  margin-left: -250px; z-index: 555; top: 0;"
+     ng-show="showEditPopup" ng-controller="TasksEditController"
+     ng-include="'/bundles/acmeedela/partials/blocks/task-edit-popup.html'"></div>

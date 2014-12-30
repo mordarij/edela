@@ -1,0 +1,118 @@
+<div class="main" ng-show="!loading">
+    <div class="two-columns">
+        <div class="content">
+            <form ng-submit="editGoal()" class="upload-img-box">
+                <fieldset>
+                    <div class="contaner">
+                        <div class="heading">
+                            <a href="#help/2" class="link">Как правильно сформулировать цель?</a>
+                            <h2>Название цели <a href="#" class="icon-uniE60A"></a></h2>
+                        </div>
+                        <div class="row">
+                            <input type="text" class="form-input" placeholder="Название цели" ng-model="goal.name">
+                        </div>
+                    </div>
+                    <div class="contaner">
+                        <div class="heading">
+                            <h2>Визуализация цели <a href="#" class="icon-uniE60A"></a></h2>
+                        </div>
+                        <div class="img-upload-row">
+                            <div class="img-upload" style="position: relative;">
+                                <input type="file" ng-file-select style="position: absolute; top:0; left: 0; width: 100%; height:100%; opacity: 0;" />
+                                <img src="/bundles/acmeedela/images/img-upload.jpg" ng-file-drop ng-if="goal.images.length < 1" width="478" height="319" >
+                                <img src="/{{ goal.images[0].webPath }}" ng-if="goal.images.length > 0" width="478" height="319" >
+                            </div>
+                        </div>
+                        <div class="img-upload-list">
+                            <ul>
+                                <li ng-repeat="image in goal.images" ng-if="!$first"><img src="/{{ image.webPath }}" width="200" height="135" ></li>
+                                <li ng-if="goal.images.length < 4">
+                                    <div class="box-content box-case" ng-file-drop>
+                                        <a class="add-case" href="#"><span>+ Добавить<br>фотографию</span></a>
+                                    </div>
+                                </li>
+                                <li ng-if="goal.images.length < 3">
+                                    <div class="box-content box-case" ng-file-drop>
+                                        <a class="add-case" href="#"><span>+ Добавить<br>фотографию</span></a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="btn-row">
+                        <button type="submit" class="btn">{{ goal.isSaved ? 'Сохранить' :'Добавить задачи для выполнения' }}</button>
+                        <button type="button" class="btn btn-white">Отмена</button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <aside>
+            <div class="settin-nav">
+                <form action="#">
+                    <fieldset>
+                        <div class="box">
+                            <div class="heading">
+                                <h3>Приватность <a href="#" class="icon-uniE60A"></a></h3>
+                            </div>
+                            <ul class="privacy-list">
+                                <li class="radio">
+                                    <input id="see" type="radio" checked="checked" name="privacy" ng-model="goal.isPrivate" ng-value="false">
+                                    <label for="see" ng-class="{focus:!goal.isPrivate}">
+                                        <i class="icon-see"></i>Сделать видимым
+                                    </label>
+                                </li>
+                                <li class="radio">
+                                    <input id="nosee" type="radio" name="privacy" ng-model="goal.isPrivate" ng-value="true">
+                                    <label for="nosee" ng-class="{focus:goal.isPrivate}">
+                                        <i class="icon-nosee"></i>Скрыть видимость
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="box">
+                            <div class="heading">
+                                <h3>Важность <a href="#" class="icon-uniE60A"></a></h3>
+                            </div>
+                            <button type="button" class="btn" ng-class="{'btn-red':goal.isImportant, 'btn-white':!goal.isImportant}"
+                                    ng-click="goal.isImportant=!goal.isImportant">Важное
+                            </button>
+                        </div>
+                        <div class="box box-slideshow">
+                            <div class="heading">
+                                <h3>Слайд шоу <a href="#" class="icon-uniE60A"></a></h3>
+                            </div>
+                            <div class="row checkbox">
+                                <input id="include-slideshow" type="checkbox" ng-model="goal.isSlideshow">
+                                <label for="include-slideshow">Слайдшоу фотографий через каждые:</label>
+                            </div>
+                            <select class="nya-selectpicker" ng-model="goal.slideshowInterval" data-container="body" ng-disabled="!goal.isSlideshow">
+                                <option value="10">10 секунд</option>
+                                <option value="30">30 секунд</option>
+                                <option value="60">1 минута</option>
+                                <option value="120">2 минуты</option>
+                            </select>
+                        </div>
+                        <div class="box">
+                            <a href="javascript:" ng-click="deleteGoal()" class="btn btn-red">Удалить</a>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </aside>
+    </div>
+    <div class="box-social">
+        <p>Поделиться своими целями </p>
+        <div class="social-list">
+            <div class="social-list-holder">
+                <ul>
+                    <li><a class="vk" href="#">vk</a></li>
+                    <li><a class="fb" href="#">fb</a></li>
+                    <li><a class="google-plus" href="#">google plus</a></li>
+                    <li><a class="twitter" href="#">twitter</a></li>
+                    <li><a class="ok" href="#">ok</a></li>
+                    <li><a class="ya" href="#">ya</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

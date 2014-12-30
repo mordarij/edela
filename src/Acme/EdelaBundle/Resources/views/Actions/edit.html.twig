@@ -1,0 +1,84 @@
+{% extends "AcmeEdelaBundle::base_layout.html.twig" %}
+{#{% form_theme form _self %}#}
+{#{% use 'AcmeEdelaBundle:Form:fields.html.twig' %}#}
+{% block content %}
+{{ form_start(form) }}
+    {{ form_row(form.action.goal) }}
+    {{ form_row(form.action.title) }}
+    {{ form_row(form.periodicity) }}
+    {{ form_row(form.periodicity_interval) }}
+    {{ form_row(form.action.repeatAmount) }}
+    <ul class="subactions"  data-prototype="{{ form_widget(form.action.subactions.vars.prototype)|e }}">
+        {% for subaction in form.action.subactions %}
+            <li>{{ form_row(subaction.title) }}</li>
+        {% endfor %}
+    </ul>
+    {{ form_row(form.isPrivate) }}
+    {{ form_row(form.add) }}
+    {{ form_row(form._token) }}
+{#{{ form_end(form) }}#}
+    <script>
+        var $collectionHolder;
+
+        // setup an "add a tag" link
+        var $addTagLink = $('<a href="#" class="add_tag_link">Add a subaction</a>');
+        var $newLinkLi = $('<li></li>').append($addTagLink);
+
+        $(document).ready(function() {
+            // Get the ul that holds the collection of tags
+            $collectionHolder = $('ul.subactions');
+
+            // add the "add a tag" anchor and li to the tags ul
+            $collectionHolder.append($newLinkLi);
+
+            // count the current form inputs we have (e.g. 2), use that as the new
+            // index when inserting a new item (e.g. 2)
+            $collectionHolder.data('index', $collectionHolder.find(':input').length);
+
+            $collectionHolder.find('li').each(function() {
+                addNotificationFormDeleteLink($(this));
+            });
+
+            $addTagLink.on('click', function(e) {
+                // prevent the link from creating a "#" on the URL
+                e.preventDefault();
+
+                // add a new tag form (see next code block)
+                addNotificationForm($collectionHolder, $newLinkLi);
+            });
+        });
+
+        function addNotificationForm($collectionHolder, $newLinkLi) {
+            // Get the data-prototype explained earlier
+            var prototype = $collectionHolder.data('prototype');
+
+            // get the new index
+            var index = $collectionHolder.data('index');
+
+            // Replace '__name__' in the prototype's HTML to
+            // instead be a number based on how many items we have
+            var newForm = prototype.replace(/__name__/g, index);
+
+            // increase the index with one for the next item
+            $collectionHolder.data('index', index + 1);
+
+            // Display the form in the page in an li, before the "Add a tag" link li
+            var $newFormLi = $('<li>').append(newForm);
+            $newLinkLi.before($newFormLi);
+            addNotificationFormDeleteLink($newFormLi);
+        }
+
+        function addNotificationFormDeleteLink($notificationFormLi) {
+            var $removeFormA = $('<a href="#">delete</a>');
+            $notificationFormLi.append($removeFormA);
+
+            $removeFormA.on('click', function(e) {
+                // prevent the link from creating a "#" on the URL
+                e.preventDefault();
+
+                // remove the li for the tag form
+                $notificationFormLi.remove();
+            });
+        }
+    </script>
+{% endblock %}

@@ -1,0 +1,439 @@
+<div class="main" ng-show="!loading" ng-class="mainClass">
+<div class="content">
+<div class="lk-holder" shapeshift=".btn-move" ng-cloak>
+<div class="box box-user-photo">
+    <img src="{{ data.profile.photo ? data.profile.photo : '/bundles/acmeedela/images/img-none1.jpg' }}" width="309"
+         height="334"/>
+    <a href="javascript:" class="upload-picture" ng-file-select><i class="icon-icon-upload-picture">&nbsp;</i>Загрузить новую фотографию</a>
+    <input type="file" ng-file-select class="upload-picture-input" />
+</div>
+
+<div class="box-move" ng-show="(items|filter:{key:'user'})[0].active">
+    <div class="box box-form">
+        <h3>Личные даные</h3>
+
+        <form action="#">
+            <fieldset>
+                <div class="row">
+                    <label for="fullname">Имя</label>
+                    <input id="fullname" type="text" placeholder="Имя Фамилия" ng-blur="saveProfileData()"
+                           class="form-input"
+                           ng-model="data.profile.fullname">
+                </div>
+                <div class="row">
+                    <label for="email">e-mail</label>
+                    <input id="email" type="email" placeholder="solje@mail.ru" class="form-input"
+                           ng-model="data.profile.email" ng-blur="saveProfileData()">
+                </div>
+                <div class="row">
+                    <label for="phone">Телефон</label>
+                    <input id="phone" type="tel" placeholder="8 (953) 777-88-97" class="form-input"
+                           ng-model="data.profile.phone" phonenumber ng-blur="saveProfileData()">
+                </div>
+                <div class="row row-birthday">
+                    <label for="birthday">День<br> рождения</label>
+                    <quick-datepicker ng-model='data.profile.birthday' disable-timepicker='true'
+                                      icon-class='fa fa-calendar'
+                                      label-format='dd/MM/yyyy' placeholder="Установить дату"
+                                      on-change="saveProfileData()"></quick-datepicker>
+                    <div class="select-holder" ng-if="false">
+                        <select id="birthday" class="selectpicker addselectpicker">
+                            <option>14</option>
+                            <option>14</option>
+                            <option>14</option>
+                        </select>
+                        <select class="selectpicker addselectpicker">
+                            <option>18</option>
+                            <option>18</option>
+                            <option>14</option>
+                        </select>
+                        <select class="selectpicker">
+                            <option>1988</option>
+                            <option>1988</option>
+                            <option>1988</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <label for="language">Язык</label>
+                    <select id="language" class="nya-selectpicker" ng-model="data.profile.language"
+                            data-container="body" ng-options="language.id as language.title for language in languages"
+                            ng-blur="saveProfileData()">
+                    </select>
+                </div>
+                <div class="row row-timezone">
+                    <label for="timezone">Часовой<br> пояс</label>
+                    <select id="timezone" class="nya-selectpicker" ng-model="data.profile.timezone"
+                            data-container="body" ng-options="timezone.id as timezone.title for timezone in timezones"
+                            ng-change="saveProfileData()">
+                    </select>
+                </div>
+            </fieldset>
+        </form>
+        <span class="btn-move"></span>
+    </div>
+</div>
+
+<div class="box-move" ng-show="(items|filter:{key:'user'})[0].active">
+    <div class="box box-form change-password">
+        <h3>Изменить пароль</h3>
+
+
+        <form action="#">
+            <fieldset>
+                <div class="current-password">
+                    <div class="row">
+                        <label for="current-password">Текущий</label>
+                        <input id="current-password" type="password" placeholder="" class="form-input"
+                               ng-model="password.old" ng-class="{error: password.old_error}">
+                    </div>
+                </div>
+                <div class="row">
+                    <label for="new-password">Новый</label>
+                    <input id="new-password" type="password" placeholder="" class="form-input"
+                           ng-model="password.new_one" ng-class="{error: password.new_error}">
+                </div>
+                <div class="row">
+                    <label for="repeat-password">Повторите</label>
+                    <input id="repeat-password" type="password" placeholder="" class="form-input"
+                           ng-model="password.new_two" ng-class="{error: password.new_error}">
+                </div>
+                <div class="btn-row">
+                    <button type="button" class="btn" ng-click="changePassword()">Сохранить</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    <span class="btn-move"></span>
+</div>
+
+<div class="box-move" ng-show="(items|filter:{key:'user'})[0].active" ng-cloak>
+    <div class="box box-level">
+        <h3>Уровень</h3>
+
+        <div class="progres-detal"><span ng-bind="user.getProfile().total_exp"></span></div>
+        <div class="progresbar">
+            <span style=" width: {{ 100 * (user.getProfile().total_exp - user.getLevel().start_exp) / (user.getNextLevel().start_exp - user.getLevel().start_exp) }}%"></span>
+        </div>
+        <p>Уровни открывают вам новые возможности и привилегии в работе с сервисом</p>
+
+        <div class="level-detal">
+            <div class="col col1">
+                <div class="col-holder">
+                    <span>Уровень <span ng-bind="user.getLevel().number"></span></span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="col-holder">
+                    <span ng-bind="user.getNextLevel().start_exp - user.getProfile().total_exp"></span>
+                    опыта до следующего уровня
+                </div>
+            </div>
+        </div>
+        <span class="btn-move"></span>
+    </div>
+</div>
+
+<div class="box-move" ng-show="(items|filter:{key:'privacy'})[0].active" style="height:702px">
+    <div class="box box-form box-form-privacy">
+        <h3>Приватность</h3>
+
+        <form action="#">
+            <fieldset>
+                <div class="row">
+                    <label for="name"><strong>Список друзей</strong> видим для:</label>
+                    <select class="nya-selectpicker" ng-model="data.privacy.friendlist" data-container="body">
+                        <option>Только друзья</option>
+                        <option>Все друзья</option>
+                        <option>Не кто</option>
+                    </select>
+                </div>
+                <div class="row">
+                    <label for="name"><strong>Список задач</strong> видим для:</label>
+                    <select class="nya-selectpicker" ng-model="data.privacy.tasklist" data-container="body">
+                        <option>Только друзья</option>
+                        <option>Все друзья</option>
+                        <option>Не кто</option>
+                    </select>
+                </div>
+                <div class="row">
+                    <label for="name"><strong>Мои цели</strong> видимы для:</label>
+                    <select class="nya-selectpicker" ng-model="data.privacy.goallist" data-container="body">
+                        <option>Только друзья</option>
+                        <option>Все друзья</option>
+                        <option>Не кто</option>
+                    </select>
+                </div>
+                <div class="row">
+                    <label for="name"><strong>Личные данные</strong> видимы для:</label>
+                    <select  class="nya-selectpicker" ng-model="data.privacy.profiledata" data-container="body">
+                        <option>Только друзья</option>
+                        <option>Все друзья</option>
+                        <option>Не кто</option>
+                    </select>
+                </div>
+                <div class="row">
+                    <label for="name">Кто может писать мне <strong>личные сообщения</strong></label>
+                    <select class="nya-selectpicker" ng-model="data.privacy.im" data-container="body">
+                        <option>Только друзья</option>
+                        <option>Все друзья</option>
+                        <option>Не кто</option>
+                    </select>
+                </div>
+                <div class="row">
+                    <label for="name">Кто может <strong>оставлять комменатрии</strong></label>
+                    <select class="nya-selectpicker" ng-model="data.privacy.comments" data-container="body">
+                        <option>Только друзья</option>
+                        <option>Все друзья</option>
+                        <option>Не кто</option>
+                    </select>
+                </div>
+                <div class="row row-checkbox checkbox">
+                    <input id="on-comments-goals" type="checkbox" checked="checked">
+                    <label for="on-comments-goals">Включить возможность комментировать <strong>ваши
+                        цели</strong></label>
+                </div>
+                <div class="row row-checkbox checkbox">
+                    <input id="on-comments-plan-day" type="checkbox" checked="checked">
+                    <label for="on-comments-plan-day">Включить возможность комментировать <strong>ваш план дня</strong></label>
+                </div>
+            </fieldset>
+        </form>
+        <span class="btn-move"></span>
+    </div>
+</div>
+
+<div class="box-move" ng-show="(items|filter:{key:'user'})[0].active">
+    <div class="box box-history-daily">
+        <h3>История ежедневных дел</h3>
+
+        <div class="item-holder">
+            <div class="item">
+                <div class="row">
+                    <a href="#" class="clear-list">Очистить список</a>
+                    <h4>Завершенные <a href="#" class="icons-question icon-uniE600"></a></h4>
+                </div>
+                <div class="list-history">
+                    <div class="row" ng-if="false">
+                        <div class="form-input">Отжиматься</div>
+                        <button type="button" class="btn-del icon-icon-close"></button>
+                        <button type="button" class="btn-update icon-icon-update"></button>
+                    </div>
+                </div>
+                <div class="btn-holder">
+                    <button type="button" class="btn btn-white">Показать все завершонные</button>
+                </div>
+            </div>
+            <div class="item">
+                <div class="row">
+                    <a href="#" class="clear-list">Очистить список</a>
+                    <h4>Удаленные <a href="#" class="icons-question icon-uniE600"></a></h4>
+                </div>
+                <div class="list-history removed-list-history">
+                    <div class="row" ng-if="false">
+                        <div class="form-input">Отжиматься</div>
+                        <button type="button" class="btn-update icon-icon-update"></button>
+                    </div>
+                </div>
+                <div class="btn-holder">
+                    <button type="button" class="btn btn-white">Показать все удаленные</button>
+                </div>
+            </div>
+        </div>
+        <span class="btn-move"></span>
+    </div>
+</div>
+
+<div class="box-move" ng-show="(items|filter:{key:'balance'})[0].active">
+    <div class="box box-balance">
+        <h3><a href="#/profile/payment/history" class="link">История оплаты</a>Баланс</h3>
+
+        <div class="row1">
+            <div class="balance-detal">
+                <div class="col">
+                    <span class="money">Деньги</span>
+                    <strong ng-bind="profile.bill"></strong>
+                </div>
+                <div class="col">
+                    <span class="experience">Опыт</span>
+                    <strong ng-bind="profile.exp"></strong>
+                </div>
+            </div>
+        </div>
+        <form action="#">
+            <fieldset>
+                <div class="fill-up-balance row1">
+                    <h3><span>Пополнить баланс</span></h3>
+
+                    <div class="row">
+                        <input type="text" placeholder="" ng-model="rechargeAmount" class="form-input">
+                        <button type="button" ng-click="recharge(rechargeAmount)" class="btn btn-yellow">Пополнить</button>
+                    </div>
+                </div>
+                <div class="exchange">
+                    <h3><span>Обменять</span></h3>
+
+                    <div class="row">
+                        <input type="text" placeholder="" class="form-input">
+                        <button type="button" class="btn">Обменять</button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+        <div class="notes">Обмен производиться по ставке 1 к 2<br>(100 рублей - это 200 опыта)</div>
+        <span class="btn-move"></span>
+    </div>
+</div>
+
+<div class="box-move" ng-show="(items|filter:{key:'balance'})[0].active">
+    <div class="box box-noticesms">
+        <h3>SMS оповещения</h3>
+
+        <form action="#">
+            <fieldset>
+                <div class="row row-checkbox checkbox">
+                    <input id="on-noticesms" type="checkbox" checked="checked">
+                    <label for="on-noticesms">Получать уведомления через SMS</label>
+                </div>
+                <div class="number-notifications">
+                    <strong>0</strong>
+                    Оставшееся количество SMS уведомлений
+                </div>
+                <ul class="list-order">
+                    <li>
+                        <button type="submit" class="btn">100 руб</button>
+                        <strong>100</strong> SMS
+                    </li>
+                    <li>
+                        <button type="submit" class="btn">160 руб</button>
+                        <strong>200</strong> SMS
+                        <span>Скидка 20%</span>
+                    </li>
+                    <li>
+                        <button type="submit" class="btn">250 руб</button>
+                        <strong>500</strong> SMS
+                        <span>Скидка 50%</span>
+                    </li>
+                </ul>
+                <div class="business-sms-notification">
+                    <p>Ежедневные дела с SMS уведомлением</p>
+
+                    <div class="row" ng-repeat="action in data.smsactions">
+                        <div class="form-input">Отжиматься</div>
+                        <button type="button" class="btn-del">X</button>
+                    </div>
+
+                </div>
+                <div class="fg">
+                    <button type="button" class="btn btn-yellow">Добавить дело в SMS уведомления</button>
+                </div>
+            </fieldset>
+        </form>
+        <span class="btn-move"></span>
+    </div>
+</div>
+
+
+<div class="box-move" ng-show="(items|filter:{key:'additional'})[0].active">
+    <div class="box support-project">
+        <h3>Поддержать проект</h3>
+
+        <p>Если Вам понравился сайт, Вы можете помочь его дальнейшему развитию.</p>
+
+        <form action="#">
+            <fieldset>
+                <input type="text" placeholder="300 руб." class="form-input">
+                <span class="logo-money-yandex">money yandex</span>
+                <button type="submit" class="btn">На развитие сайта</button>
+            </fieldset>
+        </form>
+        <span class="btn-move"></span>
+    </div>
+</div>
+<div class="box-move" ng-show="(items|filter:{key:'additional'})[0].active">
+    <div class="box invite-friend">
+        <h3>Приглаисть друга</h3>
+
+        <p>У вас есть возможность получать 50% всех потраченных средств на проекте вашим другом!</p>
+
+        <div class="btn-row">
+            <button type="submit" class="btn btn-yellow" ng-click="showPopup()">Пригласить</button>
+        </div>
+        <span class="btn-move"></span>
+    </div>
+</div>
+
+
+<div class="box-move" ng-show="(items|filter:{key:'additional'})[0].active">
+    <div class="box subscription" ng-class="{disabled:!data.subscribe.enabled}">
+        <h3>Подписка</h3>
+
+        <p>Если вы согласны, мы будем иногда присылать новости нашего сервиса на ваш электронный ящик</p>
+
+        <div class="btn-row">
+            <button type="button" ng-click="data.subscribe.enabled=!data.subscribe.enabled" class="btn"
+                    ng-class="{'btn-green':!data.subscribe.enabled, 'btn-white':data.subscribe.enabled}"
+                    ng-bind-template="{{ data.subscribe.enabled ? 'Отключить' : 'Включить' }}">Включить
+            </button>
+        </div>
+        <span class="btn-move"></span>
+    </div>
+</div>
+
+<div class="box-move" ng-show="(items|filter:{key:'additional'})[0].active" ng-if="false">
+    <div class="box add-box">
+        <p>
+            Сбросить все данные
+            <br/>
+            и начать все заново!
+        </p>
+
+        <div class="btn-row">
+            <button type="button" class="btn btn-white">Сбросить</button>
+        </div>
+        <span class="btn-move"></span>
+    </div>
+</div>
+<div class="box-move" ng-show="(items|filter:{key:'additional'})[0].active">
+    <div class="box add-box">
+        <p>Удалить свой аккаунт</p>
+
+        <div class="btn-row">
+            <button type="button" class="btn btn-white">Удалить</button>
+        </div>
+        <span class="btn-move"></span>
+    </div>
+</div>
+
+</div>
+</div>
+</div>
+<div class="shadow" style="position: absolute; width: 100%; height: 100%; background: #000000; opacity: .3; top: 0;left: 0; z-index: 555;" ng-show="invite.popup"></div>
+<div class="pop-up pop-up-add-friend" ng-show="invite.popup" id="pop-up-add-friend1"
+     style=" position: absolute; left: 50%;  margin-left: -250px; z-index: 555; top: 0;">
+    <h3>Пригласить друга</h3>
+    <form ng-submit="sendInvite()">
+        <fieldset>
+            <div class="row add-row">
+                <label for="from"><strong>От кого</strong></label>
+                <input id="from" type="text" ng-model="invite.from">
+            </div>
+            <div class="row">
+                <label for="name"><span class="icon icon-name"></span>Имя друга</label>
+                <input id="name" type="text" ng-model="invite.name">
+            </div>
+            <div class="row">
+                <label for="phone"><span class="icon icon-phone"></span>Телефон друга</label>
+                <input id="phone" type="tel" ng-model="invite.phone">
+            </div>
+            <div class="row">
+                <label for="mail"><span class="icon icon-mail"></span>Почта друга</label>
+                <input id="mail" type="email" ng-model="invite.email">
+            </div>
+            <div class="btn-row">
+                <button class="btn btn-blue" type="button" ng-click="sendInvite()">Отправить</button>
+                <button class="btn btn-white" type="button" ng-click="invite.popup=false">Отмена</button>
+            </div>
+        </fieldset>
+    </form>
+</div>

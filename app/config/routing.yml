@@ -1,0 +1,25 @@
+#acme_admin:
+#    resource: "@AcmeAdminBundle/Resources/config/routing.yml"
+#    prefix:   /admin
+
+admin:
+    resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
+    prefix: /admin
+
+_sonata_admin:
+    resource: .
+    type: sonata_admin
+    prefix: /admin
+
+acme_user:
+    resource: "@AcmeUserBundle/Resources/config/routing.yml"
+    prefix:   /user
+
+acme_edela:
+    resource: "@AcmeEdelaBundle/Resources/config/routing.yml"
+    prefix:   /
+
+acme_api:
+    type: rest
+    resource: "@AcmeApiBundle/Resources/config/routing_rest.yml"
+    prefix: /api

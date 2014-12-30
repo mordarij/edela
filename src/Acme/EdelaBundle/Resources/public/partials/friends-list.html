@@ -1,0 +1,48 @@
+<div class="main" ng-show="!loading" ng-class="mainClass">
+    <div class="content">
+        <div class="friands-holder">
+            <div class="box" ng-repeat="friend in friends" ng-class="{'friand-online':friend.user.is_online}">
+                <span class="status"><span ng-if="friend.user.is_online">Online</span></span>
+                <img ng-click="gotoUser(friend.user.id)" src="/bundles/acmeedela/images/img-none1.jpg" width="150" height="160">
+
+                <div class="box-text">
+                    <h3><span ng-bind="friend.user.fullname"></span></h3>
+                    <a href="#" class="btn">Написать</a>
+                </div>
+                <a href="#" class="close"></a>
+            </div>
+            <div class="box add-friand">
+                <a href="javascript:" ng-click="showPopup()"><i class="icon-user"></i><span>+ Пригласить<br>друга</span></a>
+            </div>
+        </div>
+    </div>
+
+</div>
+        <div class="shadow" style="position: absolute; width: 100%; height: 100%; background: #000000; opacity: .3; top: 0;left: 0; z-index: 555;" ng-show="invite.popup"></div>
+<div class="pop-up pop-up-add-friend" ng-show="invite.popup" id="pop-up-add-friend1" style=" position: absolute; left: 50%;  margin-left: -250px; z-index: 555; top: 0;">
+    <h3>Пригласить друга</h3>
+    <form ng-submit="sendInvite()">
+        <fieldset>
+            <div class="row add-row">
+                <label for="from"><strong>От кого</strong></label>
+                <input id="from" type="text" ng-model="invite.from">
+            </div>
+            <div class="row">
+                <label for="name"><span class="icon icon-name"></span>Имя друга</label>
+                <input id="name" type="text" ng-model="invite.name">
+            </div>
+            <div class="row">
+                <label for="phone"><span class="icon icon-phone"></span>Телефон друга</label>
+                <input id="phone" type="tel" ng-model="invite.phone">
+            </div>
+            <div class="row">
+                <label for="mail"><span class="icon icon-mail"></span>Почта друга</label>
+                <input id="mail" type="email" ng-model="invite.email">
+            </div>
+            <div class="btn-row">
+                <button class="btn btn-blue" type="button" ng-click="sendInvite()">Отправить</button>
+                <button class="btn btn-white" type="button" ng-click="invite.popup=false">Отмена</button>
+            </div>
+        </fieldset>
+    </form>
+</div>

@@ -1,0 +1,15 @@
+{% extends "AcmeEdelaBundle::base_layout.html.twig" %}
+
+
+{% block content %}
+    {% if form %}
+        {% form_theme form 'AcmeEdelaBundle:Form:fields.html.twig' %}
+        <form role="form" class="form-inline" method="post">
+            {{ form_widget(form) }}
+            <button type="submit" class="btn btn-default">{{ 'goal.new.add'|trans }}</button>
+        </form>
+    {% endif %}
+    {% for goal in goals %}
+        {{ goal.getName }}
+    {% endfor %}
+{% endblock %}

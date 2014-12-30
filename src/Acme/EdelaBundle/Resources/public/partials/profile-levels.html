@@ -1,0 +1,80 @@
+<div class="main" ng-show="!loading" ng-class="mainClass">
+
+    <div class="content">
+        <h2>Мой уровень</h2>
+
+        <div class="levels">
+
+            <div class="tr-heading">
+                <div class="col1"></div>
+                <div class="col2">Текущий уровень</div>
+                <div class="col3">Текущее количество опыта</div>
+                <div class="col4">До следующего уровня</div>
+                <div class="col5">Загрузка следующего уровня</div>
+            </div>
+
+            <div class="tr initial-level">
+                <div class="col1">
+                    <img src="{{user.getLevel().picture}}">
+                </div>
+                <div class="col2"><strong><a href="#" ng-bind="user.getLevel().title">Уровень <span
+                        ng-bind="user.getLevel().number"></span></a></strong></div>
+                <div class="col3"><span ng-bind="profile.total_exp"></span> <span class="icon-uniE60D"></span></div>
+                <div class="col4"><span ng-bind="user.getNextLevel().start_exp - profile.total_exp"></span> <span
+                        class="icon-uniE60D"></span></div>
+                <div class="col5">
+                    <div class="progress-bar">
+                        <span style="width: {{ (profile.total_exp - user.getLevel().start_exp)/(user.getNextLevel().start_exp - user.getLevel().start_exp)*100 }}%"></span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <h2>Все уровни</h2>
+
+        <div class="levels">
+            <div class="tr-heading">
+                <div class="col1"></div>
+                <div class="col2">Уровени</div>
+                <div class="col3">Суммарное количество опыта</div>
+                <div class="col4">Количество доступных инструментов</div>
+                <div class="col5">Процент достижения</div>
+            </div>
+            <div class="tr" ng-repeat="level in levels|orderBy:start_exp"
+                 ng-class="{ 'initial-level':profile.total_exp>=level.start_exp }">
+                <div class="col1">
+                    <img src="/bundles/acmeedela/images/icon50.png">
+                </div>
+                <div class="col2"><strong><a href="#" ng-bind="level.title">Уровень <span ng-bind="level.number"></span></a></strong>
+                </div>
+                <div class="col3"><span ng-bind="level.start_exp"></span><span ng-if="levels[$index + 1]"
+                                                                               ng-bind-template=" - {{levels[$index + 1].start_exp - 1}}"></span><span
+                        ng-if="!levels[$index+1]">+</span> <span class="icon-uniE60D"></span></div>
+                <div class="col4">&nbsp;<span ng-bind="level.tools.length"></span>&nbsp;</div>
+                <div class="col5">&nbsp;<strong class="performance-levels"><span
+                        ng-bind="profile.total_exp > level.start_exp ? '100' : profile.total_exp/level.start_exp*100|number:0"></span>%</strong>&nbsp;
+                </div>
+            </div>
+        </div>
+
+        <div class="box-social">
+            <p>Поделиться своими целями</p>
+
+            <div class="social-list">
+                <div class="social-list-holder">
+                    <ul>
+                        <li><a class="vk" href="#">vk</a></li>
+                        <li><a class="fb" href="#">fb</a></li>
+                        <li><a class="google-plus" href="#">google plus</a></li>
+                        <li><a class="twitter" href="#">twitter</a></li>
+                        <li><a class="ok" href="#">ok</a></li>
+                        <li><a class="ya" href="#">ya</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

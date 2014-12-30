@@ -1,0 +1,47 @@
+payment:
+    type: rest
+    resource: Acme\ApiBundle\Controller\PaymentController
+    name_prefix: payment_
+statistics:
+    type: rest
+    resource: Acme\ApiBundle\Controller\StatisticsController
+    name_prefix: statistics_
+friends:
+    type: rest
+    resource: Acme\ApiBundle\Controller\FriendController
+    name_prefix: friends_
+tools:
+    type: rest
+    resource: Acme\ApiBundle\Controller\ToolController
+    name_prefix: tools_
+help:
+    type: rest
+    resource: Acme\ApiBundle\Controller\HelpController
+    name_prefix: help_
+profile:
+    type: rest
+    resource: Acme\ApiBundle\Controller\ProfileController
+    name_prefix: profile_
+actions:
+    type: rest
+    resource: Acme\ApiBundle\Controller\ActionController
+    name_prefix: actions_
+
+tasks:
+    type: rest
+    resource: Acme\ApiBundle\Controller\TaskController
+    name_prefix: tasks_
+
+goals:
+    type: rest
+    resource: Acme\ApiBundle\Controller\GoalController
+    name_prefix: goals_
+comon:
+    type: rest
+    resource: Acme\ApiBundle\Controller\CommonController
+    name_prefix: common_
+notifications:
+    type: rest
+    resource: Acme\ApiBundle\Controller\NotificationController
+    name_prefix: notifications_
+

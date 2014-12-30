@@ -1,0 +1,448 @@
+{% extends "AcmeEdelaBundle::base_layout.html.twig" %}
+{% form_theme addTaskForm _self %}
+{% form_theme addActionForm _self %}
+{% use 'AcmeEdelaBundle:Form:fields.html.twig' %}
+
+{% macro renderTask(task) %}
+
+    <li class="dd-item
+     {% if (task.isDone) %}
+    deal-done
+    {% endif %}
+    {% if (task.priority > 3) %}
+    important
+    {% endif %}">
+        <div class="list-heading">
+            <div class="tools-holder">
+                {% if (task.dateAt and task.dateAt|date('y-m-d') == "now"|date('y-m-d')) %}
+                    <i class="today">Сегодня</i>
+                {% endif %}
+                <span class="tools">
+		                                        <a href="{{ path('tasks_edit', { parent_id: task.id }) }}">{{ "action.task.subtask"|trans }}</a>
+		                                        <a href="{{ path('tasks_edit', { task_id: task.id }) }}">{{ "common.change"|trans }}</a>
+		                                   </span>
+            </div>
+            <div class="btn-move"></div>
+            <strong>{{ task.name }}{% if task.goal %}<em>
+                    ({{ task.goal }})</em>{% endif %}</strong>
+        </div>
+        {% if (task.childs) %}
+            <ol class="list-calendar">
+                {% for child in task.childs %}
+                    {{ _self.renderTask(child) }}
+                {% endfor %}
+            </ol>
+        {% endif %}
+    </li>
+    {#
+        <li class="{% spaceless %}
+        {% if (task.isDone) %}
+        done
+        {% endif %}
+        {% if (task.priority > 3) %}
+        important
+        {% endif %}
+        {% endspaceless %}"><a href="{{ path('tasks_set_done', { task_id: task.id }) }}" data-id="{{ task.id }}"
+                               class="set-task-done">{{ task.name }}{% if task.goal %}<span class="text-muted">
+                    ({{ task.goal }})</span>{% endif %}</a> | <a
+                    href="{{ path('tasks_edit', { parent_id: task.id }) }}">{{ "action.task.subtask"|trans }}</a> |
+            <a href="{{ path('tasks_edit', { task_id: task.id }) }}">{{ "common.change"|trans }}</a>
+            {% if (task.dateAt and task.dateAt|date('y-m-d') == "now"|date('y-m-d')) %}
+                Сегодня
+            {% endif %}
+            {% if (task.childs) %}
+                <ul>
+                    {% for child in task.childs %}
+                        {{ _self.renderTask(child) }}
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </li>#}
+{% endmacro %}
+
+{#
+    <h3>{{ "action.daily_action.label"|trans }}</h3>
+    {{ form(addActionForm) }}
+    <ul id="action-list" class="action-list">
+        {% for action in actions %}
+            <li style="display: inline-block">{% include 'AcmeEdelaBundle:Actions:_one_block.html.twig' with { action: action[0], progress: action.progress, subactions: action.subactions } %}</li>
+        {% endfor %}
+    </ul>
+    <h3>{{ "action.task.label"|trans }}</h3>
+    {{ form(addTaskForm) }}
+    <ul id="task-list" class="task-list">
+        {% for task in tasks %}
+            {{ _self.renderTask(task) }}
+        {% endfor %}
+    </ul>
+
+    <script>
+        $(function () {
+            $('form[name={{ addTaskForm.vars.name }}]').submit(function () {
+                var form = $(this);
+                var action = form.attr('action');
+                var data = form.serialize();
+                $.ajax({
+                    method: 'POST',
+                    dataType: 'JSON',
+                    data: data,
+                    url: action,
+                    success: function (result) {
+                        if (result.status == 'OK') {
+                            $('<li>').text(result.text).prependTo($("#task-list"));
+                            form.find('input[type=text]').val('');
+                        }
+                    }
+                });
+                return false;
+            });
+
+            $('form[name={{ addActionForm.vars.name }}]').submit(function () {
+                var form = $(this);
+                var action = form.attr('action');
+                var data = form.serialize();
+                $.post(action, data, 'json')
+                        .done(function (result) {
+                            if (result.success) {
+                                $('<li style="display:inline-block">').html(result.text).prependTo($("#action-list"));
+                                form.find('input[type=text]').val('');
+                            }
+                        });
+
+//                $.ajax({
+//                    method: 'post',
+//                    dataType: 'JSON',
+//                    data: data,
+//                    url: action,
+//                    success: function (result) {
+//                        if (result.success) {
+//                            $('<li style="display:inline-block">').html(result.text).prependTo($("#action-list"));
+//                            form.find('input[type=text]').val('');
+//                        }
+//                    }
+//                });
+                return false;
+            });
+            $('body').on('click', 'a.execute-action', function () {
+                var div = $(this).parent().parent();
+                $.post($(this).attr('href'), {}, 'json')
+                        .done(function (result) {
+                            if (result.success) {
+                                div.replaceWith(result.text);
+                            }
+                        });
+                return false;
+            });
+
+        });
+    </script>#}
+
+{% block content %}
+    {{ form(addActionForm) }}
+    {% if actions|length > 0 %}
+        <div class="planned-business">
+            {% for action in actions %}
+                {% include 'AcmeEdelaBundle:Actions:_one_block.html.twig' with { action: action[0], progress: action.progress, subactions: action.subactions } %}
+            {% endfor %}
+            <div class="box ">
+                <h3>&nbsp;</h3>
+
+                <div class="box-content box-case">
+                    <a class="add-case" href="#">+ Добавить <br> ежедневное дело</a>
+                    <a class="examples-cases" href="#">Примеры ежедневных дел</a>
+                </div>
+            </div>
+        </div>
+        <div class="progress-bar-holder">
+            <div class="progress-bar">
+                <span></span>
+            </div>
+            <span class="note">0%</span>
+        </div>
+    {% else %}
+        <h2>Ежедневные дела</h2>
+        <div class="container">
+            <div class="box-case">
+                <a href="#" class="add-case">+ Добавить
+                    <br/>
+                    ежедневное дело
+                </a>
+                <a href="#" class="examples-cases">Примеры ежедневных дел</a>
+            </div>
+            <div class="container-text">
+                <div class="container-text-holder">
+                    <h3>Начать</h3>
+                    <p>
+                        Добавьте новое ежедневно дело,
+                        <br> это будет первый шаг к заветной цели!</p>
+                </div>
+                <div class="note">
+                    <p>Примеры ежедневны дел — это готовый план действий, в котором подробно и пошагово расписаны все этапы к достижению цели.</p>
+                    <p>
+                        Видео: «<a href="#">Начало работы</a>»
+                    </p>
+                </div>
+            </div>
+        </div>
+        <h2>Список задач</h2>
+    {% endif %}
+    <div class="container box-add-case">
+        <form action="#">
+            <fieldset>
+                <div class="row">
+                    <input type="text" class="form-input" placeholder="Добавить новую задачу"/>
+                    <button type="button" class="btn-settings icon-settings"></button>
+                    <button type="button" class="btn">+Добавить задачу</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    <div class="dd" id="nestable3">
+        <ol class="list-calendar">
+            {% for task in tasks %}
+                {{ _self.renderTask(task) }}
+            {% endfor %}
+            {#<li class="dd-item important">
+                <div class="list-heading">
+                    <div class="tools-holder">
+                        <i class="today">Сегодня</i>
+                                        <span class="tools">
+                                                    <a href="#">+ Подзадача</a>
+                                                    <a href="#">Изменить</a>
+                                               </span>
+                    </div>
+                    <div class="btn-move"></div>
+                    <strong>Встреча с В.В. Путиным что-бы задать ему вопрос</strong>
+                </div>
+            </li>
+            <li class="dd-item">
+                <div class="list-heading">
+                    <div class="tools-holder">
+                        <i class="today">Сегодня</i>
+                                                 <span class="tools">
+                                                      <a href="#">+ Подзадача</a>
+                                                      <a href="#">Изменить</a>
+                                                 </span>
+                    </div>
+                    <div class="btn-move"></div>
+                    <strong>Что-бы задать ему вопрос <em>(Название цели)</em></strong>
+                </div>
+            </li>
+            <li class="dd-item">
+                <div class="list-heading">
+                    <div class="tools-holder">
+                        <i class="today">Сегодня</i>
+                                                 <span class="tools">
+                                                      <a href="#">+ Подзадача</a>
+                                                      <a href="#">Изменить</a>
+                                                 </span>
+                    </div>
+                    <div class="btn-move"></div>
+                    <strong>Встреча с В.В. Путиным что-бы задать ему вопрос: как мы вообще живет?...</strong>
+                </div>
+            </li>
+            <li class="dd-item">
+                <div class="list-heading">
+                    <div class="tools-holder">
+                        <i class="today">Сегодня</i>
+                                                 <span class="tools">
+                                                      <a href="#">+ Подзадача</a>
+                                                      <a href="#">Изменить</a>
+                                                 </span>
+                    </div>
+                    <div class="btn-move"></div>
+                    <strong>В чем смысл жизни? <em>(Название цели)</em></strong>
+                </div>
+                <ol class="list-calendar">
+                    <li class="dd-item">
+                        <div class="list-heading">
+                            <div class="tools-holder">
+                                <i class="today">Сегодня</i>
+                                                         <span class="tools">
+                                                              <a href="#">+ Подзадача</a>
+                                                              <a href="#">Изменить</a>
+                                                         </span>
+                            </div>
+                            <div class="btn-move"></div>
+                            <strong>Встреча с В.В. Путиным что-бы задать</strong>
+                        </div>
+                    </li>
+                    <li class="dd-item deal-done">
+                        <div class="list-heading">
+                            <div class="tools-holder">
+                                <i class="today">Сегодня</i>
+                                                           <span class="tools">
+                                                                <a href="#">+ Подзадача</a>
+                                                                <a href="#">Изменить</a>
+                                                           </span>
+                            </div>
+                            <div class="btn-move"></div>
+                            <strong>Встреча</strong>
+                        </div>
+                    </li>
+                </ol>
+            </li>
+            <li class="dd-item">
+                <div class="list-heading">
+                    <div class="tools-holder">
+                        <i class="today">Сегодня</i>
+                                                 <span class="tools">
+                                                      <a href="#">+ Подзадача</a>
+                                                      <a href="#">Изменить</a>
+                                                 </span>
+                    </div>
+                    <div class="btn-move"></div>
+                    <strong>Встреча с В.В. Путиным что-бы задать ему вопрос</strong>
+                </div>
+            </li>
+            <li class="dd-item">
+                <div class="list-heading">
+                    <div class="tools-holder">
+                        <i class="today">Сегодня</i>
+                                                 <span class="tools">
+                                                      <a href="#">+ Подзадача</a>
+                                                      <a href="#">Изменить</a>
+                                                 </span>
+                    </div>
+                    <div class="btn-move"></div>
+                    <strong>Встреча с В.В. Путиным что-бы задать ему вопрос</strong>
+                </div>
+            </li>
+            <li class="dd-item deal-done">
+                <div class="list-heading">
+                    <div class="tools-holder">
+                        <i class="today">Сегодня</i>
+                                                 <span class="tools">
+                                                      <a href="#">+ Подзадача</a>
+                                                      <a href="#">Изменить</a>
+                                                 </span>
+                    </div>
+                    <div class="btn-move"></div>
+                    <strong>Встреча с В.В. Путиным</strong>
+                </div>
+            </li>
+            <li class="dd-item deal-done">
+                <div class="list-heading">
+                    <div class="tools-holder">
+                        <i class="today">Сегодня</i>
+                                                 <span class="tools">
+                                                      <a href="#">+ Подзадача</a>
+                                                      <a href="#">Изменить</a>
+                                                 </span>
+                    </div>
+                    <div class="btn-move"></div>
+                    <strong>Встреча с В.В. Путиным <em>(Название цели)</em></strong>
+                </div>
+            </li>
+            <li class="dd-item deal-done">
+                <div class="list-heading">
+                    <div class="tools-holder">
+                        <i class="today">Сегодня</i>
+                                                 <span class="tools">
+                                                      <a href="#">+ Подзадача</a>
+                                                      <a href="#">Изменить</a>
+                                                 </span>
+                    </div>
+                    <div class="btn-move"></div>
+                    <strong>Встреча с В.В. Путиным</strong>
+                </div>
+            </li>#}
+        </ol>
+    </div>
+    <div class="comment">
+        <form action="#">
+            <fieldset>
+                <img src="images/img5.jpg" width="50" height="50"/>
+
+                <div class="content-holder">
+                    <textarea cols="1" rows="1"></textarea>
+
+                    <div class="row">
+                        <button type="button" class="btn btn-blue">Отправить</button>
+                        <button type="reset" class="btn btn-white">Отмена</button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    <div class="social-list">
+        <h3>Поделиться своими целями </h3>
+
+        <div class="social-list-holder">
+            <ul>
+                <li><a class="vk" href="#">vk</a></li>
+                <li><a class="fb" href="#">fb</a></li>
+                <li><a class="google-plus" href="#">google plus</a></li>
+                <li><a class="twitter" href="#">twitter</a></li>
+                <li><a class="ok" href="#">ok</a></li>
+                <li><a class="ya" href="#">ya</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        $(function () {
+            $('form[name={{ addTaskForm.vars.name }}]').submit(function () {
+                var form = $(this);
+                var action = form.attr('action');
+                var data = form.serialize();
+                $.ajax({
+                    method: 'POST',
+                    dataType: 'JSON',
+                    data: data,
+                    url: action,
+                    success: function (result) {
+                        if (result.status == 'OK') {
+                            $('<li>').text(result.text).prependTo($("#task-list"));
+                            form.find('input[type=text]').val('');
+                        }
+                    }
+                });
+                return false;
+            });
+
+            $('form[name={{ addActionForm.vars.name }}]').submit(function () {
+                var form = $(this);
+                var action = form.attr('action');
+                var data = form.serialize();
+                $.post(action, data, 'json')
+                        .done(function (result) {
+                            if (result.success) {
+                                $('<li style="display:inline-block">').html(result.text).prependTo($("#action-list"));
+                                form.find('input[type=text]').val('');
+                            }
+                        });
+
+//                $.ajax({
+//                    method: 'post',
+//                    dataType: 'JSON',
+//                    data: data,
+//                    url: action,
+//                    success: function (result) {
+//                        if (result.success) {
+//                            $('<li style="display:inline-block">').html(result.text).prependTo($("#action-list"));
+//                            form.find('input[type=text]').val('');
+//                        }
+//                    }
+//                });
+                return false;
+            });
+            $('body').on('click', '.box-holder .img-runtime', function () {
+                var div = $(this).parent().parent().parent();
+                if (div.find('.job').length > 0) {
+                    div.find('.open').click();
+                } else {
+                    $.post($(this).data('href'), {}, 'json')
+                            .done(function (result) {
+                                if (result.success) {
+                                    div.replaceWith(result.text);
+                                }
+                            });
+                }
+                return false;
+            });
+
+        });
+    </script>
+
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'SonataAdminBundle::standard_layout.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets
+    'bundles/acmeadmin/css/jquery.cleditor.css' filter='cssrewrite' %}
+    <link href="{{ asset_url }}" rel="stylesheet">
+    {% endstylesheets %}
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts
+    '@AcmeAdminBundle/Resources/public/js/jquery.cleditor.min.js' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    <script>
+        $(function(){
+           $('.editor').cleditor();
+        });
+//        $(function(){
+//            $('.tinyeditor').each(function(){
+//                new TINY.editor.edit('editor',{
+//                    id: $(this).attr('id'), // (required) ID of the textarea
+//                    width:584, // (optional) width of the editor
+//                    height:175, // (optional) heightof the editor
+//                    cssclass:'tinyeditor', // (optional) CSS class of the editor
+//                    controlclass:'tinyeditor-control', // (optional) CSS class of the buttons
+//                    rowclass:'tinyeditor-header', // (optional) CSS class of the button rows
+//                    dividerclass:'tinyeditor-divider', // (optional) CSS class of the button diviers
+//                    controls:['bold', 'italic', 'underline', 'strikethrough', '|', 'subscript', 'superscript', '|', 'orderedlist', 'unorderedlist', '|' ,'outdent' ,'indent', '|', 'leftalign', 'centeralign', 'rightalign', 'blockjustify', '|', 'unformat', '|', 'undo', 'redo', 'n', 'font', 'size', 'style', '|', 'image', 'hr', 'link', 'unlink', '|', 'print'], // (required) options you want available, a '|' represents a divider and an 'n' represents a new row
+//                    footer:true, // (optional) show the footer
+//                    fonts:['Verdana','Arial','Georgia','Trebuchet MS'],  // (optional) array of fonts to display
+//                    xhtml:true, // (optional) generate XHTML vs HTML
+////                    cssfile:'style.css', // (optional) attach an external CSS file to the editor
+////                    content:'starting content', // (optional) set the starting content else it will default to the textarea content
+//                    css:'body{background-color:#ccc}', // (optional) attach CSS to the editor
+//                    bodyid:'editor', // (optional) attach an ID to the editor body
+//                    footerclass:'tinyeditor-footer', // (optional) CSS class of the footer
+//                    toggle:{text:'source',activetext:'wysiwyg',cssclass:'toggle'}, // (optional) toggle to markup view options
+//                    resize:{cssclass:'resize'} // (optional) display options for the editor resize
+//                });
+//            });
+//
+//        });
+    </script>
+{% endblock %}

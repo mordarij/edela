@@ -1,0 +1,14 @@
+parameters:
+    my_user_provider.class: Acme\UserBundle\Security\Core\FOSUBUserProvider
+
+services:
+    acme_user.registration.form.type:
+        class: Acme\UserBundle\Form\Type\RegistrationFormType
+        arguments: [%fos_user.model.user.class%, @fos_user.user_manager]
+        tags:
+            - { name: form.type, alias: acme_user_registration }
+
+    my_user_provider:
+        class: %my_user_provider.class%
+        arguments: [@fos_user.user_manager, { vkontakte: vkontakteId, facebook: facebookId }]
+

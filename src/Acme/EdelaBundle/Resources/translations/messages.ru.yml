@@ -1,0 +1,40 @@
+common:
+  add: Добавить
+  change: Изменить
+  save: Сохранить
+  date: Дата
+  title: Название
+  privacy:
+      label: Приватность
+      values: '{0}Сделать видимым|{1}Скрыть видимость'
+user:
+  not_found: Пользователь не найден
+goal:
+  not_found: Цель не найдена
+  new:
+      short_label: Моя цель
+      add: Добавить
+      existing: У вас уже есть цель с таким названием
+  edit:
+      name: Название цели
+      slideshow_interval: '[0,60[%count% секунд|{60}1 минута|{120}2 минуты'
+      is_slideshow: Слайдшоу фотографий через каждые
+      add_tasks: Добавить задачи для выполнения
+      save: Сохранить изменения
+      cancel: Отмена
+      priority:
+          label: Важность
+          values: '{5}Очень важное|{4}Важное|{3}Среднее|{2}Ниже среднего|{1}Неважное'
+      visual: Визуализация цели
+      add_photo: Добавить фото
+action:
+  daily_action:
+      label: Ежедневные дела
+      label_one: Ежедневное дело
+      create_new: Добавить новое дело
+  task:
+      label: Задачи
+      label_one: Задача
+      create_new: Добавить новую задачу
+      subtask: Подзадача
+      note: Заметка

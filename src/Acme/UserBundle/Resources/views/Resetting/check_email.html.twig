@@ -1,0 +1,5 @@
+{% extends 'AcmeEdelaBundle::layout.html.twig' %}
+{% block content %}
+<h2>{{ "password_reset.title"|trans }}</h2>
+<p>{{ "password_reset.check_email"|trans({ '%email%': email }) }}</p>
+{% endblock %}

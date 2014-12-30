@@ -1,0 +1,78 @@
+landing:
+    pattern: /
+    defaults: { _controller: AcmeEdelaBundle:Landing:Index }
+
+
+login_demo:
+  pattern: /logindemo
+  defaults: { _controller:AcmeEdelaBundle:Landing:loginDemo }
+#goals_list:
+#    pattern: /id{user_id}
+#    defaults: { _controller: AcmeEdelaBundle:Goals:list, user_id: 0 }
+
+goals_edit:
+    pattern: /goals/{goal_id}/edit
+    defaults: { _controller: AcmeEdelaBundle:Goals:edit }
+
+goals_actions:
+    pattern: /goals/{goal_id}/actions
+    defaults: { _controller: AcmeEdelaBundle:Goals:actions }
+
+goals_image_upload:
+    pattern: /goals/upload
+    defaults: { _controller: AcmeEdelaBundle:Goals:imageUpload }
+tasks_create_short:
+    pattern: /tasks/createshort
+    defaults: { _controller: AcmeEdelaBundle:Task:createShort }
+
+tasks_edit:
+    pattern: /tasks/{task_id}/edit
+    defaults: { _controller: AcmeEdelaBundle:Task:edit, task_id: 0 }
+
+tasks_set_done:
+    pattern: /tasks/{task_id}/setDone
+    defaults: { _controller: AcmeEdelaBundle:Task:setDone }
+
+actions_create_short:
+    pattern: /acrions/createshort
+    defaults: { _controller: AcmeEdelaBundle:Actions:createShort }
+
+actions_list:
+    pattern: /actions
+    defaults: { _controller: AcmeEdelaBundle:Actions:list }
+
+actions_execute:
+    pattern: /actions/{action_id}/execute
+    defaults: { _controller: AcmeEdelaBundle:Actions:execute }
+
+actions_executesub:
+    pattern: /actions/{subaction_id}/executesub
+    defaults: { _controller: AcmeEdelaBundle:Actions:executesub }
+
+actions_edit:
+    pattern: /actions/{action_id}/edit
+    defaults: { _controller: AcmeEdelaBundle:Actions:edit }
+
+app:
+    pattern: /id{user_id}{whatever}
+    defaults: { _controller: AcmeEdelaBundle:App:app, user_id: 0, whatever: '/' }
+    requirements:
+        user_id: \d+
+        whatever: .*
+
+pay_result:
+    pattern: /pay/result
+    defaults: { _controller: AcmeEdelaBundle:Pay:result }
+
+pay_fail:
+    pattern: /pay/fail
+    defaults: { _controller: AcmeEdelaBundle:Pay:fail }
+pay_success:
+    pattern: /pay/success
+    defaults: { _controller: AcmeEdelaBundle:Pay:success }
+pay_yasuccess:
+    pattern: /pay/yasuccess/{id}
+    defaults: { _controller: AcmeEdelaBundle:Pay:yasuccess }
+pay_yamoney:
+    pattern: /pay/yamoney
+    defaults: { _controller: AcmeEdelaBundle:Pay:yaresult }

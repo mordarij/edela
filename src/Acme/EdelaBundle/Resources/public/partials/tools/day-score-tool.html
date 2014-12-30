@@ -1,0 +1,33 @@
+
+<div class="box-tool">
+    <div class="heading">
+        <h3><a href="javascript:" ng-click="showStatistics=true" class="open-statistic">Статистика</a></h3>
+    </div>
+    <div class="box-tool-slider-box1">
+        <strong><span>Как вы себя чувствуете?</span></strong>
+
+        <div class="btn-row">
+            <a href="javascript:" ng-click="showSlider=true" class="btn btn-sent-statistic">Ответить</a>
+        </div>
+    </div>
+    <div class="box-tool-slider" ng-show="showSlider">
+        <p>Как вы себя чувствуете?</p>
+
+        <div class="tools-slider">
+            <div class="tools-slider-variant">Хуже быть не может</div>
+            <div class="tools-slider-scroller" slider slider-div=".tools-slider-variant" slider-options="options"></div>
+        </div>
+        <div class="btn-row">
+            <a href="#" class="btn">Добавить</a>
+            <a href="javascript:" ng-click="showSlider=false" class="btn btn-white btn-close-sent">Отмена</a>
+        </div>
+    </div>
+    <div class="box-tool-slider-statistics" ng-show="showStatistics">
+        <div class="heading">
+            <h3><a href="javascript:" ng-click="showStatistics=false" class="btn-close-statistic">Назад</a></h3>
+        </div>
+        <div class="statistic">
+            <img src="images/img57.jpg" width="" height="">
+        </div>
+    </div>
+</div>

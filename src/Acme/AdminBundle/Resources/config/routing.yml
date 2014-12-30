@@ -1,0 +1,7 @@
+index:
+    path:     /
+    defaults: { _controller: AcmeAdminBundle:Default:index }
+
+samples:
+    path: /samples
+    defaults: { _controller: AcmeAdminBundle:Samples:index }

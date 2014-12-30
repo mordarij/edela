@@ -1,0 +1,1626 @@
+{#
+<div style="width:120px; height: 160px; border: 1px solid #999">
+    <p><a class="execute-action" href="{{ path('actions_execute', { action_id: action.id }) }}">{{ action.title }}</a>
+    </p>
+    {% if progress %}
+        <p>done</p>
+    {% endif %}
+    {% if subactions is defined and subactions|length > 0 %}
+        <h6>Subactions</h6>
+        <ul>
+            {% for subaction in subactions %}
+                <li>
+                    <a href="{{ path('actions_executesub', { subaction_id: subaction[0].id }) }}">{{ subaction[0].title }}</a>{% if subaction.progress %} - done{% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+
+    {% endif %}
+    <p><a href="{{ path('actions_edit', { action_id: action.id }) }}">Edit</a></p>
+</div>
+
+#}
+
+<div class="box {% if progress %}solving{% endif %}">
+    <h3>{{ action.title }}</h3>
+
+    <div class="box-holder">
+        <span class="btn-move"></span>
+        <span class="btn-move"></span>
+
+        <div class="progresbar-holder">
+            <div class="progresbar">
+                <span style=" width: 30%"></span>
+            </div>
+            <div class="box-note-progres"><span class="btn-note-progres">35%</span></div>
+        </div>
+        <div class="box-content">
+            <div class="img-runtime" data-href="{{ path('actions_execute', { action_id: action.id }) }}">
+                <div class="img-runtime-holder">
+                    <span><img src="{{ asset('bundles/acmeedela/images/img1.png') }}"/><img
+                                src="{{ asset('bundles/acmeedela/images/img1-performance.png') }}" class="performance"><img src="{{ asset('bundles/acmeedela/images/img1-hover.png') }}"
+                                                                                           class="hover"></span>
+                </div>
+            </div>
+            <div class="row-bottom">
+                <div class="row-content">
+                    <ul class="tools">
+                        {% if subactions is defined and subactions|length > 0 %}
+                            <li><a href="#" class="open icon-open"></a></li>
+                        {% endif %}
+                        <li><a href="#" class="note icon-uniE611"></a></li>
+                        {#<li><a href="#" class="user icon-users"></a></li>#}
+                        <li><a href="#" class="see {% if false %}icon-nosee{% else %}icon-see{% endif %}"></a></li>
+                    </ul>
+                    <a href="{{ path('actions_edit', { action_id: action.id }) }}"
+                       class="settings-mission">Настройки</a>
+                </div>
+            </div>
+        </div>
+        {% if subactions is defined and subactions|length > 0 %}
+            <div class="job">
+                <div class="heading">
+                    <a href="#" class="btn-close icon-close"></a>
+                    Составляющие (2/<span>{{ subactions|length }}</span>)
+                </div>
+                <div class="list-holder scroll-pane">
+                    <ul>
+                        {% for subaction in subactions %}
+                            <li class="checkbox"><input id="id-{{ subaction[0].id }}"
+                                                        type="checkbox"{% if subaction.progress %} checked="checked"{% endif %}>
+                                <label for="id-{{ subaction[0].id }}">
+                                    <span><span>{{ subaction[0].title }}</span></span>
+                                </label>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        {% endif %}
+        <div class="statistics-runtime">
+            <div class="heading">
+                <a class="btn-close-statistics-runtime icon-open" href="#"></a>
+                <span>26%</span>
+            </div>
+            <ul>
+                <li><span>50</span>Общее количество</li>
+                <li><span>50</span>Выполнено</li>
+                <li><span>50</span>Не выполено</li>
+                <li><span>10.12.2015</span>Дата начала</li>
+                <li><span class="date-end">10.12.2015</span>Дата окончания</li>
+            </ul>
+        </div>
+        <div class="notes-case">
+            <div class="heading">
+                <a href="#" class="btn-close icon-close"></a>
+                Заметка
+            </div>
+            <div class="notes-case-content scroll-pane">
+                <div class="notes-case-content-text">Что такое информационная заметка? Какая ее роль в журналистике?
+                    Какие существуют виды заметок? Попробуем более подробно разобраться во всех этих тонкостях. Что
+                    такое заметка? Подданным определением понимают простейшую форму оперативного сообщения. Заметка
+                    должна отвечать наЧто такое информационная заметка? Какая ее роль в журналистике? Какие существуют
+                    виды заметок? Попробуем более подробно разобраться во всех этих тонкостях. Что такое заметка?
+                    Подданным определением понимают простейшую форму оперативного сообщения. Заметка должна отвечать на
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="time" style="display: none;">
+							<span>
+								<a href="#" class="btn-time icon-play"></a>
+								<a href="#" class="btn-time icon-pause"></a>
+								<a href="#" class="btn-time icon-stop"></a>
+								00:00:00
+							</span>
+    </div>
+</div>
+
+
+{#
+<!-- box -->
+<div class="box">
+    <h3>Читать книгу</h3>
+    <div class="box-holder">
+        <span class="btn-move"></span>
+        <span class="btn-move"></span><div class="progresbar-holder">
+            <div class="progresbar">
+                <span style=" width: 30%"></span>
+            </div>
+            <div class="box-note-progres"><span class="btn-note-progres">35%</span></div>
+        </div>
+        <div class="box-content">
+            <div class="img-runtime">
+                <div class="img-runtime-holder">
+                    <span><img src="images/img1.png"><img src="images/img1-performance.png" class="performance"><img src="images/img1-hover.png" class="hover"></span>
+                </div>
+            </div>
+            <div class="row-bottom">
+                <div class="row-content">
+                    <ul class="tools">
+                        <li><a href="#" class="open icon-open"></a></li>
+                        <li><a href="#" class="note icon-uniE611"></a></li>
+                        <li><a href="#" class="user icon-users"></a></li>
+                        <li><a href="#" class="see icon-see"></a></li>
+                    </ul>
+                    <a href="#" class="settings-mission">Настройки</a>
+                </div>
+            </div>
+        </div>
+        <div class="job">
+            <div class="heading">
+                <a href="#" class="btn-close icon-close"></a>
+                Составляющие (2/<span>3</span>)
+            </div>
+            <div class="list-holder scroll-pane">
+                <ul>
+                    <li class="checkbox"><input id="id-1" type="checkbox" checked="checked">
+                        <label for="id-1">
+                            <span><span>Подтягивание</span></span>
+                        </label>
+                    </li>
+                    <li class="checkbox"><input id="id-2" type="checkbox" >
+                        <label for="id-2">
+                            <span><span>Подтягивание</span></span>
+                        </label>
+                    </li>
+                    <li class="checkbox"><input id="id-3" type="checkbox" checked="checked">
+                        <label for="id-3">
+                            <span><span>Если будет длинное название то оно может быть в несколько строк</span></span>
+                        </label>
+                    </li>
+                    <li class="checkbox"><input id="id-4" type="checkbox" >
+                        <label for="id-4">
+                            <span><span>Подтягивание</span></span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="statistics-runtime">
+            <div class="heading">
+                <a class="btn-close-statistics-runtime icon-open" href="#"></a>
+                <span>26%</span>
+            </div>
+            <ul>
+                <li><span>50</span>Общее количество</li>
+                <li><span>50</span>Выполнено</li>
+                <li><span>50</span>Не выполено</li>
+                <li><span>10.12.2015</span>Дата начала</li>
+                <li><span class="date-end">10.12.2015</span>Дата окончания</li>
+            </ul>
+        </div>
+        <div class="notes-case">
+            <div class="heading">
+                <a href="#" class="btn-close icon-close"></a>
+                Заметка
+            </div>
+            <div class="notes-case-content scroll-pane">
+                <div class="notes-case-content-text">Что такое информационная заметка? Какая ее роль в журналистике? Какие существуют виды заметок? Попробуем более подробно разобраться во всех этих тонкостях. Что такое заметка? Подданным определением понимают простейшую форму оперативного сообщения. Заметка должна отвечать наЧто такое информационная заметка? Какая ее роль в журналистике? Какие существуют виды заметок? Попробуем более подробно разобраться во всех этих тонкостях. Что такое заметка? Подданным определением понимают простейшую форму оперативного сообщения. Заметка должна отвечать на</div>
+            </div>
+        </div>
+    </div>
+    <div class="time">
+							<span>
+								<a href="#" class="btn-time icon-play"></a>
+								<a href="#" class="btn-time icon-pause"></a>
+								<a href="#" class="btn-time icon-stop"></a>
+								00:00:00
+							</span>
+    </div>
+</div>
+<!-- end  box --><!-- box -->
+<div class="box solving">
+    <h3>Читать книгу</h3>
+    <div class="box-holder">
+        <span class="btn-move"></span><div class="progresbar-holder">
+            <div class="progresbar">
+                <span style=" width: 30%"></span>
+            </div>
+            <div class="box-note-progres"><span class="btn-note-progres">35%</span></div>
+        </div>
+        <div class="box-content">
+            <div class="img-runtime">
+                <div class="img-runtime-holder">
+                    <span><img src="images/img1.png"><img src="images/img1-performance.png" class="performance"><img src="images/img1-hover.png" class="hover"></span>
+                </div>
+            </div>
+            <div class="row-bottom">
+                <div class="row-content">
+                    <ul class="tools">
+                        <li><a href="#" class="open icon-open"></a></li>
+                        <li><a href="#" class="note icon-uniE611"></a></li>
+                        <li><a href="#" class="user icon-users"></a></li>
+                        <li><a href="#" class="see icon-see"></a></li>
+                    </ul>
+                    <a href="#" class="settings-mission">Настройки</a>
+                </div>
+            </div>
+        </div>
+        <div class="job">
+            <div class="heading">
+                <a href="#" class="btn-close icon-close"></a>
+                Составляющие (2/<span>3</span>)
+            </div>
+            <div class="list-holder scroll-pane">
+                <ul>
+                    <li class="checkbox"><input id="id-11" type="checkbox" checked="checked">
+                        <label for="id-11">
+                            <span><span>Подтягивание</span></span>
+                        </label>
+                    </li>
+                    <li class="checkbox"><input id="id-21" type="checkbox" >
+                        <label for="id-21">
+                            <span><span>Подтягивание</span></span>
+                        </label>
+                    </li>
+                    <li class="checkbox"><input id="id-31" type="checkbox" checked="checked">
+                        <label for="id-31">
+                            <span><span>Если будет длинное название то оно может быть в несколько строк</span></span>
+                        </label>
+                    </li>
+                    <li class="checkbox"><input id="id-41" type="checkbox" >
+                        <label for="id-41">
+                            <span><span>Подтягивание</span></span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="statistics-runtime">
+            <div class="heading">
+                <a class="btn-close-statistics-runtime icon-open" href="#"></a>
+                <span>26%</span>
+            </div>
+            <ul>
+                <li><span>50</span>Общее количество</li>
+                <li><span>50</span>Выполнено</li>
+                <li><span>50</span>Не выполено</li>
+                <li><span>10.12.2015</span>Дата начала</li>
+                <li><span class="date-end">10.12.2015</span>Дата окончания</li>
+            </ul>
+        </div>
+        <div class="notes-case">
+            <div class="heading">
+                <a href="#" class="btn-close icon-close"></a>
+                Заметка
+            </div>
+            <div class="notes-case-content scroll-pane">
+                <div class="notes-case-content-text">Что такое информационная заметка? Какая ее роль в журналистике? Какие существуют виды заметок? Попробуем более подробно разобраться во всех этих тонкостях. Что такое заметка? Подданным определением понимают простейшую форму оперативного сообщения. Заметка должна отвечать наЧто такое информационная заметка? Какая ее роль в журналистике? Какие существуют виды заметок? Попробуем более подробно разобраться во всех этих тонкостях. Что такое заметка? Подданным определением понимают простейшую форму оперативного сообщения. Заметка должна отвечать на</div>
+            </div>
+        </div>
+    </div>
+    <div class="time">
+                                   <span>
+                                        <a href="#" class="btn-time icon-play"></a>
+                                        <a href="#" class="btn-time icon-pause"></a>
+                                        <a href="#" class="btn-time icon-stop"></a>
+                                        00:00:00
+                                   </span>
+    </div>
+</div>
+<!-- end box --><!-- box -->
+<div class="box ">
+    <h3>Тренировка</h3>
+    <div class="box-holder">
+        <span class="btn-move"></span><div class="progresbar-holder">
+            <div class="progresbar">
+                <span style=" width: 30%"></span>
+            </div>
+            <div class="box-note-progres"><span class="btn-note-progres">35%</span></div>
+        </div>
+        <div class="box-content">
+            <div class="img-runtime">
+                <div class="img-runtime-holder">
+                    <span><img src="images/img1.png"><img src="images/img1-performance.png" class="performance"><img src="images/img1-hover.png" class="hover"></span>
+                </div>
+            </div>
+            <div class="row-bottom">
+                <div class="row-content">
+                    <ul class="tools">
+                        <li><a href="#" class="open icon-open"></a></li>
+                        <li><a href="#" class="note icon-uniE611"></a></li>
+                        <li><a href="#" class="user icon-users"></a></li>
+                        <li><a href="#" class="see icon-see"></a></li>
+                    </ul>
+                    <a href="#" class="settings-mission">Настройки</a>
+                </div>
+            </div>
+        </div>
+        <div class="job">
+            <div class="heading">
+                <a class="btn-close icon-close" href="#"></a>
+                Составляющие (2/<span>3</span>)
+            </div>
+            <div class="list-holder scroll-pane">
+                <ul>
+                    <li class="checkbox"><input id="id-111" type="checkbox" checked="checked">
+                        <label for="id-111">
+                            <span><span>Подтягивание</span></span>
+                        </label>
+                    </li>
+                    <li class="checkbox"><input id="id-211" type="checkbox" >
+                        <label for="id-211">
+                            <span><span>Подтягивание</span></span>
+                        </label>
+                    </li>
+                    <li class="checkbox"><input id="id-311" type="checkbox" checked="checked">
+                        <label for="id-311">
+                            <span><span>Если будет длинное название то оно может быть в несколько строк</span></span>
+                        </label>
+                    </li>
+                    <li class="checkbox"><input id="id-411" type="checkbox" >
+                        <label for="id-411">
+                            <span><span>Подтягивание</span></span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="statistics-runtime">
+            <div class="heading">
+                <a class="btn-close-statistics-runtime icon-open" href="#"></a>
+                <span>26%</span>
+            </div>
+            <ul>
+                <li><span>50</span>Общее количество</li>
+                <li><span>50</span>Выполнено</li>
+                <li><span>50</span>Не выполено</li>
+                <li><span>10.12.2015</span>Дата начала</li>
+                <li><span class="date-end">10.12.2015</span>Дата окончания</li>
+            </ul>
+        </div>
+        <div class="notes-case">
+            <div class="heading">
+                <a href="#" class="btn-close icon-close"></a>
+                Заметка
+            </div>
+            <div class="notes-case-content scroll-pane">
+                <div class="notes-case-content-text">Что такое информационная заметка? Какая ее роль в журналистике? Какие существуют виды заметок? Попробуем более подробно разобраться во всех этих тонкостях. Что такое заметка? Подданным определением понимают простейшую форму оперативного сообщения. Заметка должна отвечать наЧто такое информационная заметка? Какая ее роль в журналистике? Какие существуют виды заметок? Попробуем более подробно разобраться во всех этих тонкостях. Что такое заметка? Подданным определением понимают простейшую форму оперативного сообщения. Заметка должна отвечать на</div>
+            </div>
+        </div>
+    </div>
+    <div class="time" style=" display: none;">
+        <a href="#" class="btn-time"></a>00:00:00
+    </div>
+</div>
+<!-- end box --><!-- box -->
+<div class="box">
+    <h3>Читать книгу</h3>
+    <div class="box-holder">
+        <span class="btn-move"></span><div class="progresbar-holder">
+            <div class="progresbar">
+                <span style=" width: 30%"></span>
+            </div>
+            <div class="box-note-progres"><span class="btn-note-progres">35%</span></div>
+        </div>
+        <div class="box-content">
+            <div class="img-runtime">
+                <div class="img-runtime-holder">
+                    <span><img src="images/img1.png"><img src="images/img1-performance.png" class="performance"><img src="images/img1-hover.png" class="hover"></span>
+                </div>
+            </div>
+            <div class="row-bottom">
+                <div class="row-content">
+                    <ul class="tools" style=" display: none;">
+                        <li><a href="#" class="open icon-open"></a></li>
+                        <li><a href="#" class="note "></a></li>
+                        <li><a href="#" class="user icon-users"></a></li>
+                        <li><a href="#" class="see icon-see"></a></li>
+                    </ul>
+                    <a href="#" class="settings-mission">Настройки</a>
+                </div>
+            </div>
+        </div>
+        <div class="job">
+            <div class="heading">
+                <a href="#" class="btn-close icon-close"></a>
+                Составляющие (2/<span>3</span>)
+            </div>
+            <div class="list-holder scroll-pane">
+                <ul>
+                    <li class="checkbox"><input id="id-1" type="checkbox" checked="checked">
+                        <label for="id-12">
+                            <span><span>Подтягивание</span></span>
+                        </label>
+                    </li>
+                    <li class="checkbox"><input id="id-2" type="checkbox" >
+                        <label for="id-22">
+                            <span><span>Подтягивание</span></span>
+                        </label>
+                    </li>
+                    <li class="checkbox"><input id="id-3" type="checkbox" checked="checked">
+                        <label for="id-32">
+                            <span><span>Если будет длинное название то оно может быть в несколько строк</span></span>
+                        </label>
+                    </li>
+                    <li class="checkbox"><input id="id-4" type="checkbox" >
+                        <label for="id-42">
+                            <span><span>Подтягивание</span></span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="statistics-runtime">
+            <div class="heading">
+                <a class="btn-close-statistics-runtime icon-open" href="#"></a>
+                <span>26%</span>
+            </div>
+            <ul>
+                <li><span>50</span>Общее количество</li>
+                <li><span>50</span>Выполнено</li>
+                <li><span>50</span>Не выполено</li>
+                <li><span>10.12.2015</span>Дата начала</li>
+                <li><span class="date-end">10.12.2015</span>Дата окончания</li>
+            </ul>
+        </div>
+        <div class="notes-case">
+            <div class="heading">
+                <a href="#" class="btn-close icon-close"></a>
+                Заметка
+            </div>
+            <div class="notes-case-content scroll-pane">
+                <div class="notes-case-content-text">Что такое информационная заметка? Какая ее роль в журналистике? Какие существуют виды заметок? Попробуем более подробно разобраться во всех этих тонкостях. Что такое заметка? Подданным определением понимают простейшую форму оперативного сообщения. Заметка должна отвечать наЧто такое информационная заметка? Какая ее роль в журналистике? Какие существуют виды заметок? Попробуем более подробно разобраться во всех этих тонкостях. Что такое заметка? Подданным определением понимают простейшую форму оперативного сообщения. Заметка должна отвечать на</div>
+            </div>
+        </div>
+    </div>
+    <div class="time" style=" display: none;">
+        <a href="#" class="btn-time"></a>00:00:00
+    </div>
+</div>
+<!-- end box -->
+<div class="box">
+    <h3>Читать книгу</h3>
+    <div class="box-holder">
+        <span class="btn-move"></span><div class="progresbar-holder">
+            <div class="progresbar">
+                <span style=" width: 30%"></span>
+            </div>
+            <div class="box-note-progres"><span class="btn-note-progres">35%</span></div>
+        </div>
+        <div class="box-content">
+            <div class="img-runtime">
+                <div class="img-runtime-holder">
+                    <span><img src="images/img1.png"><img src="images/img1-performance.png" class="performance"><img src="images/img1-hover.png" class="hover"></span>
+                </div>
+            </div>
+            <div class="row-bottom">
+                <div class="row-content">
+                    <ul class="tools">
+                        <li><a href="#" class="open icon-open"></a></li>
+                        <li><a href="#" class="note icon-uniE611"></a></li>
+                        <li><a href="#" class="user icon-users"></a></li>
+                        <li><a href="#" class="see icon-see"></a></li>
+                    </ul>
+                    <a href="#" class="settings-mission">Настройки</a>
+                </div>
+            </div>
+        </div>
+        <div class="job">
+            <div class="heading">
+                <a href="#" class="btn-close icon-close"></a>
+                Составляющие (2/<span>3</span>)
+            </div>
+            <div class="list-holder scroll-pane">
+                <ul>
+                    <li class="checkbox"><input id="id-13" type="checkbox" checked="checked">
+                        <label for="id-13">
+                            <span><span>Подтягивание</span></span>
+                        </label>
+                    </li>
+                    <li class="checkbox"><input id="id-23" type="checkbox" >
+                        <label for="id-23">
+                            <span><span>Подтягивание</span></span>
+                        </label>
+                    </li>
+                    <li class="checkbox"><input id="id-33" type="checkbox" checked="checked">
+                        <label for="id-33">
+                            <span><span>Если будет длинное название то оно может быть в несколько строк</span></span>
+                        </label>
+                    </li>
+                    <li class="checkbox"><input id="id-43" type="checkbox" >
+                        <label for="id-43">
+                            <span><span>Подтягивание</span></span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="statistics-runtime">
+            <div class="heading">
+                <a class="btn-close-statistics-runtime icon-open" href="#"></a>
+                <span>26%</span>
+            </div>
+            <ul>
+                <li><span>50</span>Общее количество</li>
+                <li><span>50</span>Выполнено</li>
+                <li><span>50</span>Не выполено</li>
+                <li><span>10.12.2015</span>Дата начала</li>
+                <li><span class="date-end">10.12.2015</span>Дата окончания</li>
+            </ul>
+        </div>
+        <div class="notes-case">
+            <div class="heading">
+                <a href="#" class="btn-close icon-close"></a>
+                Заметка
+            </div>
+            <div class="notes-case-content scroll-pane">
+                <div class="notes-case-content-text">Что такое информационная заметка? Какая ее роль в журналистике? Какие существуют виды заметок? Попробуем более подробно разобраться во всех этих тонкостях. Что такое заметка? Подданным определением понимают простейшую форму оперативного сообщения. Заметка должна отвечать наЧто такое информационная заметка? Какая ее роль в журналистике? Какие существуют виды заметок? Попробуем более подробно разобраться во всех этих тонкостях. Что такое заметка? Подданным определением понимают простейшую форму оперативного сообщения. Заметка должна отвечать на</div>
+            </div>
+        </div>
+    </div>
+    <div class="time">
+        <a href="#" class="btn-time"></a>00:00:00
+    </div>
+</div>
+<!-- box -->
+<div class="box solving">
+    <h3>Читать книгу</h3>
+    <div class="box-holder">
+        <span class="btn-move"></span><div class="progresbar-holder">
+            <div class="progresbar">
+                <span style=" width: 30%"></span>
+            </div>
+            <div class="box-note-progres"><span class="btn-note-progres">35%</span></div>
+        </div>
+        <div class="box-content">
+            <div class="img-runtime">
+                <div class="img-runtime-holder">
+                    <span><img src="images/img1.png"><img src="images/img1-performance.png" class="performance"><img src="images/img1-hover.png" class="hover"></span>
+                </div>
+            </div>
+            <div class="row-bottom">
+                <div class="row-content">
+                    <ul class="tools">
+                        <li><a href="#" class="open icon-open"></a></li>
+                    </ul>
+                    <a href="#" class="settings-mission">Настройки</a>
+                </div>
+            </div>
+        </div>
+        <div class="job">
+            <div class="heading">
+                <a href="#" class="btn-close icon-close"></a>
+                Составляющие (2/<span>3</span>)
+            </div>
+            <div class="list-holder scroll-pane">
+                <ul>
+                    <li class="checkbox"><input id="id-14" type="checkbox" checked="checked">
+                        <label for="id-14">
+                            <span><span>Подтягивание</span></span>
+                        </label>
+                    </li>
+                    <li class="checkbox"><input id="id-24" type="checkbox" >
+                        <label for="id-24">
+                            <span><span>Подтягивание</span></span>
+                        </label>
+                    </li>
+                    <li class="checkbox"><input id="id-34" type="checkbox" checked="checked">
+                        <label for="id-34">
+                            <span><span>Если будет длинное название то оно может быть в несколько строк</span></span>
+                        </label>
+                    </li>
+                    <li class="checkbox"><input id="id-44" type="checkbox" >
+                        <label for="id-44">
+                            <span><span>Подтягивание</span></span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="statistics-runtime">
+            <div class="heading">
+                <a class="btn-close-statistics-runtime icon-open" href="#"></a>
+                <span>26%</span>
+            </div>
+            <ul>
+                <li><span>50</span>Общее количество</li>
+                <li><span>50</span>Выполнено</li>
+                <li><span>50</span>Не выполено</li>
+                <li><span>10.12.2015</span>Дата начала</li>
+                <li><span class="date-end">10.12.2015</span>Дата окончания</li>
+            </ul>
+        </div>
+        <div class="notes-case">
+            <div class="heading">
+                <a href="#" class="btn-close icon-close"></a>
+                Заметка
+            </div>
+            <div class="notes-case-content scroll-pane">
+                <div class="notes-case-content-text">Что такое информационная заметка? Какая ее роль в журналистике? Какие существуют виды заметок? Попробуем более подробно разобраться во всех этих тонкостях. Что такое заметка? Подданным определением понимают простейшую форму оперативного сообщения. Заметка должна отвечать наЧто такое информационная заметка? Какая ее роль в журналистике? Какие существуют виды заметок? Попробуем более подробно разобраться во всех этих тонкостях. Что такое заметка? Подданным определением понимают простейшую форму оперативного сообщения. Заметка должна отвечать на</div>
+            </div>
+        </div>
+    </div>
+    <div class="time" style=" display: none;">
+        <span><a href="#" class="btn-time"></a>00:00:00</span>
+    </div>
+</div>
+<!-- end box --><!-- box -->
+<div class="box ">
+    <h3>Тренировка</h3>
+    <div class="box-holder">
+        <span class="btn-move"></span><div class="progresbar-holder">
+            <div class="progresbar">
+                <span style=" width: 30%"></span>
+            </div>
+            <div class="box-note-progres"><span class="btn-note-progres">35%</span></div>
+        </div>
+        <div class="box-content">
+            <div class="img-runtime">
+                <div class="img-runtime-holder">
+                    <span><img src="images/img1.png"><img src="images/img1-performance.png" class="performance"><img src="images/img1-hover.png" class="hover"></span>
+                </div>
+            </div>
+            <div class="row-bottom">
+                <div class="row-content">
+                    <ul class="tools">
+                        <li><a href="#" class="open icon-open"></a></li>
+                        <li><a href="#" class="note icon-uniE611"></a></li>
+                        <li><a href="#" class="user icon-users"></a></li>
+                        <li><a href="#" class="see icon-nosee"></a></li>
+                    </ul>
+                    <a href="#" class="settings-mission">Настройки</a>
+                </div>
+            </div>
+        </div>
+        <div class="job">
+            <div class="heading">
+                <a class="btn-close" href="#"></a>
+                Составляющие (2/<span>3</span>)
+            </div>
+            <div class="list-holder scroll-pane">
+                <ul>
+                    <li class="checkbox"><input id="id-15" type="checkbox" checked="checked">
+                        <label for="id-15">
+                            <span><span>Подтягивание</span></span>
+                        </label>
+                    </li>
+                    <li class="checkbox"><input id="id-25" type="checkbox" >
+                        <label for="id-25">
+                            <span><span>Подтягивание</span></span>
+                        </label>
+                    </li>
+                    <li class="checkbox"><input id="id-35" type="checkbox" checked="checked">
+                        <label for="id-35">
+                            <span><span>Если будет длинное название то оно может быть в несколько строк</span></span>
+                        </label>
+                    </li>
+                    <li class="checkbox"><input id="id-45" type="checkbox" >
+                        <label for="id-45">
+                            <span><span>Подтягивание</span></span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="statistics-runtime">
+            <div class="heading">
+                <a class="btn-close-statistics-runtime icon-open" href="#"></a>
+                <span>26%</span>
+            </div>
+            <ul>
+                <li><span>50</span>Общее количество</li>
+                <li><span>50</span>Выполнено</li>
+                <li><span>50</span>Не выполено</li>
+                <li><span>10.12.2015</span>Дата начала</li>
+                <li><span class="date-end">10.12.2015</span>Дата окончания</li>
+            </ul>
+        </div>
+        <div class="notes-case">
+            <div class="heading">
+                <a href="#" class="btn-close icon-close"></a>
+                Заметка
+            </div>
+            <div class="notes-case-content scroll-pane">
+                <div class="notes-case-content-text">Что такое информационная заметка? Какая ее роль в журналистике? Какие существуют виды заметок? Попробуем более подробно разобраться во всех этих тонкостях. Что такое заметка? Подданным определением понимают простейшую форму оперативного сообщения. Заметка должна отвечать наЧто такое информационная заметка? Какая ее роль в журналистике? Какие существуют виды заметок? Попробуем более подробно разобраться во всех этих тонкостях. Что такое заметка? Подданным определением понимают простейшую форму оперативного сообщения. Заметка должна отвечать на</div>
+            </div>
+        </div>
+    </div>
+    <div class="time" style=" display: none;">
+        <span><a href="#" class="btn-time"></a>00:00:00</span>
+    </div>
+</div>
+<!-- end box --><!-- box -->
+<div class="box solving">
+    <h3>Тренировка</h3>
+    <div class="box-holder">
+        <span class="btn-move"></span><div class="progresbar-holder">
+            <div class="progresbar">
+                <span style=" width: 30%"></span>
+            </div>
+            <div class="box-note-progres"><span class="btn-note-progres">35%</span></div>
+        </div>
+        <div class="box-content">
+            <div class="img-runtime">
+                <div class="img-runtime-holder">
+                    <span><img src="images/img1.png"><img src="images/img1-performance.png" class="performance"><img src="images/img1-hover.png" class="hover"></span>
+                </div>
+            </div>
+            <div class="row-bottom">
+                <div class="row-content">
+                    <ul class="tools">
+                        <li><a href="#" class="open icon-open"></a></li>
+                        <li><a href="#" class="note icon-uniE611"></a></li>
+                        <li><a href="#" class="user icon-users"></a></li>
+                        <li><a href="#" class="see icon-see"></a></li>
+                    </ul>
+                    <a href="#" class="settings-mission">Настройки</a>
+                </div>
+            </div>
+        </div>
+        <div class="job">
+            <div class="heading">
+                <a href="#" class="btn-close icon-close"></a>
+                Составляющие (2/<span>3</span>)
+            </div>
+            <div class="list-holder scroll-pane">
+                <ul>
+                    <li class="checkbox"><input id="id-16" type="checkbox" checked="checked">
+                        <label for="id-16">
+                            <span><span>Подтягивание</span></span>
+                        </label>
+                    </li>
+                    <li class="checkbox"><input id="id-26" type="checkbox" >
+                        <label for="id-26">
+                            <span><span>Подтягивание</span></span>
+                        </label>
+                    </li>
+                    <li class="checkbox"><input id="id-36" type="checkbox" checked="checked">
+                        <label for="id-36">
+                            <span><span>Если будет длинное название то оно может быть в несколько строк</span></span>
+                        </label>
+                    </li>
+                    <li class="checkbox"><input id="id-46" type="checkbox" >
+                        <label for="id-46">
+                            <span><span>Подтягивание</span></span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="statistics-runtime">
+            <div class="heading">
+                <a class="btn-close-statistics-runtime icon-open" href="#"></a>
+                <span>26%</span>
+            </div>
+            <ul>
+                <li><span>50</span>Общее количество</li>
+                <li><span>50</span>Выполнено</li>
+                <li><span>50</span>Не выполено</li>
+                <li><span>10.12.2015</span>Дата начала</li>
+                <li><span class="date-end">10.12.2015</span>Дата окончания</li>
+            </ul>
+        </div>
+        <div class="notes-case">
+            <div class="heading">
+                <a href="#" class="btn-close icon-close"></a>
+                Заметка
+            </div>
+            <div class="notes-case-content scroll-pane">
+                <div class="notes-case-content-text">Что такое информационная заметка? Какая ее роль в журналистике? Какие существуют виды заметок? Попробуем более подробно разобраться во всех этих тонкостях. Что такое заметка? Подданным определением понимают простейшую форму оперативного сообщения. Заметка должна отвечать наЧто такое информационная заметка? Какая ее роль в журналистике? Какие существуют виды заметок? Попробуем более подробно разобраться во всех этих тонкостях. Что такое заметка? Подданным определением понимают простейшую форму оперативного сообщения. Заметка должна отвечать на</div>
+            </div>
+        </div>
+    </div>
+    <div class="time" style=" display: none;">
+        <span><a href="#" class="btn-time"></a>00:00:00</span>
+    </div>
+</div>
+<!-- end box --><!-- box -->
+<div class="box box-purpose-digital solving">
+    <h3>Тренировка</h3>
+    <div class="box-holder">
+        <span class="btn-move"></span><div class="progresbar-holder">
+            <div class="progresbar">
+                <span style=" width: 30%"></span>
+            </div>
+            <div class="box-note-progres"><span class="btn-note-progres">35%</span></div>
+        </div>
+        <div class="box-content">
+            <div class="img-runtime">
+                <strong class="ttl">Время в парилке</strong>
+                <div class="input-box">
+                    <input type="text" placeholder=""><span>:</span>
+                    <input type="text" placeholder="15"><span>:</span>
+                    <input type="text" placeholder="30"></div><em>15 мин 30 сек</em>
+            </div>
+            <div class="row-bottom">
+                <div class="row-content">
+                    <ul class="tools">
+                        <li><a href="#" class="user icon-users"></a></li>
+                        <li><a href="#" class="see icon-see"></a></li>
+                    </ul>
+                    <a href="#" class="settings-mission">Настройки</a>
+                </div>
+            </div>
+        </div>
+        <div class="job">
+            <div class="heading">
+                <a href="#" class="btn-close icon-close"></a>
+                Составляющие (2/<span>3</span>)
+            </div>
+            <div class="list-holder scroll-pane">
+                <ul>
+                    <li class="checkbox"><input id="id-17" type="checkbox" checked="checked">
+                        <label for="id-17">
+                            <span><span>Подтягивание</span></span>
+                        </label>
+                    </li>
+                    <li class="checkbox"><input id="id-27" type="checkbox" >
+                        <label for="id-27">
+                            <span><span>Подтягивание</span></span>
+                        </label>
+                    </li>
+                    <li class="checkbox"><input id="id-37" type="checkbox" checked="checked">
+                        <label for="id-37">
+                            <span><span>Если будет длинное название то оно может быть в несколько строк</span></span>
+                        </label>
+                    </li>
+                    <li class="checkbox"><input id="id-47" type="checkbox" >
+                        <label for="id-47">
+                            <span><span>Подтягивание</span></span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="statistics-runtime">
+            <div class="heading">
+                <a class="btn-close-statistics-runtime icon-open" href="#"></a>
+                <span>26%</span>
+            </div>
+            <ul>
+                <li><span>50</span>Общее количество</li>
+                <li><span>50</span>Выполнено</li>
+                <li><span>50</span>Не выполено</li>
+                <li><span>10.12.2015</span>Дата начала</li>
+                <li><span class="date-end">10.12.2015</span>Дата окончания</li>
+            </ul>
+        </div>
+        <div class="notes-case">
+            <div class="heading">
+                <a href="#" class="btn-close icon-close"></a>
+                Заметка
+            </div>
+            <div class="notes-case-content scroll-pane">
+                <div class="notes-case-content-text">Что такое информационная заметка? Какая ее роль в журналистике? Какие существуют виды заметок? Попробуем более подробно разобраться во всех этих тонкостях. Что такое заметка? Подданным определением понимают простейшую форму оперативного сообщения. Заметка должна отвечать наЧто такое информационная заметка? Какая ее роль в журналистике? Какие существуют виды заметок? Попробуем более подробно разобраться во всех этих тонкостях. Что такое заметка? Подданным определением понимают простейшую форму оперативного сообщения. Заметка должна отвечать на</div>
+            </div>
+        </div>
+    </div>
+    <div class="time" style=" display: none;">
+        <a href="#" class="btn-time"></a>00:00:00
+    </div>
+</div>
+<!-- end box --><!-- box -->
+<div class="box box-purpose-digital solving">
+    <h3>Тренировка</h3>
+    <div class="box-holder">
+        <span class="btn-move"></span><div class="progresbar-holder">
+            <div class="progresbar">
+                <span style=" width: 30%"></span>
+            </div>
+            <div class="box-note-progres"><span class="btn-note-progres">35%</span></div>
+        </div>
+        <div class="box-content">
+            <div class="img-runtime">
+                <div class="changeable-value">
+                    <strong class="ttl">Километров</strong>
+                    <div class="input-box">
+                        <button type="button" class="btn-minus">-</button>
+                        <button type="button" class="btn-plus">+</button>
+                        <input type="text" placeholder="2100">
+                    </div>
+                </div>
+            </div>
+            <div class="row-bottom">
+                <div class="row-content">
+                    <ul class="tools">
+                        <li><a href="#" class="user icon-users"></a></li>
+                        <li><a href="#" class="see icon-see"></a></li>
+                    </ul>
+                    <a href="#" class="settings-mission">Настройки</a>
+                </div>
+            </div>
+        </div>
+        <div class="job">
+            <div class="heading">
+                <a href="#" class="btn-close icon-close"></a>
+                Составляющие (2/<span>3</span>)
+            </div>
+            <div class="list-holder scroll-pane">
+                <ul>
+                    <li class="checkbox"><input id="id-19" type="checkbox" checked="checked">
+                        <label for="id-19">
+                            <span><span>Подтягивание</span></span>
+                        </label>
+                    </li>
+                    <li class="checkbox"><input id="id-29" type="checkbox" >
+                        <label for="id-29">
+                            <span><span>Подтягивание</span></span>
+                        </label>
+                    </li>
+                    <li class="checkbox"><input id="id-39" type="checkbox" checked="checked">
+                        <label for="id-39">
+                            <span><span>Если будет длинное название то оно может быть в несколько строк</span></span>
+                        </label>
+                    </li>
+                    <li class="checkbox"><input id="id-49" type="checkbox" >
+                        <label for="id-49">
+                            <span><span>Подтягивание</span></span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="statistics-runtime">
+            <div class="heading">
+                <a class="btn-close-statistics-runtime icon-open" href="#"></a>
+                <span>26%</span>
+            </div>
+            <ul>
+                <li><span>50</span>Общее количество</li>
+                <li><span>50</span>Выполнено</li>
+                <li><span>50</span>Не выполено</li>
+                <li><span>10.12.2015</span>Дата начала</li>
+                <li><span class="date-end">10.12.2015</span>Дата окончания</li>
+            </ul>
+        </div>
+        <div class="notes-case">
+            <div class="heading">
+                <a href="#" class="btn-close icon-close"></a>
+                Заметка
+            </div>
+            <div class="notes-case-content scroll-pane">
+                <div class="notes-case-content-text">Что такое информационная заметка? Какая ее роль в журналистике? Какие существуют виды заметок? Попробуем более подробно разобраться во всех этих тонкостях. Что такое заметка? Подданным определением понимают простейшую форму оперативного сообщения. Заметка должна отвечать наЧто такое информационная заметка? Какая ее роль в журналистике? Какие существуют виды заметок? Попробуем более подробно разобраться во всех этих тонкостях. Что такое заметка? Подданным определением понимают простейшую форму оперативного сообщения. Заметка должна отвечать на</div>
+            </div>
+        </div>
+    </div>
+    <div class="time" style=" display: none;">
+        <a href="#" class="btn-time"></a>00:00:00
+    </div>
+</div>
+<!-- end box --><!-- box -->
+<div class="box box-purpose-digital solving">
+    <h3>Тренировка</h3>
+    <div class="box-holder">
+        <span class="btn-move"></span><div class="progresbar-holder">
+            <div class="progresbar">
+                <span style=" width: 30%"></span>
+            </div>
+            <div class="box-note-progres"><span class="btn-note-progres">35%</span></div>
+        </div>
+        <div class="box-content">
+            <div class="img-runtime">
+                <textarea class="text-block" cols="1" rows="1">Напишите дополнительную информацию для выполнения ежедневного дела</textarea>
+                <div class="row-bottom">
+                    <div class="row-content">
+                        <ul class="tools">
+                            <li><a href="#" class="user icon-users"></a></li>
+                            <li><a href="#" class="see icon-see"></a></li>
+                        </ul>
+                        <a href="#" class="settings-mission">Настройки</a>
+                    </div>
+                </div>
+            </div>
+            <div class="job">
+                <div class="heading">
+                    <a href="#" class="btn-close icon-close"></a>
+                    Составляющие (2/<span>3</span>)
+                </div>
+                <div class="list-holder scroll-pane">
+                    <ul>
+                        <li class="checkbox"><input id="id-110" type="checkbox" checked="checked">
+                            <label for="id-110">
+                                <span><span>Подтягивание</span></span>
+                            </label>
+                        </li>
+                        <li class="checkbox"><input id="id-210" type="checkbox" >
+                            <label for="id-210">
+                                <span><span>Подтягивание</span></span>
+                            </label>
+                        </li>
+                        <li class="checkbox"><input id="id-310" type="checkbox" checked="checked">
+                            <label for="id-310">
+                                <span><span>Если будет длинное название то оно может быть в несколько строк</span></span>
+                            </label>
+                        </li>
+                        <li class="checkbox"><input id="id-410" type="checkbox" >
+                            <label for="id-410">
+                                <span><span>Подтягивание</span></span>
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="statistics-runtime">
+                <div class="heading">
+                    <a class="btn-close-statistics-runtime icon-open" href="#"></a>
+                    <span>26%</span>
+                </div>
+                <ul>
+                    <li><span>50</span>Общее количество</li>
+                    <li><span>50</span>Выполнено</li>
+                    <li><span>50</span>Не выполено</li>
+                    <li><span>10.12.2015</span>Дата начала</li>
+                    <li><span class="date-end">10.12.2015</span>Дата окончания</li>
+                </ul>
+            </div>
+            <div class="notes-case">
+                <div class="heading">
+                    <a href="#" class="btn-close icon-close"></a>
+                    Заметка
+                </div>
+                <div class="notes-case-content scroll-pane">
+                    <div class="notes-case-content-text">Что такое информационная заметка? Какая ее роль в журналистике? Какие существуют виды заметок? Попробуем более подробно разобраться во всех этих тонкостях. Что такое заметка? Подданным определением понимают простейшую форму оперативного сообщения. Заметка должна отвечать наЧто такое информационная заметка? Какая ее роль в журналистике? Какие существуют виды заметок? Попробуем более подробно разобраться во всех этих тонкостях. Что такое заметка? Подданным определением понимают простейшую форму оперативного сообщения. Заметка должна отвечать на</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="time" style=" display: none;">
+        <a href="#" class="btn-time"></a>00:00:00
+    </div>
+</div>
+<!-- end box --><!-- box -->
+<div class="box solving">
+    <h3>Читать книгу</h3>
+    <div class="box-holder">
+        <span class="btn-move"></span><div class="progresbar-holder">
+            <div class="progresbar">
+                <span style=" width: 30%"></span>
+            </div>
+            <div class="box-note-progres"><span class="btn-note-progres">35%</span></div>
+        </div>
+        <div class="box-content">
+            <div class="img-runtime">
+                <div class="img-runtime-holder">
+                    <span><img src="images/img1.png"><img src="images/img1-performance.png" class="performance"><img src="images/img1-hover.png" class="hover"></span>
+                </div>
+            </div>
+            <div class="row-bottom">
+                <div class="row-content">
+                    <ul class="tools">
+                        <li><a href="#" class="see icon-see"></a></li>
+                    </ul>
+                    <a href="#" class="settings-mission">Настройки</a>
+                </div>
+            </div>
+        </div>
+        <div class="job">
+            <div class="heading">
+                <a href="#" class="btn-close icon-close"></a>
+                Составляющие (2/<span>3</span>)
+            </div>
+            <div class="list-holder scroll-pane">
+                <ul>
+                    <li class="checkbox"><input id="id-112" type="checkbox" checked="checked">
+                        <label for="id-112">
+                            <span><span>Подтягивание</span></span>
+                        </label>
+                    </li>
+                    <li class="checkbox"><input id="id-212" type="checkbox" >
+                        <label for="id-212">
+                            <span><span>Подтягивание</span></span>
+                        </label>
+                    </li>
+                    <li class="checkbox"><input id="id-312" type="checkbox" checked="checked">
+                        <label for="id-312">
+                            <span><span>Если будет длинное название то оно может быть в несколько строк</span></span>
+                        </label>
+                    </li>
+                    <li class="checkbox"><input id="id-412" type="checkbox" >
+                        <label for="id-412">
+                            <span><span>Подтягивание</span></span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="statistics-runtime">
+            <div class="heading">
+                <a class="btn-close-statistics-runtime icon-open" href="#"></a>
+                <span>26%</span>
+            </div>
+            <ul>
+                <li><span>50</span>Общее количество</li>
+                <li><span>50</span>Выполнено</li>
+                <li><span>50</span>Не выполено</li>
+                <li><span>10.12.2015</span>Дата начала</li>
+                <li><span class="date-end">10.12.2015</span>Дата окончания</li>
+            </ul>
+        </div>
+        <div class="notes-case">
+            <div class="heading">
+                <a href="#" class="btn-close icon-close"></a>
+                Заметка
+            </div>
+            <div class="notes-case-content scroll-pane">
+                <div class="notes-case-content-text">Что такое информационная заметка? Какая ее роль в журналистике? Какие существуют виды заметок? Попробуем более подробно разобраться во всех этих тонкостях. Что такое заметка? Подданным определением понимают простейшую форму оперативного сообщения. Заметка должна отвечать наЧто такое информационная заметка? Какая ее роль в журналистике? Какие существуют виды заметок? Попробуем более подробно разобраться во всех этих тонкостях. Что такое заметка? Подданным определением понимают простейшую форму оперативного сообщения. Заметка должна отвечать на</div>
+            </div>
+        </div>
+    </div>
+    <div class="time" style=" display: none;">
+        <a href="#" class="btn-time"></a>00:00:00
+    </div>
+</div>
+<!-- end box --><!-- box -->
+<div class="box box-purpose-digital ">
+    <h3>Тренировка</h3>
+    <div class="box-holder">
+        <span class="btn-move"></span><div class="progresbar-holder">
+            <div class="progresbar">
+                <span style=" width: 30%"></span>
+            </div>
+            <div class="box-note-progres"><span class="btn-note-progres">35%</span></div>
+        </div>
+        <div class="box-content">
+            <div class="img-runtime">
+                <strong class="ttl">Время в парилке</strong>
+                <div class="input-box">
+                    <input type="text" placeholder=""><span>:</span>
+                    <input type="text" placeholder="15"><span>:</span>
+                    <input type="text" placeholder="30"></div><em>15 мин 30 сек</em>
+            </div>
+            <div class="row-bottom">
+                <div class="row-content">
+                    <ul class="tools">
+                        <li><a href="#" class="user icon-users"></a></li>
+                        <li><a href="#" class="see icon-see"></a></li>
+                    </ul>
+                    <a href="#" class="settings-mission">Настройки</a>
+                </div>
+            </div>
+        </div>
+        <div class="job">
+            <div class="heading">
+                <a href="#" class="btn-close icon-close"></a>
+                Составляющие (2/<span>3</span>)
+            </div>
+            <div class="list-holder scroll-pane">
+                <ul>
+                    <li class="checkbox"><input id="id-1" type="checkbox" checked="checked">
+                        <label for="id-1">
+                            <span><span>Подтягивание</span></span>
+                        </label>
+                    </li>
+                    <li class="checkbox"><input id="id-213" type="checkbox" >
+                        <label for="id-213">
+                            <span><span>Подтягивание</span></span>
+                        </label>
+                    </li>
+                    <li class="checkbox"><input id="id-313" type="checkbox" checked="checked">
+                        <label for="id-313">
+                            <span><span>Если будет длинное название то оно может быть в несколько строк</span></span>
+                        </label>
+                    </li>
+                    <li class="checkbox"><input id="id-413" type="checkbox" >
+                        <label for="id-413">
+                            <span><span>Подтягивание</span></span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="statistics-runtime">
+            <div class="heading">
+                <a class="btn-close-statistics-runtime icon-open" href="#"></a>
+                <span>26%</span>
+            </div>
+            <ul>
+                <li><span>50</span>Общее количество</li>
+                <li><span>50</span>Выполнено</li>
+                <li><span>50</span>Не выполено</li>
+                <li><span>10.12.2015</span>Дата начала</li>
+                <li><span class="date-end">10.12.2015</span>Дата окончания</li>
+            </ul>
+        </div>
+        <div class="notes-case">
+            <div class="heading">
+                <a href="#" class="btn-close icon-close"></a>
+                Заметка
+            </div>
+            <div class="notes-case-content scroll-pane">
+                <div class="notes-case-content-text">Что такое информационная заметка? Какая ее роль в журналистике? Какие существуют виды заметок? Попробуем более подробно разобраться во всех этих тонкостях. Что такое заметка? Подданным определением понимают простейшую форму оперативного сообщения. Заметка должна отвечать наЧто такое информационная заметка? Какая ее роль в журналистике? Какие существуют виды заметок? Попробуем более подробно разобраться во всех этих тонкостях. Что такое заметка? Подданным определением понимают простейшую форму оперативного сообщения. Заметка должна отвечать на</div>
+            </div>
+        </div>
+    </div>
+    <div class="time" style=" display: none;">
+        <a href="#" class="btn-time"></a>00:00:00
+    </div>
+</div>
+<!-- end box --><!-- box -->
+<div class="box box-purpose-digital ">
+    <h3>Тренировка</h3>
+    <div class="box-holder">
+        <span class="btn-move"></span><div class="progresbar-holder">
+            <div class="progresbar">
+                <span style=" width: 30%"></span>
+            </div>
+            <div class="box-note-progres"><span class="btn-note-progres">35%</span></div>
+        </div>
+        <div class="box-content">
+            <div class="img-runtime">
+                <div class="changeable-value">
+                    <strong class="ttl">Километров</strong>
+                    <div class="input-box">
+                        <button type="button" class="btn-minus">-</button>
+                        <button type="button" class="btn-plus">+</button>
+                        <input type="text" placeholder="2100">
+                    </div>
+                </div>
+            </div>
+            <div class="row-bottom">
+                <div class="row-content">
+                    <ul class="tools">
+                        <li><a href="#" class="user icon-users"></a></li>
+                        <li><a href="#" class="see icon-see"></a></li>
+                    </ul>
+                    <a href="#" class="settings-mission">Настройки</a>
+                </div>
+            </div>
+        </div>
+        <div class="job">
+            <div class="heading">
+                <a href="#" class="btn-close icon-close"></a>
+                Составляющие (2/<span>3</span>)
+            </div>
+            <div class="list-holder scroll-pane">
+                <ul>
+                    <li class="checkbox"><input id="id-140" type="checkbox" checked="checked">
+                        <label for="id-140">
+                            <span><span>Подтягивание</span></span>
+                        </label>
+                    </li>
+                    <li class="checkbox"><input id="id-240" type="checkbox" >
+                        <label for="id-240">
+                            <span><span>Подтягивание</span></span>
+                        </label>
+                    </li>
+                    <li class="checkbox"><input id="id-340" type="checkbox" checked="checked">
+                        <label for="id-340">
+                            <span><span>Если будет длинное название то оно может быть в несколько строк</span></span>
+                        </label>
+                    </li>
+                    <li class="checkbox"><input id="id-440" type="checkbox" >
+                        <label for="id-440">
+                            <span><span>Подтягивание</span></span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="statistics-runtime">
+            <div class="heading">
+                <a class="btn-close-statistics-runtime icon-open" href="#"></a>
+                <span>26%</span>
+            </div>
+            <ul>
+                <li><span>50</span>Общее количество</li>
+                <li><span>50</span>Выполнено</li>
+                <li><span>50</span>Не выполено</li>
+                <li><span>10.12.2015</span>Дата начала</li>
+                <li><span class="date-end">10.12.2015</span>Дата окончания</li>
+            </ul>
+        </div>
+        <div class="notes-case">
+            <div class="heading">
+                <a href="#" class="btn-close icon-close"></a>
+                Заметка
+            </div>
+            <div class="notes-case-content scroll-pane">
+                <div class="notes-case-content-text">Что такое информационная заметка? Какая ее роль в журналистике? Какие существуют виды заметок? Попробуем более подробно разобраться во всех этих тонкостях. Что такое заметка? Подданным определением понимают простейшую форму оперативного сообщения. Заметка должна отвечать наЧто такое информационная заметка? Какая ее роль в журналистике? Какие существуют виды заметок? Попробуем более подробно разобраться во всех этих тонкостях. Что такое заметка? Подданным определением понимают простейшую форму оперативного сообщения. Заметка должна отвечать на</div>
+            </div>
+        </div>
+    </div>
+    <div class="time" style=" display: none;">
+        <a href="#" class="btn-time"></a>00:00:00
+    </div>
+</div>
+<!-- end box --><!-- box -->
+<div class="box box-purpose-digital ">
+    <h3>Тренировка</h3>
+    <div class="box-holder">
+        <span class="btn-move"></span><div class="progresbar-holder">
+            <div class="progresbar">
+                <span style=" width: 30%"></span>
+            </div>
+            <div class="box-note-progres"><span class="btn-note-progres">35%</span></div>
+        </div>
+        <div class="box-content">
+            <textarea class="text-block" cols="1" rows="1">Напишите дополнительную информацию для выполнения ежедневного дела</textarea>
+            <div class="row-bottom">
+                <div class="row-content">
+                    <ul class="tools">
+                        <li><a href="#" class="user icon-users"></a></li>
+                        <li><a href="#" class="see icon-see"></a></li>
+                    </ul>
+                    <a href="#" class="settings-mission">Настройки</a>
+                </div>
+            </div>
+        </div>
+        <div class="job">
+            <div class="heading">
+                <a href="#" class="btn-close icon-close"></a>
+                Составляющие (2/<span>3</span>)
+            </div>
+            <div class="list-holder scroll-pane">
+                <ul>
+                    <li ><span><span>Подтягивание</span>
+											</span></li>
+                    <li ><span><span>Подтягивание</span>
+											</span></li>
+                    <li><span><span>Если будет длинное название то оно может быть в несколько строк</span>
+											</span></li>
+                    <li><span><span>Подтягивание</span>
+											</span></li>
+                    <li ><span><span>Если будет длинное название то оно может быть в несколько строк</span>
+											</span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="statistics-runtime">
+            <div class="heading">
+                <a class="btn-close-statistics-runtime icon-open" href="#"></a>
+                <span>26%</span>
+            </div>
+            <ul>
+                <li><span>50</span>Общее количество</li>
+                <li><span>50</span>Выполнено</li>
+                <li><span>50</span>Не выполено</li>
+                <li><span>10.12.2015</span>Дата начала</li>
+                <li><span class="date-end">10.12.2015</span>Дата окончания</li>
+            </ul>
+        </div>
+        <div class="notes-case">
+            <div class="heading">
+                <a href="#" class="btn-close icon-close"></a>
+                Заметка
+            </div>
+            <div class="notes-case-content scroll-pane">
+                <div class="notes-case-content-text">Что такое информационная заметка? Какая ее роль в журналистике? Какие существуют виды заметок? Попробуем более подробно разобраться во всех этих тонкостях. Что такое заметка? Подданным определением понимают простейшую форму оперативного сообщения. Заметка должна отвечать наЧто такое информационная заметка? Какая ее роль в журналистике? Какие существуют виды заметок? Попробуем более подробно разобраться во всех этих тонкостях. Что такое заметка? Подданным определением понимают простейшую форму оперативного сообщения. Заметка должна отвечать на</div>
+            </div>
+        </div>
+    </div>
+    <div class="time" style=" display: none;">
+        <a href="#" class="btn-time"></a>00:00:00
+    </div>
+</div>
+<!-- end box --><!-- box -->
+<div class="box ">
+    <h3>Читать книгу</h3>
+    <div class="box-holder">
+        <span class="btn-move"></span><div class="progresbar-holder">
+            <div class="progresbar">
+                <span style=" width: 30%"></span>
+            </div>
+            <div class="box-note-progres"><span class="btn-note-progres">35%</span></div>
+        </div>
+        <div class="box-content">
+            <div class="img-runtime">
+                <div class="img-runtime-holder">
+                    <span><img src="images/img1.png"><img src="images/img1-performance.png" class="performance"><img src="images/img1-hover.png" class="hover"></span>
+                </div>
+            </div>
+            <div class="row-bottom">
+                <div class="row-content">
+                    <ul class="tools">
+                        <li><a href="#" class="see icon-see"></a></li>
+                    </ul>
+                    <a href="#" class="settings-mission">Настройки</a>
+                </div>
+            </div>
+        </div>
+        <div class="job">
+            <div class="heading">
+                <a href="#" class="btn-close icon-close"></a>
+                Составляющие (2/<span>3</span>)
+            </div>
+            <div class="list-holder scroll-pane">
+                <ul>
+                    <li ><span><span>Подтягивание</span>
+											</span></li>
+                    <li ><span><span>Подтягивание</span>
+											</span></li>
+                    <li><span><span>Если будет длинное название то оно может быть в несколько строк</span>
+											</span></li>
+                    <li><span><span>Подтягивание</span>
+											</span></li>
+                    <li ><span><span>Если будет длинное название то оно может быть в несколько строк</span>
+											</span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="statistics-runtime">
+            <div class="heading">
+                <a class="btn-close-statistics-runtime icon-open" href="#"></a>
+                <span>26%</span>
+            </div>
+            <ul>
+                <li><span>50</span>Общее количество</li>
+                <li><span>50</span>Выполнено</li>
+                <li><span>50</span>Не выполено</li>
+                <li><span>10.12.2015</span>Дата начала</li>
+                <li><span class="date-end">10.12.2015</span>Дата окончания</li>
+            </ul>
+        </div>
+        <div class="notes-case">
+            <div class="heading">
+                <a href="#" class="btn-close icon-close"></a>
+                Заметка
+            </div>
+            <div class="notes-case-content scroll-pane">
+                <div class="notes-case-content-text">Что такое информационная заметка? Какая ее роль в журналистике? Какие существуют виды заметок? Попробуем более подробно разобраться во всех этих тонкостях. Что такое заметка? Подданным определением понимают простейшую форму оперативного сообщения. Заметка должна отвечать наЧто такое информационная заметка? Какая ее роль в журналистике? Какие существуют виды заметок? Попробуем более подробно разобраться во всех этих тонкостях. Что такое заметка? Подданным определением понимают простейшую форму оперативного сообщения. Заметка должна отвечать на</div>
+            </div>
+        </div>
+    </div>
+    <div class="time" style=" display: none;">
+        <a href="#" class="btn-time"></a>00:00:00
+    </div>
+</div>
+<!-- end box --><!-- box -->
+<div class="box solving">
+    <h3>Читать книгу</h3>
+    <div class="box-holder">
+        <span class="btn-move"></span><div class="progresbar-holder">
+            <div class="progresbar">
+                <span style=" width: 30%"></span>
+            </div>
+            <div class="box-note-progres"><span class="btn-note-progres">35%</span></div>
+        </div>
+        <div class="box-content">
+            <div class="img-runtime">
+                <div class="img-runtime-holder">
+                    <span><img src="images/img1.png"><img src="images/img1-performance.png" class="performance"><img src="images/img1-hover.png" class="hover"></span>
+                </div>
+            </div>
+            <div class="row-bottom">
+                <div class="row-content">
+                    <a href="#" class="settings-mission">Настройки</a>
+                </div>
+            </div>
+        </div>
+        <div class="job">
+            <div class="heading">
+                <a href="#" class="btn-close icon-close"></a>
+                Составляющие (2/<span>3</span>)
+            </div>
+            <div class="list-holder scroll-pane">
+                <ul>
+                    <li ><span><span>Подтягивание</span>
+											</span></li>
+                    <li ><span><span>Подтягивание</span>
+											</span></li>
+                    <li><span><span>Если будет длинное название то оно может быть в несколько строк</span>
+											</span></li>
+                    <li><span><span>Подтягивание</span>
+											</span></li>
+                    <li ><span><span>Если будет длинное название то оно может быть в несколько строк</span>
+											</span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="statistics-runtime">
+            <div class="heading">
+                <a class="btn-close-statistics-runtime icon-open" href="#"></a>
+                <span>26%</span>
+            </div>
+            <ul>
+                <li><span>50</span>Общее количество</li>
+                <li><span>50</span>Выполнено</li>
+                <li><span>50</span>Не выполено</li>
+                <li><span>10.12.2015</span>Дата начала</li>
+                <li><span class="date-end">10.12.2015</span>Дата окончания</li>
+            </ul>
+        </div>
+        <div class="notes-case">
+            <div class="heading">
+                <a href="#" class="btn-close icon-close"></a>
+                Заметка
+            </div>
+            <div class="notes-case-content scroll-pane">
+                <div class="notes-case-content-text">Что такое информационная заметка? Какая ее роль в журналистике? Какие существуют виды заметок? Попробуем более подробно разобраться во всех этих тонкостях. Что такое заметка? Подданным определением понимают простейшую форму оперативного сообщения. Заметка должна отвечать наЧто такое информационная заметка? Какая ее роль в журналистике? Какие существуют виды заметок? Попробуем более подробно разобраться во всех этих тонкостях. Что такое заметка? Подданным определением понимают простейшую форму оперативного сообщения. Заметка должна отвечать на</div>
+            </div>
+        </div>
+    </div>
+    <div class="time" style=" display: none;">
+        <a href="#" class="btn-time"></a>00:00:00
+    </div>
+</div>
+<!-- end box --><!-- box -->
+<div class="box solving">
+    <h3>Читать книгу</h3>
+    <div class="box-holder">
+        <span class="btn-move"></span><div class="progresbar-holder">
+            <div class="progresbar">
+                <span style=" width: 30%"></span>
+            </div>
+            <div class="box-note-progres"><span class="btn-note-progres">35%</span></div>
+        </div>
+        <div class="box-content">
+            <div class="img-runtime">
+                <div class="img-runtime-holder">
+                    <span><img src="images/img1.png"><img src="images/img1-performance.png" class="performance"><img src="images/img1-hover.png" class="hover"></span>
+                </div>
+            </div>
+            <div class="row-bottom">
+                <div class="row-content">
+                    <ul class="tools">
+                        <li><a href="#" class="user icon-users"></a></li>
+                    </ul>
+                    <a href="#" class="settings-mission">Настройки</a>
+                </div>
+            </div>
+        </div>
+        <div class="job">
+            <div class="heading">
+                <a href="#" class="btn-close icon-close"></a>
+                Составляющие (2/<span>3</span>)
+            </div>
+            <div class="list-holder scroll-pane">
+                <ul>
+                    <li ><span><span>Подтягивание</span>
+											</span></li>
+                    <li ><span><span>Подтягивание</span>
+											</span></li>
+                    <li><span><span>Если будет длинное название то оно может быть в несколько строк</span>
+											</span></li>
+                    <li><span><span>Подтягивание</span>
+											</span></li>
+                    <li ><span><span>Если будет длинное название то оно может быть в несколько строк</span>
+											</span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="statistics-runtime">
+            <div class="heading">
+                <a class="btn-close-statistics-runtime icon-open" href="#"></a>
+                <span>26%</span>
+            </div>
+            <ul>
+                <li><span>50</span>Общее количество</li>
+                <li><span>50</span>Выполнено</li>
+                <li><span>50</span>Не выполено</li>
+                <li><span>10.12.2015</span>Дата начала</li>
+                <li><span class="date-end">10.12.2015</span>Дата окончания</li>
+            </ul>
+        </div>
+        <div class="notes-case">
+            <div class="heading">
+                <a href="#" class="btn-close icon-close"></a>
+                Заметка
+            </div>
+            <div class="notes-case-content scroll-pane">
+                <div class="notes-case-content-text">Что такое информационная заметка? Какая ее роль в журналистике? Какие существуют виды заметок? Попробуем более подробно разобраться во всех этих тонкостях. Что такое заметка? Подданным определением понимают простейшую форму оперативного сообщения. Заметка должна отвечать наЧто такое информационная заметка? Какая ее роль в журналистике? Какие существуют виды заметок? Попробуем более подробно разобраться во всех этих тонкостях. Что такое заметка? Подданным определением понимают простейшую форму оперативного сообщения. Заметка должна отвечать на</div>
+            </div>
+        </div>
+    </div>
+    <div class="time" style=" display: none;">
+        <a href="#" class="btn-time"></a>00:00:00
+    </div>
+</div>
+<!-- end box --><!-- box -->
+<div class="box period-over">
+    <h3>Тренировка</h3>
+    <div class="box-holder">
+        <div class="box-content">
+            Ежедневное дело
+            <br>
+            выполнено на:
+            <div class="progres">80%</div>
+            <ul>
+                <li><a href="#">Начать заново</a></li>
+                <li><a href="#">Продолжить выполнение</a></li>
+                <li><a href="#" class="complete">Завершить</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- end box --><!-- box -->
+<div class="box ">
+    <h3>Читать книгу</h3>
+    <div class="box-content box-case">
+        <a class="add-case" href="#">+ Добавить отложенное
+            <br> ежедневное дело</a>
+        <a class="examples-cases" href="#">Примеры ежедневных дел</a>
+    </div>
+</div>
+<!-- end box -->#}

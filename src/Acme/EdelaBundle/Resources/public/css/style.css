@@ -1,0 +1,399 @@
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
+}
+
+.box-password-reset, .box-success {
+    display: none;
+}
+
+.planned-business .job, .planned-business .statistics-runtime, .planned-business .notes-case, .box-new-daily-deal.display {
+    transition: .8s;
+}
+
+.planned-business .job.display, .planned-business .statistics-runtime.display, .planned-business .notes-case.display, .box-new-daily-deal.display {
+    top: 0;
+}
+
+.new-action {
+    background: none repeat scroll 0 0 #FFFFFF;
+    height: 230px;
+    left: 1px;
+    margin: 1px 0 0;
+    position: absolute;
+    right: 1px;
+    top: 300px;
+    z-index: 5;
+    transition: .3s;
+}
+
+.new-action.display {
+    top: 0;
+}
+
+.planned-business .box-content.box-case {
+    overflow: hidden;
+}
+
+.goal-holder .goal-text {
+    top: 320px;
+}
+
+::-webkit-input-placeholder {
+    color: #b3b3b3;
+}
+
+:-moz-placeholder {
+    color: #b3b3b3;
+}
+
+.progress-bar span {
+    background-color: #0061c9;
+}
+
+/*.pop-up-chat{*/
+/*display: block;*/
+/*}*/
+
+.box-holder.tools-content .text {
+    transition: .8s
+}
+
+.box-holder.tools-content.display .text {
+    bottom: 0;
+}
+
+/*.question .landing-container-content {
+    padding-top: 50px;
+    *//*padding-bottom: 130px;*//*
+}*/
+
+.wrapper {
+    overflow: auto !important;
+}
+
+.user-menu .like {
+    height: 16px;
+    overflow: hidden;
+
+}
+
+.user-menu .like span {
+    display: block;
+}
+
+.user-menu .bill {
+    height: 21px;
+    line-height: 21px;
+    overflow: hidden;
+
+}
+.user-menu .cost:after{
+    background-position: 100% 2px;
+}
+
+.user-menu .bill span {
+    display: block;
+}
+
+.form-search input[type=search] {
+    opacity: 0;
+    transition: .8s;
+}
+
+.form-search input[type=search].display {
+    opacity: 1;
+}
+
+.breadcrumbs a.active:after {
+    background: none repeat scroll 0 0 #105DAB;
+    bottom: -8px;
+    content: "";
+    height: 3px;
+    left: 0;
+    position: absolute;
+    right: 0;
+}
+
+.pop-setting-goals.add-pop-setting-goals .row-reminder .btn.btn-white {
+    display: block;
+}
+
+.img-runtime.disabled span {
+    cursor: default;
+}
+
+.tools-holder .tool {
+    margin-left: 17px;
+}
+
+.list-calendar li .task-exec {
+    position: absolute;
+    width: 30px;
+    height: 100%;
+    left: 20px;
+    top: 0;
+    cursor: pointer;
+}
+
+.list-calendar li li .task-exec {
+    left: 45px;
+}
+
+.list-calendar li li li .task-exec {
+    left: 60px;
+}
+
+/*.footer {*/
+    /*bottom: -60px;*/
+/*}*/
+
+.lk-holder .subscription.disabled h3 {
+    color: rgb(75, 75, 75);
+}
+
+.lk-holder .subscription.disabled .btn {
+    color: white;
+}
+
+.lk-holder .subscription.disabled {
+    background: none;
+    color: rgb(75, 75, 75);
+}
+
+.lk-holder .invite-friend h3, .lk-holder .box-noticesms h3 {
+    margin: 0 0 11px !important;
+}
+
+.lk-holder div.quickdate {
+    line-height: 22px;
+    position: relative;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 180px;
+    border: 1px solid #d9d9d9;
+    float: right;
+}
+
+.lk-holder div.quickdate:hover {
+    border: 1px solid #d9d9d9;
+}
+
+.lk-holder div.quickdate a {
+    border: none;
+}
+
+.lk-holder div.intl-tel-input {
+    width: 180px;
+    border: 1px solid #d9d9d9;
+    float: right;
+}
+
+.lk-holder div.intl-tel-input input[type=tel] {
+    border: none;
+    padding-left: 7px;
+}
+
+.lk-holder div.intl-tel-input ul {
+    width: 260px;
+}
+
+.lk-holder div.intl-tel-input li {
+    text-indent: 0;
+}
+
+.lk-holder div.intl-tel-input li:before {
+    content: none;
+}
+
+.box-level .progres-detal span:after {
+    background: url("../images/icon-experience.png") no-repeat scroll 0 0;
+    content: "";
+    height: 23px;
+    /* position: absolute; */
+    right: -10px;
+    top: 6px;
+    display: inline-block;
+    width: 23px;
+    position: relative;
+}
+
+.lk-holder .box-level{
+    height: 336px;
+}
+
+
+.lk-holder .box-balance{
+    height: 552px;
+}
+
+.lk-holder .box-noticesms{
+    height: 609px;
+}
+
+.lk-holder .bootstrap-select.btn-group .btn .filter-option{
+    line-height: 20px;
+}
+
+
+input.error {border: 1px solid #b94a48;}
+
+
+input.upload-picture-input{
+    opacity: 0;
+    bottom: 0;
+    color: #fff;
+    left: 0;
+    padding: 20px 0;
+    position: absolute;
+    right: 0;
+    z-index: 5;
+    width: 100%;
+    cursor: pointer;
+}
+
+.add-target input[type="text"]{
+    color: black;
+}
+
+input.sending{
+    background-color: #eee;
+}
+
+/*Пополнение баланса */
+.balans {
+    background: transparent url("../images/money.png") no-repeat scroll 100%;
+    top:20px;
+    right:204px;
+    width:230px;
+    height:115px;
+    margin: 0px;
+    visibility: visible;
+    position: absolute;
+}
+.nobalans {
+    visibility: hidden;
+}
+.balansbut{
+    cursor: pointer;
+    background:#ffd500;
+    border:1px #B3B3B3;
+}
+.balansbut:hover{
+    background:#00CC00;
+    color:#FFFFFF;
+}
+/* конец Пополнение баланса */
+
+
+div.loading{
+    display: none;
+}
+
+.show_loader + .loading{
+    display: block;
+}
+
+.pop-up-notifications{
+    width: 345px;
+}
+
+.pop-up-calendar .ui-datepicker-group .ui-datepicker-calendar a.dayoff {
+    background: #ffd500;
+    color: #1c1700;
+    border-radius: 50%;
+    border: 1px solid #ffd500;
+}
+
+.social-list{
+    margin: 0;
+}
+
+.footer, .footer a {
+    color: #999;
+}
+
+.landing .tools h2 {
+    color: #999;
+    font: 16px Arial,Helvetica,sans-serif;
+    margin: 0;
+    /*text-align: left;*/
+}
+
+.landing .tools ul.gallery-landing-prev{
+    width: 515px;
+    margin: 0 auto;
+}
+
+.step-list li{
+    width: 25%;
+}
+
+.sh_btn_right_top{
+    top: 200px !important;
+}
+
+h3.important{
+    color:red;
+}
+
+.list-selected label.disabled, .list-selected label.disabled:hover{
+    background-color: #e6e6e6;
+    cursor: default;
+    border: none;
+    color: #656565;
+}
+
+div.scroll-up{
+    position: absolute;
+    left: 20px;
+    display: none;
+    z-index: 20;
+    bottom: -30px
+}
+
+.progress-bar-holder{
+    cursor: pointer;
+}
+
+.adjournment-proceedings .heading{
+    cursor: pointer;
+}
+
+.lk-holder .box-move:after{
+    content: none;
+}
+
+.box-tool-slider, .box-tool-slider-statistics{
+    bottom: auto;
+    right: auto;
+}
+
+.daily-business .item-content img{
+    max-width: 100px;
+}
+
+.box-login .checkbox{
+    padding: 0;
+}
+
+.checkbox input[type="checkbox"] + label{
+    padding: 0 !important;
+}
+
+.checkbox label:hover:after, .checkbox input[type="checkbox"]:hover + label:after {
+    background-position: 0 -17px !important;
+}
+.checkbox input[type="checkbox"]:checked + label:after {
+    background-position: 0 -36px !important;
+}
+.row-partners img {
+    border: none;
+}
+
+#sh_button{
+    opacity: 0;
+}
+
+.progress-bar-holder {
+ clear: both;
+}

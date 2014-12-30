@@ -1,0 +1,9 @@
+<div class="main" ng-show="!loading" ng-class="mainClass">
+
+    <div class="content">
+        <h1 ng-bind="currentTopic.title"></h1>
+
+        <div ng-bind-html="currentTopic.text | unsafe"></div>
+    </div>
+
+</div>

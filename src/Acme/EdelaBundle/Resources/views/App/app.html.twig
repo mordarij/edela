@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<!--[if IE 8]>
+<html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" ng-app="edelaApp">
+<!--<![endif]-->
+<head>
+    <base href="/{{ app.debug ? 'app_dev.php/' : '' }}id{{ currentUser.getId }}{#{{ currentUser.getId == displayUser ? currentUser.getId : displayUser }}#}" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>E-dela</title>
+    <meta name="description" content="text">
+    <meta name="viewport" content="width=device-width">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    {% block stylesheets %}
+        {% stylesheets
+        'bundles/acmeedela/css/font-awesome.min.css'
+        'bundles/acmeedela/css/intlTelInput.css'
+        'bundles/acmeedela/css/ng-quick-date.css'
+        'bundles/acmeedela/css/quickdate.css'
+        'bundles/acmeedela/css/all.css'
+        'bundles/acmeedela/css/loading-bar.css'
+        'bundles/acmeedela/css/style.css'  filter='cssrewrite' %}
+        <link href="{{ asset_url }}" rel="stylesheet">
+        {% endstylesheets %}
+    {% endblock %}
+    <script>
+        var currentUserId = {{ currentUser.getId }};
+        var displayUserId = {{ displayUser }};
+        if (currentUserId != displayUserId){
+            window.location.hash = '/display';
+        } else if (!window.location.hash){
+            window.location.hash = '/goals';
+        }
+    </script>
+    {% block javascripts %}
+        {#'@AcmeEdelaBundle/Resources/public/js/jquery-1.10.2.min.js'#}
+        {#'@AcmeEdelaBundle/Resources/public/js/*'#}
+        {% javascripts
+        '@AcmeEdelaBundle/Resources/public/js/jquery/jquery-1.10.2.min.js'
+        '@AcmeEdelaBundle/Resources/public/js/jquery/jquery-ui.js'
+        '@AcmeEdelaBundle/Resources/public/js/jquery/jquery.placeholder.js'
+        '@AcmeEdelaBundle/Resources/public/js/jquery/bootstrap-select.js'
+        '@AcmeEdelaBundle/Resources/public/js/jquery/jquery.shapeshift.min.js'
+        '@AcmeEdelaBundle/Resources/public/js/jquery/jquery.fancybox.js'
+        '@AcmeEdelaBundle/Resources/public/js/jquery/jquery.mousewheel.js'
+        '@AcmeEdelaBundle/Resources/public/js/jquery/jquery.jscrollpane.js'
+        '@AcmeEdelaBundle/Resources/public/js/jquery/dateformat.js'
+        '@AcmeEdelaBundle/Resources/public/js/jquery/dateformat-i18n.js'
+        '@AcmeEdelaBundle/Resources/public/js/jquery/intlTelInput.min.js'
+        '@AcmeEdelaBundle/Resources/public/js/jquery/slideblock.js'
+        '@AcmeEdelaBundle/Resources/public/js/jquery/script.js'
+        '@AcmeEdelaBundle/Resources/public/js/angular/angular.min.js'
+        '@AcmeEdelaBundle/Resources/public/js/angular/d3.v3.min.js'
+        '@AcmeEdelaBundle/Resources/public/js/angular/*'
+        '@AcmeEdelaBundle/Resources/public/js/angular/data/app.js'
+        '@AcmeEdelaBundle/Resources/public/js/angular/data/controllers.js'
+        '@AcmeEdelaBundle/Resources/public/js/angular/data/*' %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+    {% endblock %}
+</head>
+<body>
+<noscript>
+    <div>Javascript должен быть включен для корректного отображения страницы</div>
+</noscript>
+<div class="wrapper">
+    <div class="w2">
+        <header class="header" ng-controller="HeaderController" ng-include="'/bundles/acmeedela/partials/header.html'">
+        </header>
+        <div ng-view autoscroll="true" shortcut ng-class="{show_loader:loading}" scroll>
+        </div>
+        <div class="loading">Загрузка...</div>
+        <footer class="footer">
+            <div class="holder">
+                <div class="row">
+                    <div class="col1">
+                        <div class="copy">&copy; Ежедневныедела.ру, 2012-2014</div>
+                        <ul class="social">
+                            <li><a href="http://vk.com/edela" class="vk">vk</a></li>
+                            <li><a href="http://youtube.com/user/edelacom1" class="yutube">yutube</a></li>
+                        </ul>
+                        <a href="http://e-dela.livejournal.com">Блог</a>
+                    </div>
+                    <div class="col2">
+                        <div class="text-error">
+                            <a href="#">Нашли ошибку на сайте?</a>
+                            Выделите текст и нажмите Ctrl+Enter
+                        </div>
+                        <a href="http://edela.reformal.ru/">Вопросы, предложения</a>
+                    </div>
+                </div>
+                <div class="row row-partners">
+                    <span>Партнеры:</span>
+                    <ul>
+                        <li><a href="http://drvd.ru/" target="_blank"><img src="/bundles/acmeedela/images/partners/1.png" /></a></li>
+                        <li><a href="http://vivsharm.ru/" target="_blank"><img src="/bundles/acmeedela/images/partners/2.png" /></a></li>
+                        <li><a href="http://nablagovseh.ru/index.php?route=product/product&product_id=72" target="_blank"><img src="/bundles/acmeedela/images/partners/3.png" /></a></li>
+                        <li><a href="http://isolovey.ru/" target="_blank"><img src="/bundles/acmeedela/images/partners/4.png" /></a></li>
+                        <li><a href="http://beelady.ru/intro" target="_blank"><img src="/bundles/acmeedela/images/partners/5.png" /></a></li>
+                    </ul>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+    <div ng-controller="SendErrorController"  ng-show="showPopup" >
+        <div style="position: absolute; top:0; left: 0; height:100%; width: 100%; background-color: black; z-index: 50; opacity: .3"></div>
+    <div class="pop-up pop-up-send-error" id="pop-up-send-error" style=" position: absolute; left: 50%;  margin-left: -370px; z-index: 555; top: 0;">
+        <h3>Спасибо за помощь!</h3>
+        <div class="row">
+            <label>Вы выделили:</label>
+            <div class="text-selext-text">
+                <span ng-bind="error.text"></span>
+            </div>
+        </div>
+        <div class="row">
+            <label for="mas-det">Мы обязательно исправим ошибку. Вы можете оставить комментарий:</label>
+            <div class="textarea-holder">
+                <textarea id="mas-det" col="1" row="3"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <label for="input-code">Введите код с картинки</label>
+            <div class="row-capcha">
+                <div class="row-capcha-holder">
+                    <div class="row-capcha-frame">
+                        <span>27365</span>
+                        <input id="input-code" type="text">
+                        <a href="#" class="update">Обновить</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row-btn">
+            <button type="button" class="btn btn-blue" ng-click="showPopup=false">Отправить</button>
+            <button type="button" class="btn btn-white" ng-click="showPopup=false">Отмена</button>
+        </div>
+    </div></div>
+
+</div>
+{#<script>
+
+    jQuery('.scroll-pane').jScrollPane({
+        autoReinitialise: true,
+        autoReinitialiseDelay: 100
+    });
+
+
+    $('.selectpicker').selectpicker('');
+
+</script>
+<script>
+
+
+
+    $(document).ready(function(){
+
+        var anim_int =  600;
+
+        $('.btn-close').click(function(){
+            $(this).parent().parent().animate({top: "300px"}, anim_int);
+            return false;
+        });
+
+
+        $('.see').click(function(){
+            if($(this).hasClass('icon-nosee')){$(this).removeClass('icon-nosee')}
+            else{$(this).addClass('icon-nosee')}
+            return false;
+        });
+
+
+
+        $('.btn-close-statistics-runtime').click(function(){
+            $(this).parent().parent().animate({top: "-300px"}, anim_int);
+            return false;
+        });
+
+//        $('.open').click(function(){
+//            $(this).parent().parent().parent().parent().parent().parent().find('.job').animate({top: "0"}, anim_int);
+//            return false;
+//        });
+
+
+        $('.btn-note-progres').click(function(){
+            $(this).parent().parent().parent().find('.statistics-runtime').animate({top: "0"}, anim_int);
+            return false;
+        });
+
+        $('.note').click(function(){
+            $(this).parent().parent().parent().parent().parent().parent().find('.notes-case').animate({top: "0"}, anim_int);
+            return false;
+        });
+
+        $('.btn-minus').click(function(){
+            var obj = $(this).parent().find('input');
+            var v = parseInt(obj.val());
+            if(v>1){obj.val(v-1)}
+            return false;
+        });
+
+        $('.btn-plus').click(function(){
+            var obj = $(this).parent().find('input');
+            var v = parseInt(obj.val());
+            obj.val(v+1);
+            return false;
+        });
+
+
+        $('#nestable3').nestable();
+
+
+        $('.planned-business').sortable({
+            placeholder: "dd-placeholder",
+            handle: ".btn-move",
+            over: function() {
+                $('.dd-placeholder').stop().animate({
+                    height: 273
+                }, 200);
+            },
+            change: function() {
+                $('.dd-placeholder').stop().animate({
+                    height: 273
+                }, 200);
+            }
+        });
+    });
+</script>#}
+<!-- Start SiteHeart code -->
+<script>
+    (function(){
+        var widget_id = 725294;
+        _shcp =[{widget_id : widget_id}];
+        var lang =(navigator.language || navigator.systemLanguage
+                || navigator.userLanguage ||"ru")
+                .substr(0,2).toLowerCase();
+        var url ="widget.siteheart.com/widget/sh/"+ widget_id +"/"+ lang +"/widget.js";
+        var hcc = document.createElement("script");
+        hcc.type ="text/javascript";
+        hcc.async =true;
+        hcc.src =("https:"== document.location.protocol ?"https":"http")
+                +"://"+ url;
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hcc, s.nextSibling);
+    })();
+</script>
+<!-- End SiteHeart code -->
+</body>
+</html>

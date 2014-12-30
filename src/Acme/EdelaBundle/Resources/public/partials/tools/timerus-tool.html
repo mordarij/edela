@@ -1,0 +1,22 @@
+
+<div class="taymerus">
+    <h3>Время</h3>
+
+    <div class="row">
+        <div class="row-input-text">
+            <input type="text" placeholder="Час" ng-model="timer.hour" class="form-input">
+            <input type="text" placeholder="Мин" ng-model="timer.min" class="form-input">
+            <input type="text" placeholder="Сек" ng-model="timer.sec" class="form-input">
+        </div>
+    </div>
+    <select class="nya-selectpicker" data-container="body" ng-model="timer.melody" ng-change="changeMelody()" ng-options="m.file as m.title for m in melodies">
+    </select>
+
+    <div class="row checkbox">
+        <input type="checkbox" id="loop" ng-model="timer.loop" checked="checked">
+        <label for="loop">Зациклить</label>
+    </div>
+    <div class="btn-row">
+        <a href="javascript:" ng-click="start()" class="btn" ng-bind-template="{{ timer.running ? 'Пауза' : 'Старт' }}"></a>
+    </div>
+</div>

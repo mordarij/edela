@@ -1,0 +1,62 @@
+security:
+    encoders:
+        Symfony\Component\Security\Core\User\User: plaintext
+        FOS\UserBundle\Model\UserInterface: sha512
+
+    role_hierarchy:
+        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+
+    providers:
+        fos_userbundle:
+            id: fos_user.user_provider.username_email
+        in_memory:
+            memory:
+                users:
+                    user:  { password: userpass, roles: [ 'ROLE_USER' ] }
+                    admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
+
+    firewalls:
+        dev:
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        main:
+            pattern: ^/
+            oauth:
+                login_path:        /user/login
+                use_forward:       false
+                failure_path:      /user/login
+                provider: fos_userbundle
+                resource_owners:
+                    vkontakte:           "/user/snlogin/check-vk"
+                    facebook:           "/user/snlogin/check-fb"
+                oauth_user_provider:
+                    service: my_user_provider
+
+            form_login:
+                provider: fos_userbundle
+                csrf_provider: form.csrf_provider
+                check_path: login_check
+                login_path: /user/login
+                remember_me: true
+                default_target_path: app
+            logout:
+                path: /user/logout
+                target: /
+            anonymous:    true
+            remember_me:
+                key: verySecretKey
+                lifetime: 31536000 # 365 days in seconds
+                path:     /
+                domain:   ~ # Defaults to the current domain from $_SERVER
+#                always_remember_me: true
+
+    access_control:
+        - { path: ^/user, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/logindemo, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/pay/result, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/, role: ROLE_ADMIN }
+        - { path: ^/$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/, role: IS_AUTHENTICATED_FULLY }
+
