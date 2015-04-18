@@ -16,6 +16,7 @@ class AppKernel extends Kernel
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
+ 			new Shtumi\UsefulBundle\ShtumiUsefulBundle(),
             new \FOS\UserBundle\FOSUserBundle(),
             new \HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
             new \FOS\RestBundle\FOSRestBundle(),
@@ -39,7 +40,7 @@ class AppKernel extends Kernel
 
             // Then add SonataAdminBundle
             new Sonata\AdminBundle\SonataAdminBundle(),
-            new Acme\AdminBundle\AcmeAdminBundle(),            
+            new Acme\AdminBundle\AcmeAdminBundle(),  
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

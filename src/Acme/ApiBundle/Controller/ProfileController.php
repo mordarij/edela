@@ -168,7 +168,7 @@ class ProfileController extends FOSRestController
 
         $currentUser = $this->container->get('security.context')->getToken()->getUser();
         $date = new \DateTime($request->get('date'));
-        $userTime = (new \DateTime())->setTimeZone(new \DateTimeZone('+' . $currentUser->getTimezone()));
+        $userTime = (new \DateTime())->setTimeZone(new \DateTimeZone('+' . $currentUser->getTimezone()->getTimezone()));
         $firstMonthDay = clone $userTime;
         $firstMonthDay->modify('first day of this month');
         $lastMonthDay = clone $userTime;

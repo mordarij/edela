@@ -1,47 +1,81 @@
-edelaControllers.controller('GoalsListController', ['$scope', '$http', '$location', function ($scope, $http, $location) {
-
+edelaControllers.controller('GoalsListController', ['$scope', '$http', '$location','goalsManager', function ($scope, $http, $location, goalsManager) {
     $scope.loading = true;
-    $scope.newGoal = {};
-    $scope.addGoal = function () {
-        $http({
-            method: 'POST',
-            url: 'api/goals',
-            data: $scope.newGoal
-        }).success(function (data) {
-            $location.path('/goals/' + data.id + '/edit');
-        });
+    $scope.showEditPopupGoalAdd = false;
+    $scope.showEditPopupGoal = false;
+    
+    $scope.addGoalPopup = function(){
+    	$('.pop-setting-goals-add').css('top', 200);
+ 	   $scope.settings = {tab: 'tab1'};
+       $scope.showEditPopupGoalAdd = true;
+    }
+    $scope.cancelAdd = function () {
+        $scope.showEditPopupGoalAdd = false;
     };
-
-    $scope.gotoActions = function (id) {
-        $location.path('/goals/' + id + '/actions');
-    };
-
-    $scope.goals = $http.get('api/goals').success(function (data) {
-        $scope.loading = false;
-        if (data.length > 0) {
-            $scope.$parent.mainClass = 'form-add-my-goal';
-        }
-        $scope.goals = data;
-    });
-
-
+    
+   goalsManager.loadGoals().then(function (goals) {
+    	$scope.loading = false;
+    	if (goals.length > 0) {
+			$scope.$parent.mainClass = 'form-add-my-goal';
+		}
+        $scope.goals = goals;
+        $("#hover").removeClass("active");
+        $("#hover1").addClass("active");
+    });  
 }]);
-
-edelaControllers.controller('GoalsEditController', ['$scope', '$http', '$routeParams', '$location', '$fileUploader', '$rootScope',
-    function ($scope, $http, $routeParams, $location, $fileUploader, $rootScope) {
-        $scope.loading = true;
-
+edelaControllers.controller('GoalsAddController', ['$scope', '$http', '$routeParams', '$location', '$fileUploader', '$rootScope','globalVars', 'goalsManager',
+    function ($scope, $http, $routeParams, $location, $fileUploader, $rootScope, globalVars, goalsManager) {
+		$scope.newGoal = {name:'Новая цель'};
+		$scope.newGoal.images=new Array();
+	
+		var uploader = $scope.uploader = $fileUploader.create({
+			scope: $scope,
+			url: 'api/goals/images',
+			autoUpload: true
+		});
+		$scope.addGoal = function () {
+            $http({
+                method: 'POST',
+                url: 'api/goals',
+                data: $scope.newGoal
+            }).success(function (data) {   
+            	if(data['error'])alert('Такая цель уже существует');
+            	else
+            	window.location.reload();
+            });
+        };
+		uploader.bind('complete', function (event, xhr, item, response) {    
+			if(!response['id'])alert('Изобрежание слишком большое для загрузки. Желательный размер 480x320.');
+			else{
+				$scope.newGoal.images.push(response); 
+				$scope.addGoal();
+			}
+        });  
+}]);
+    
+edelaControllers.controller('GoalsEditController', ['$scope', '$http', '$routeParams', '$location', '$fileUploader', '$rootScope','globalVars', 'goalsManager',
+    function ($scope, $http, $routeParams, $location, $fileUploader, $rootScope, globalVars, goalsManager) {
+        
+		var beforeEdit;
         var uploader = $scope.uploader = $fileUploader.create({
             scope: $scope,
             url: 'api/goals/images',
             autoUpload: true
         });
-
-        uploader.bind('complete', function (event, xhr, item, response) {
-            $scope.goal.images.push(response);
+                       
+        $rootScope.$on('EDIT_GOAL', function (response, data) {
+            $scope.settings = {tab: 'tab1'};
+            $scope.vars = globalVars.getVars();
+            $scope.goal = goalsManager._retrieveInstance(data.jsId, data); 
+            beforeEdit = angular.copy($scope.goal);
+            $scope.showEditPopupGoal = true;
+           // $scope.settingsBriefly = true;           
+            $scope.uploader.formData.push({ goal: $scope.goal.id });
+            uploader.bind('complete', function (event, xhr, item, response) {        	
+            	$scope.goal.images.push(response);        	        
+            });              
         });
-
-        $http.get('api/goals/' + $routeParams.id).success(function (data) {
+     
+       /* $http.get('api/goals/' + $routeParams.id).success(function (data) {
             $scope.loading = false;
             $scope.goal = data;
             $rootScope.$broadcast('BREADCRUMBS_CHANGED', [
@@ -50,54 +84,88 @@ edelaControllers.controller('GoalsEditController', ['$scope', '$http', '$routePa
                 {active: false, href: '#goals/' + data.id + '/actions', caption: 'Список задач'},
             ]);
             $scope.uploader.formData.push({ goal: data.id });
-        });
+        });*/
+      
+        $scope.cancelEdit = function () {
+            $scope.goal.setData(beforeEdit);            
+            $scope.showEditPopupGoal = false;
+        };
+                                       
         $scope.editGoal = function () {
             var id = $scope.goal.id;
             var goal = {};
             angular.copy($scope.goal, goal);
             delete goal.id;
+            delete goal.jsId;
+            delete goal.actions;
+            delete goal.title;
             $http({
-                method: 'PATCH',
+                method: 'patch',
                 url: 'api/goals/' + id,
-                data: {'edit_goal': goal}
-            }).success(function (data) {
-//                $location.path('/goals/' + $scope.goal.id + '/actions');
+                data: {edit_goal: goal}
+            }).success(function (data) {         
+            	loadGoals();
             });
         }
-
         $scope.deleteGoal = function(){
-            $http.delete('api/goals/' + $scope.goal.id).success(function(data){
-                $location.path('/goals');
-            });
-        }
+        	 goalsManager.removeGoal($scope.goal);
+        	 $scope.showEditPopupGoal = false;                    	 
+        }       
+        
+        function loadGoals(){ 
+        	 $scope.goals={};
+        	 $scope.loading = true;
+        	 $scope.showEditPopupGoal = false;            
+        	 goalsManager.loadGoals().then(function (goals) {
 
+        		 $scope.loading = false;
+        	    	if (goals.length > 0) {
+        				$scope.$parent.mainClass = 'form-add-my-goal';
+        			}
+        	        $scope.goals = goals;
+        	        $("#hover").removeClass("active");
+        	        $("#hover1").addClass("active");
+        	    });  
+        }
+        
     }]);
 
-edelaControllers.controller('GoalsActionsController', ['$scope', '$http', '$routeParams', '$location', '$rootScope', 'actionsManager', 'globalVars', 'tasksManager',
-    function ($scope, $http, $routeParams, $location, $rootScope, actionsManager, globalVars, tasksManager) {
+edelaControllers.controller('GoalsActionsController', ['$scope', '$http', '$routeParams', '$location', '$rootScope', 'actionsManager', 'goalsManager','globalVars', 'tasksManager',
+    function ($scope, $http, $routeParams, $location, $rootScope, actionsManager, goalsManager, globalVars, tasksManager) {
         $scope.vars = globalVars.getVars();
         $scope.melodies = [1];
         $scope.loading = true;
-
-        actionsManager.loadActions($routeParams.id).then(function (actions) {
-            $scope.actions = actions;
-            $scope.loading = false;
+        
+        $rootScope.$on('actions:pool:removed', function (response, data) {        
+        	actionsManager.loadActions($scope.goal.id).then(function (actions) {
+        		$scope.actions = actions;
+        		$scope.loading = false;
+        	});
         });
-
-        $http.get('api/goals/' + $routeParams.id).success(function (data) {
+        
+        $rootScope.$on('EDIT_GOAL', function (response, data) {
+        	 
+        	$scope.goal = goalsManager._retrieveInstance(data.jsId, data);               
+        
+        	actionsManager.loadActions($scope.goal.id).then(function (actions) {
+        		$scope.actions = actions;
+        		$scope.loading = false;
+        	});
+        
+      /*  $http.get('api/goals/' + $routeParams.id).success(function (data) {
             $rootScope.$broadcast('BREADCRUMBS_CHANGED', [
                 {active: false, href: '#goals', caption: data.name},
                 {active: false, href: '#goals/' + data.id + '/edit', caption: 'Настройки'},
                 {active: true, href: '#goals/' + data.id + '/actions', caption: 'Список задач'},
             ]);
         });
-
-        $scope.goal = $routeParams.id;
-
-        tasksManager.loadTasks($routeParams.id).then(function (tasks) {
-            $scope.tasks = tasks;
+		*/        	
         });
 
+        /*tasksManager.loadTasks($routeParams.id).then(function (tasks) {
+            $scope.tasks = tasks;
+        });
+         */
         $scope.executeSubaction = function (subaction) {
             console.log(subaction);
         };
@@ -131,9 +199,8 @@ edelaControllers.controller('GoalsActionsController', ['$scope', '$http', '$rout
             progressSecond: null,
             repeat_amount: 40,
             start_at: "2014-07-31",
-            start_time: "2014-07-31T00:00:00+0700",
-            goal: $routeParams.id
-        };
+            start_time: "2014-07-31T00:00:00+0700"
+          };
         $scope.newAction = angular.copy(blankAction);
         $scope.display = { showNew: false };
 
@@ -144,13 +211,18 @@ edelaControllers.controller('GoalsActionsController', ['$scope', '$http', '$rout
         });
 
         $scope.addAction = function () {
+        	if($scope.newAction.title && $scope.newAction.title!="" && $scope.newAction.title!="Название..."){
+        	$scope.newAction.goal = $scope.goal.id;
             $scope.newAction.start_at = new Date().toISOString().slice(0, 10);
             $scope.actions.push(actionsManager.addAction($scope.newAction));
             $scope.newAction = angular.copy(blankAction);
             $scope.display.showNew = false;
+        	}else{
+        		alert("Введите название ежедненвого дела");
+        	}
         };
 
-        $scope.newTask = {
+       /* $scope.newTask = {
             createdAt: "2014-07-16T14:48:45+0700",
             done: false,
             is_important: false,
@@ -182,5 +254,5 @@ edelaControllers.controller('GoalsActionsController', ['$scope', '$http', '$rout
                 var ind = $scope.tasks.indexOf(task);
                 $scope.tasks.splice(ind, 1)
             });
-        }
+        }*/
     }]);

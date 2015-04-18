@@ -19,9 +19,9 @@ function setTopPadding(){
 }
 
 function initHeights(){
-    setTopPadding();
+    //setTopPadding();
     initContentHeight();
-    divresize('.goal', 100, 118);
+    //divresize('.goal', 100, 118);
 }
 
 setInterval(initHeights, 300);
@@ -29,7 +29,7 @@ setInterval(initHeights, 300);
 $(function(){
     window.onresize = function(){
         initContentHeight();
-        divresize('.goal', 125, 118);
+        //divresize('.goal', 125, 118);
     };
 
     $('body').on('click', '.btn-chat', function(){

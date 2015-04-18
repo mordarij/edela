@@ -369,11 +369,6 @@ $(document).ready(function(){
     });
 });
 
-
-
-
-
-
 $(document).ready(function(){
 //	jQuery('.scroll-pane').jScrollPane({
 //		autoReinitialise: true,
@@ -409,13 +404,4 @@ $(document).ready(function(){
 	}
 	
 });
-
-
-
-
-
-
-
-
-
 

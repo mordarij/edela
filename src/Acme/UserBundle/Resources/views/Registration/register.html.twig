@@ -36,10 +36,9 @@
                     </div>
                 </div>
                 <div class="secsion box-time-zone">
-                    <h3>Укажите ваш часовой пояс</h3>
-
+                    <h3>Введите свой город</h3>
                     <div class="row row-select">
-                        {{ form_widget(form.timezone, { attr: { class: 'selectpicker', placeholder: 'form.timezone'|trans } }) }}
+                        {{ form_widget(form.timezone, { attr: { placeholder: 'form.timezone'|trans } }) }}
                     </div>                   
                 </div>
                 {#<div class="secsion promo-code">
@@ -77,11 +76,8 @@
                     <ul>
                         <li><a href="{{ hwi_oauth_login_url('vkontakte') }}" class="vk">vk</a></li>
                         <li><a href="{{ hwi_oauth_login_url('facebook') }}" class="fb">fb</a></li>
-                        {#<li><a href="#" class="fb">fb</a></li>#}
-                        {#<li><a href="#" class="google-plus">google plus</a></li>#}
-                        {#<li><a href="#" class="twitter">twitter</a></li>#}
-                        {#<li><a href="#" class="ok">ok</a></li>#}
-                        {#<li><a href="#" class="ya">ya</a></li>#}
+						<li><a href="{{ hwi_oauth_login_url('google') }}" class="google-plus">google plus</a></li>                        
+                        <li><a href="{{ hwi_oauth_login_url('odnoklassniki') }}" class="ok">odnoklassniki</a></li>                                                
                     </ul>
                 </div>
             </div>

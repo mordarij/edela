@@ -31,6 +31,10 @@ fos_user_registration_confirmed:
     pattern: /confirmed
     defaults: { _controller: AcmeUserBundle:Registration:confirmed }
 
+fos_user_social_check_email:
+    pattern: /social_check_email
+    defaults: { _controller: AcmeUserBundle:Resetting:requestcheckEmail }
+
 fos_user_registration_check_email:
     pattern: /check_email
     defaults: { _controller: AcmeUserBundle:Registration:checkEmail }
@@ -53,4 +57,5 @@ fb_login:
     pattern: /snlogin/check-fb
 google_login:
     pattern: /snlogin/check-google
-
+odnoklassniki_login:
+    pattern: /snlogin/check-odnoklassniki

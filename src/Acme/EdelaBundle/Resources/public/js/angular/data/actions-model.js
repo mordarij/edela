@@ -12,7 +12,7 @@ edelaApp.factory('Action', ['$http', '$rootScope', 'globalVars', 'calendar', '$q
             this.progressMinute = this.progress < 60 ? null : Math.floor((this.progress - (this.progressHour * 60)) / 60);
             this.progressSecond = !this.progress ? null : this.progress - (this.progressHour * 60 * 60) - (this.progressMinute * 60 );
             this.completed = Boolean(this.progress);
-            console.log(this.title, this.completed);
+            //console.log(this.title, this.completed);
         },
         isExecutable: function () {
             var today = new Date().setHours(0, 0, 0, 0);
@@ -46,10 +46,19 @@ edelaApp.factory('Action', ['$http', '$rootScope', 'globalVars', 'calendar', '$q
         },
         showSubactions: false,
         showNotes: false,
-        addSubaction: function (title) {
-            this.subactions = this.subactions || [];
-            var subaction = { title: title, progress: 0 };
-            this.subactions.push(subaction);
+        addSubaction: function (title) {        	
+        	if(title && title!="" && title!="Название"){
+        		this.subactions = this.subactions || [];
+        		var subaction = { title: title, progress: 0 };
+        		this.subactions.push(subaction);
+        	}
+        },
+        removeSubaction: function (subaction) {
+    		this.subactions = this.subactions || [];    	    
+            var index = this.subactions.indexOf(subaction);
+            if (index > -1) {
+                this.subactions.splice(index, 1);
+            }            
         },
         addTag: function (title) {
             this.tags = this.tags || [];
@@ -74,6 +83,13 @@ edelaApp.factory('Action', ['$http', '$rootScope', 'globalVars', 'calendar', '$q
             if (this.position == position) return;
 
             this.position = position;
+            this.saveChanges();
+        },
+        startAgain: function () {
+        	this.progress=0;
+        	this.done=-1;
+            this.execute();
+            this.action_time_start="";
             this.saveChanges();
         },
         toggleDelay: function () {
@@ -152,6 +168,7 @@ edelaApp.factory('Action', ['$http', '$rootScope', 'globalVars', 'calendar', '$q
                     if (!action.progress && total){
                         action.progress = true;
                         action.done++;
+                        action.showSubactions=false;
                     }
                 }
             })
@@ -294,32 +311,41 @@ edelaApp.factory('actionsManager', ['$http', '$q', 'Action', '$filter', '$rootSc
             return deferred.promise;
         },
         addAction: function (newAction) {
-//            var deferred = $q.defer();
-            var scope = this;
-            newAction.jsId = Math.floor(Math.random() * 1000) + new Date().format('yyyymmdd');
-            var action = scope._retrieveInstance(newAction.jsId, newAction);
-            newAction.position = Object.keys(this._pool).length;
-            $http({
-                method: 'POST',
-                url: 'api/actions',
-                data: { action_create_short: {
-                    goal: newAction.goal,
-                    start_at: newAction.start_at,
-                    title: newAction.title,
-                    position: newAction.position
-                }}
-            }).success(function (data) {
-                action.setData(data);
-//                var action = scope._retrieveInstance(data.id, data);
-//                deferred.resolve(action);
-            }).error(function () {
-//                deferred.reject();
-            });
-            return action;
-//            return deferred.promise;
-        },
-        removeAction: function (action) {
+//          var deferred = $q.defer();
+          var scope = this;
+          newAction.jsId = Math.floor(Math.random() * 1000) + new Date().format('yyyymmdd');
+          var action = scope._retrieveInstance(newAction.jsId, newAction);
+          newAction.position = Object.keys(this._pool).length;
+          $http({
+              method: 'POST',
+              url: 'api/actions',
+              data: {
+                  action_create_short: {
+                      goal: newAction.goal,
+                      start_at: newAction.start_at,
+                      title: newAction.title,
+                      position: newAction.position
+                  }
+              }
+          }).success(function (data) {
+              action.setData(data);
+//              var action = scope._retrieveInstance(data.id, data);
+//              deferred.resolve(action);
+          }).error(function () {
+//              deferred.reject();
+          });
+          return action;
+//          return deferred.promise;
+      },
+      removeAction: function (action) {
             delete this._pool[action.jsId];
+
+            $http({
+                method: 'DELETE',
+                url: 'api/actions/' + action.id
+            }).success(function (data) {
+            	
+            });
             $rootScope.$broadcast('actions:pool:removed', action);
         }
     };

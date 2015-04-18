@@ -71,7 +71,7 @@ class ActionRepository extends EntityRepository
         }
 
         if (!$deleted){
-         //   $actions->andWhere('ua.is_deleted=0');
+            $actions->andWhere('ua.isDeleted=0');
         }
 
         $orX = $builder->expr()->orX();
@@ -89,7 +89,10 @@ class ActionRepository extends EntityRepository
             $result[$key]['action_time_finish'] = $result[$key]['action_time_finish'] ? $result[$key]['action_time_finish']->format('H:i') : null;
             $result[$key]['notification_time'] = $result[$key]['notification_time'] ? $result[$key]['notification_time']->format('H:i') : null;
             $result[$key]['goal'] = ['id' => $action['goal_id'], 'title' => $action['goal_title']];
-            $result[$key]['date_finish'] = date("d.m.Y", strtotime($result[$key]['format_start_time'])+ (24*3600*($result[$key]['periodicity_interval']*$result[$key]['repeat_amount']))); 
+            if($result[$key]['periodicity_interval']!=0)
+            $result[$key]['date_finish'] = date("d.m.Y", strtotime($result[$key]['format_start_time'])+ ($result[$key]['repeat_amount']/ceil(7/$result[$key]['periodicity_interval']))*(24*3600*7));
+            else
+            $result[$key]['date_finish'] = date("d.m.Y", strtotime($result[$key]['format_start_time'])+ ($result[$key]['repeat_amount']/7)*(24*3600*7)); 
         }
 
         return $result;

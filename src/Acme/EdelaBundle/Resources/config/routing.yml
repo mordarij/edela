@@ -34,7 +34,7 @@ tasks_set_done:
     defaults: { _controller: AcmeEdelaBundle:Task:setDone }
 
 actions_create_short:
-    pattern: /acrions/createshort
+    pattern: /actions/createshort
     defaults: { _controller: AcmeEdelaBundle:Actions:createShort }
 
 actions_list:

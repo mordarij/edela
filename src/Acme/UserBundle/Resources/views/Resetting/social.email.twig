@@ -1,0 +1,16 @@
+{% block subject %}
+
+{% endblock %}
+
+{% block body_html %}
+
+<strong>Пожалуйста, откройте следующую ссылку, чтобы подтвердить адрес:</strong><br/><br/>
+
+<a href="{{ confirmationUrl }}">{{ confirmationUrl }}</a><br/><br/>
+
+Вы получили это электронное сообщение, так как при регистрации в <a href="http://e-dela.com">e-dela.com</a><br/> 
+<br/>
+
+С уважением,
+команда <a href="http://e-dela.com">e-dela.com</a>
+{% endblock %}

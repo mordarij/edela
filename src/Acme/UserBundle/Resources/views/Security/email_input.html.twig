@@ -1,0 +1,55 @@
+{% extends 'AcmeEdelaBundle::blank.html.twig' %}
+{#{% form_theme form 'AcmeEdelaBundle:Form:fields.html.twig' %}#}
+{% block content %}
+
+    <div class="box-login">
+        <strong class="logo"><a href="/">E-dela<span></span></a></strong>
+
+        <div class="form-holder">
+         <div class="box box-password-reset" style="display:block;">
+                <h3>Выбранная социальная сеть не передала email-адрес. Введите email для привязки</h3>
+                <div class="allert" style="display: none;">
+                    Указанный адрес не найден
+                </div>
+                {{ form_start(resetForm, { 'attr': { role: 'form', name: 'f-input', class: 'reset-form' }, action: path("fos_user_social_check_email")  } ) }}
+                <div class="row">
+                    {{ form_widget(resetForm.username, { attr: { class: 'form-input', placeholder: 'form.email'|trans } }) }}
+                    {{ form_widget(resetForm._token) }}
+                    {{ form_widget(resetForm.token) }}
+                    {#<input type="text" class="form-input" placeholder="Укажите свою электронную почту"/>#}
+                </div>
+                <div class="row btn-row">
+                    <button type="submit" class="btn">Отправить подтверждения на почту</button>
+                </div>
+                </form>
+            </div>
+            <div class="box box-success">
+                <p>Мы отправили на вашу почту письмо с новым паролем!</p>
+                <a href="#" class="close"></a>
+            </div>
+            <div class="line">
+                <span class="l1"></span>
+                <span class="l2"></span>
+                <span class="l3"></span>
+                <span class="l4"></span>
+            </div>
+        </div>
+    </div>  
+     <script>
+           $(document).ready(function () {
+            $('form.reset-form').submit(function () {
+                var action = $(this).attr('action');
+                $.post(action, $(this).serialize(), function (data) {
+                    if (data.success) {
+                        $('.box-success').show();
+                        $('.box-password-reset').hide();
+                    } else {
+                        $('.box-password-reset .allert').show();
+                    }
+                }, 'json');
+                return false;
+            });
+        });
+    </script> 
+{% endblock %}
+

@@ -122,6 +122,13 @@ class UserAction
      */
     private $position;
 
+     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="is_deleted", type="boolean")
+     */
+    private $isDeleted;
+    
     /**
      * Get id
      *
@@ -520,5 +527,28 @@ class UserAction
     public function getPosition()
     {
         return $this->position;
+    }
+    
+ /**
+     * Set isDeleted
+     *
+     * @param boolean $isDeleted
+     * @return UserAction
+     */
+    public function setIsDeleted($isDeleted)
+    {
+        $this->isDeleted = $isDeleted;
+
+        return $this;
+    }
+
+    /**
+     * Get isDeleted
+     *
+     * @return boolean 
+     */
+    public function getIsDeleted()
+    {
+        return $this->isDeleted;
     }
 }

@@ -37,10 +37,9 @@ class HelpController extends FOSRestController
      */
     public function getHelpListAction(Request $request)
     {
-
         $connection = $this->getDoctrine()->getConnection();
 
-        return $connection->fetchAll('SELECT id, title FROM ed_help_topics WHERE is_enabled=:true', ['true' => 1]);
+        return $connection->fetchAll('SELECT id, title, text FROM ed_help_topics WHERE is_enabled=:true', ['true' => 1]);
 
         return [
             ['id' => 1, 'title' => 'Изменение настроек оповещений e-dela.com'],

@@ -32,6 +32,7 @@ security:
                     vkontakte:           "/user/snlogin/check-vk"
                     facebook:           "/user/snlogin/check-fb"
                     google:		"/user/snlogin/check-google"
+                    odnoklassniki:		"/user/snlogin/check-odnoklassniki"
                 oauth_user_provider:
                     service: my_user_provider
 
@@ -47,11 +48,11 @@ security:
                 target: /
             anonymous:    true
             remember_me:
-                key: verySecretKey
+                key: "%secret%"
                 lifetime: 31536000 # 365 days in seconds
                 path:     /
-                domain:   ~ # Defaults to the current domain from $_SERVER
-#                always_remember_me: true
+                domain:   e-dela.com # Defaults to the current domain from $_SERVER
+                #always_remember_me: true
 
     access_control:
         - { path: ^/user, role: IS_AUTHENTICATED_ANONYMOUSLY }
@@ -59,5 +60,5 @@ security:
         - { path: ^/pay/result, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/, role: ROLE_ADMIN }
         - { path: ^/$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/, role: IS_AUTHENTICATED_FULLY }
+#        - { path: ^/, role: IS_AUTHENTICATED_FULLY }
 

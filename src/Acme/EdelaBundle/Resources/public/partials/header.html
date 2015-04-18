@@ -1,5 +1,5 @@
-<div class="row">
-    <strong class="logo"><a href="#">E-dela<span></span></a></strong>
+<div class="row header-row">
+    <strong class="logo"><a href="/">E-dela<span></span></a></strong>
     <ul class="user-menu">
         <li><a href="javascript:" class="user">{{ profile.name }}</a>
         <a class="logout" href="../user/logout">&nbsp;</a>
@@ -25,13 +25,52 @@
             <div class="row">
                 <a href="#" id="main-calendar-gotocurrent" class="btn btn-white"
                    ng-click="calendar.goToday()">Сегодня</a>
+                <a href="javascript:void(0)" ng-click="calendar.extended=!calendar.extended"  id="main-calendar-close" class="ico-close"></a>                   
             </div>
             <div>
                 <div id="main-calendar" topcalendar ng-model="calendar.date"></div>
             </div>
         </div>
     </div>
-
+</div>
+<div class="menu-top">
+	<ul>
+        <li class="more"><a class="more-link" href="javascript:">Еще</a>
+        <div class="pop-up-menu-nav">
+                <div class="pop-up-menu-nav-content">
+                    <ul>
+                       <!--  <li><a href="javascript:void(0)" class="dict">Дневник</a></li>-->
+                        <li><a href="/id{{ profile.id }}#/help/" class="help">Помощь</a></li>
+                    </ul>
+                    <ul class="url-sec">
+                        <li><a href="/id{{ profile.id }}#/license">Политика конфиденциальности</a></li>
+                        <li><a href="javascript:void(0)" onclick="$('#sh_button').click();">Техническая поддержка</a></li>
+                    </ul>
+                </div>
+            </div>
+        </li>
+        <li class="menu-center">
+        	<div>
+        <!-- 	<a href="javascript:void(0)" id="hover2">Самоанализ<br/>
+        	<span class="under" id="under3">&nbsp;</span>
+        	</a>        	
+        	<span class="arrow">&nbsp;</span>
+        	 -->
+        	<a href="/id{{ profile.id }}#/goals"  id="hover1">Цель<br/>
+        	<span class="under" id="under2">&nbsp;</span>
+        	</a>
+        	<span class="arrow">&nbsp;</span>
+        	<a href="/" id="hover">План дня<br/>
+        	<span class="under" id="under1">&nbsp;</span>
+        	</a>
+        	</div>        	        	        	        	
+        </li>
+    </ul>
+    <ul class="user-menu" style="display:none;">
+        <li><a href="javascript:" class="user">{{ profile.name }}</a>
+        <a class="logout" href="../user/logout">&nbsp;</a>
+        </li>
+    </ul>
 </div>
 
 <div class="breadcrumbs-holder" ng-if="breadcrumbsEnabled" ng-mouseleave="menu.search=false"
@@ -48,6 +87,7 @@
         </ul>
     </div>
 </div>
+<!-- 
 <div class="pop-up pop-up-notifications limit-exceeded" ng-show="dayoff.popup">
     <div class="heading">
         <a class="btn-close" href="javascript:" ng-click="dayoff.popup=false">close</a>
@@ -84,6 +124,5 @@
         <button class="btn btn-white" ng-click="dayoff.popup=false" type="button">Отмена</button>
     </div>
 </div>
-<!-- 
 <div class="scroll-up"><a href="javascript:$('body').scrollTop(0);"><i class="fa fa-chevron-up"></i> Наверх</a></div>
  -->

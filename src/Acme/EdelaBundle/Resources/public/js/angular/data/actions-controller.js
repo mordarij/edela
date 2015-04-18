@@ -20,7 +20,7 @@ edelaControllers.controller('ActionsListController', [
                         paddingX: 0,
                         paddingY: 0,
                         minColumns: 4,
-                        align: "center",
+                        align: "left",
                         animated: false,
                         dragWhitelist: '.dragbox',
                         colWidth: 235,
@@ -28,7 +28,7 @@ edelaControllers.controller('ActionsListController', [
                         cutoffEnd: $scope.actions.length + $scope.tools.length + 1,
                         cutoffStart: $scope.tools.length
                     });
-                }, 200);
+                }, 10);                
             }
         }
         $('body').on('ss-rearranged', '.planned-business', function (e, box) {
@@ -42,12 +42,11 @@ edelaControllers.controller('ActionsListController', [
                 $scope.loading = false;
                 actionsLoaded = true;
                 updateShape();
-            });
+                $("#hover").addClass("active");
+            });            
         }
 
         updateActions();
-
-
         function updateComments() {
             $http.get('/actions/comments').success(function (data) {
                 $scope.comments = data;
@@ -89,7 +88,7 @@ edelaControllers.controller('ActionsListController', [
             });
         }
 
-        $scope.refreshTasks();
+   //     $scope.refreshTasks();
 
         $scope.goal = 0;
 
@@ -177,6 +176,7 @@ edelaControllers.controller('ActionsListController', [
         });
 
         $scope.addAction = function (isDelayed) {
+        	if($scope.newAction.title && $scope.newAction.title!="" && $scope.newAction.title!="Название..."){
             if (isDelayed) {
                 $scope.newAction.start_at = null;
             } else {
@@ -189,7 +189,10 @@ edelaControllers.controller('ActionsListController', [
             $scope.actions.push(actionsManager.addAction($scope.newAction));
             $scope.newAction = angular.copy(blankAction);
             $scope.display.showNew = false;
-            setTimeout(updateShape, 20);
+            setTimeout(updateShape, 10);
+        	}else{
+        		alert("Введите название ежедненвого дела");
+        	}
         };
 
         $scope.gotoStats = function () {
@@ -278,7 +281,26 @@ edelaControllers.controller('ActionsEditController', ['$scope', '$http', '$rootS
 
         $scope.remove = function () {
             actionsManager.removeAction($scope.action);
-            $scope.showEditPopup = false;
+            $scope.showEditPopup = false;              
+            if($scope.actions){
+            setTimeout(function () {
+                $('.planned-business').shapeshift({
+                    selector: '.box',
+                    handle: '.btn-move',
+                    enableDrag: true,
+                    paddingX: 0,
+                    paddingY: 0,
+                    minColumns: 4,
+                    align: "left",
+                    animated: false,
+                    dragWhitelist: '.dragbox',
+                    colWidth: 235,
+                    gutterX: 10,
+                    cutoffEnd: $scope.actions.length + $scope.tools.length + 1,
+                    cutoffStart: $scope.tools.length
+                });
+            }, 200);
+            }
         }
 
         goalsManager.loadGoals().then(function (goals) {
@@ -287,8 +309,10 @@ edelaControllers.controller('ActionsEditController', ['$scope', '$http', '$rootS
 
         $("body").on('keypress', 'input.new_subaction', function (e) {
             if (e.keyCode == 13) {
-                e.preventDefault();
-                $scope.addSubaction();
+            	if($scope.newSubaction.title!="" && $scope.newSubaction.title!="Название"){
+            		e.preventDefault();
+            		$scope.addSubaction();
+            	}
             }
         });
         $("body").on('keypress', 'input.new_tag', function (e) {
@@ -299,8 +323,8 @@ edelaControllers.controller('ActionsEditController', ['$scope', '$http', '$rootS
             }
         });
         $scope.addSubaction = function () {
-            $scope.action.addSubaction($scope.newSubaction.title);
-            $scope.newSubaction.title = '';
+        		$scope.action.addSubaction($scope.newSubaction.title);
+        		$scope.newSubaction.title = '';
         }
 
         $rootScope.$on('EDIT_ACTION', function (response, data) {
@@ -348,10 +372,8 @@ edelaControllers.controller('ActionsEditController', ['$scope', '$http', '$rootS
             $scope.showEditPopup = true;
             $scope.settingsBriefly = true;
         });
-
         $scope.newSubaction = {};
         $scope.newTag = {};
-
     }]);
 
 

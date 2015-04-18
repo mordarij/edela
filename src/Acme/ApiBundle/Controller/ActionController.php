@@ -17,6 +17,7 @@ use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Doctrine\Common\Collections\ArrayCollection;
 
 class ActionController extends FOSRestController
 {
@@ -105,6 +106,7 @@ class ActionController extends FOSRestController
             $userAction->setUser($user);
             $userAction->setStartAt($form->get('start_at')->getData());
             $userAction->setPosition($form->get('position')->getData());
+            $userAction->setIsDeleted(0);           
             $action->addUserAction($userAction);
 
             $actionType = $em->getRepository('AcmeEdelaBundle:ActionType')->findOneBy(['tkey' => 'done']);
@@ -325,8 +327,13 @@ class ActionController extends FOSRestController
         $userAction = $em->getRepository('AcmeEdelaBundle:UserAction')->findOneBy(array('user' => $currentUser, 'action' => $action));
 
         if (!$userAction) {
-            return $this->createNotFoundException();
+             return ['success' => false];
         }
+        $userAction->setIsDeleted(true);
+        $em->persist($userAction);
+        $em->flush();
+
+        return ['success' => true];
 
     }
 
@@ -416,23 +423,37 @@ class ActionController extends FOSRestController
         if (!$action) {
             return $this->createNotFoundException();
         }
-        $userAction = $em->getRepository('AcmeEdelaBundle:UserAction')->findOneBy(['action' => $action, 'user' => $currentUser]);
+        $userAction = $em->getRepository('AcmeEdelaBundle:UserAction')->findOneBy(['action' => $action, 'user' => $currentUser]);        
         if (!$userAction) {
             return $this->createNotFoundException();
         }
-
+		$originalSubactions = new ArrayCollection();
+        foreach ($action->getSubactions() as $subaction) {
+            $originalSubactions->add($subaction);
+        }
+        
         $form = $this->createForm(new UserActionOwnerEditFormType(), $userAction, ['csrf_protection' => false]);
 
         $goal = $action->getGoal();
         $form->handleRequest($request);
         if ($form->isValid()) {
+        	
             if ($goal && $goal != $action->getGoal()) {
                 $action->setGoal($goal);
             }
+            foreach ($originalSubactions as $subaction) {
+                if (false === $action->getSubactions()->contains($subaction)) {
+                    $em->remove($subaction);
+                }
+            }
+            if($userAction->getPosition() > $form->get('position')->getData())
+            	$userAction->setPosition($form->get('position')->getData()+1);
+            else
+            	$userAction->setPosition($form->get('position')->getData());
             $em->persist($userAction->getAction());
             $em->persist($userAction);
             $em->flush();
-
+			
             return [
                 'subactions' => $em->getRepository('AcmeEdelaBundle:Action')->getSubactions($action->getId(), $currentUser)
             ];

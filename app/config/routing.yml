@@ -28,4 +28,5 @@ acme_api:
 ulogin_auth_index:
     resource: "@UloginAuthBundle/Resources/config/routing.xml"
 
-    
+shtumi_useful:
+    resource: '@ShtumiUsefulBundle/Resources/config/routing.xml'   

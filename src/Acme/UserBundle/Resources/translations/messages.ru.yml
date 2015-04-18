@@ -5,7 +5,7 @@ form:
     password_confirmation: Подтверждение пароля
     remember_me: Запомнить меня
     login: Войти
-    timezone: Часовой пояс
+    timezone: Ваш город
     forget_pass: Забыли пароль?
     reset: Сбросить пароль
     email_doesnt_exists: Пользователя с указанным адресом не существует

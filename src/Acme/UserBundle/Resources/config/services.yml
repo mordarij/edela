@@ -10,5 +10,12 @@ services:
 
     my_user_provider:
         class: %my_user_provider.class%
-        arguments: [@fos_user.user_manager, { vkontakte: vkontakteId, facebook: facebookId }]
+        arguments: [@fos_user.user_manager, { vkontakte: vkontakteId, facebook: facebookId, google: googleId, odnoklassniki:odnoklassnikiId }]
 
+    acme_user.registration.form.type.city_entity:
+        class: Acme\UserBundle\Form\Type\CityType
+        tags:
+            - { name: form.type, alias: city_entity }
+        arguments: [@doctrine.orm.entity_manager]
+    
+    

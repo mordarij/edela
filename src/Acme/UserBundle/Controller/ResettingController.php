@@ -86,5 +86,34 @@ class ResettingController extends BaseController
     {
         return new RedirectResponse($this->container->get('router')->generate('app'));
     }
+    
+ 	public function requestcheckEmailAction()
+    {
+       		$form = $this->container->get('form.factory')->createBuilder()
+            ->add('username', 'email', array('label' => 'form.email'))
+            ->add('token', 'hidden')
+            ->getForm();   
+                     
+            $request = $this->container->get('request_stack')->getCurrentRequest();
+			
+            if ('POST' === $request->getMethod()) {
+            $form->bind($request);
+               /** @var $user UserInterface */
+                $user = $this->container->get('fos_user.user_manager')->findUserByUsernameOrEmail($_POST['username']);
+                try {
+                    if (null === $user) {
+                        throw new \Exception('form.email_doesnt_exists');
+                    }
+                    $this->container->get('fos_user.mailer')->sendSocialEmailMessage($user,$_POST['token']."&email=".$_POST['username']);
+                    return new JsonResponse(array('success' => true));
+                } catch (\Exception $e) {
+                    return new JsonResponse(array('success' => false));
+
+                }
+            }
+       // }
+        return new JsonResponse(array('success' => false));
+//        return $this->container->get('templating')->renderResponse('AcmeUserBundle:Resetting:request.html.twig', array('form' => $form->createView()));
+    }
 
 }

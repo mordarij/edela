@@ -81,7 +81,8 @@ class UserRepository extends EntityRepository
             ->from('AcmeEdelaBundle:Dayoff', 'd')
             ->select('COUNT(d) as cnt')
             ->where('d.user = :user')->setParameter('user', $user)
-            ->andWhere('d.dateAt >= :date')->setParameter('date', (new \DateTime())->setTimeZone(new \DateTimeZone('+' . $user->getTimezone()))->modify('first day of this month'));
+//            ->andWhere('d.dateAt >= :date')->setParameter('date', (new \DateTimeZone(ezone()))->modify('first day of this month'))
+            ->andWhere('d.dateAt >= :date')->setParameter('date', (new \DateTime())->setTimeZone(new \DateTimeZone('+' . $user->getTimezone()->getTimezone()))->modify('first day of this month'));
 
         $used = $used->getQuery()->getSingleResult(Query::HYDRATE_SCALAR);
 

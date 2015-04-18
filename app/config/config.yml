@@ -23,6 +23,7 @@ framework:
     session:
         # handler_id set to null will use default session handler from php.ini
         handler_id:  ~
+        cookie_lifetime: 31536000
     fragments:       ~
     http_method_override: true
 
@@ -30,6 +31,9 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    form:
+        resources: ['ShtumiUsefulBundle::fields.html.twig']    
+    
 # Assetic Configuration
 assetic:
     debug:          "%kernel.debug%"
@@ -141,6 +145,13 @@ hwi_oauth:
                 fields: "photo_max"
             paths:
                 profilepicture: response.0.photo_max
+        odnoklassniki:
+            type:                odnoklassniki
+            client_id:           "%odnoklassniki_app_id%"
+            client_secret:       "%odnoklassniki_app_secret%"
+            scope: "email"
+            options:
+               application_key: "%odnoklassniki_app_public%"
 
     fosub:
         # try 30 times to check if a username is available (foo, foo1, foo2 etc)
@@ -150,6 +161,8 @@ hwi_oauth:
         properties:
             vkontakte: vkontakteId
             facebook: facebookId
+            google: googleId
+            odnoklassniki: odnoklassnikiId
 
 sonata_admin:
     templates:
@@ -163,5 +176,9 @@ sonata_block:
         sonata.admin.block.admin_list:
             contexts:   [admin]
         # Your other blocks
-
+shtumi_useful:
+    autocomplete_entities:
+        cities:
+            class: AcmeEdelaBundle:City
+            property: title
         

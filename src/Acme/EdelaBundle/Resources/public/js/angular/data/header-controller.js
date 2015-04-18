@@ -17,7 +17,7 @@ edelaControllers.controller('HeaderController', [ '$scope', '$http', '$interval'
 
         $scope.calendar = calendar;
         $scope.calendar.addChangeListener(function () {
-            angular.element('#main-calendar').datepicker("setDate", $scope.calendar.date);
+            angular.element('#main-calendar').datepicker("setDate", $scope.calendar.date);            
         });
         $scope.$watch('calendar.date', function () {
             $scope.calendar.triggerChange();

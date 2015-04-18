@@ -1,6 +1,3 @@
-
-
-
 jQuery(function(){
 
     initContentHeight();
@@ -456,10 +453,6 @@ $(document).ready(function(){
 });
 
 
-
-
-
-
 $(document).ready(function(){
 	jQuery('.collaboration-scroll').jScrollPane({
 		autoReinitialise: true,
@@ -555,19 +548,9 @@ $(document).ready(function(){
 
 				});
 		});
-
-
-
-
 	}
 
 });
-
-
-
-
-
-
 
 
 $(function(){
@@ -614,14 +597,12 @@ $(function(){
 		altFormat: "d MM <i>(DD)</i>"
 
 	 });
-
-
-
+	 
      $('#main-calendar-gotocurrent').click(function(){
-     	   $( "#main-calendar" ).datepicker( "setDate", "now");
-
+    	   $( "#main-calendar" ).datepicker( "setDate", "now");
      	   return false;
      });
+         
      $('#main-calendar-next').click(function(){
      	   var currentDate = $( "#main-calendar" ).datepicker( 'getDate', '+1d' );
      	   currentDate.setDate(currentDate.getDate()+1);
@@ -633,14 +614,8 @@ $(function(){
      	   currentDate.setDate(currentDate.getDate()-1);
      	   $( "#main-calendar" ).datepicker( "setDate", currentDate);
      	   return false;
-     });
-
-
+     });     
 });
-
-
-
-
 
 
 $(function() {
@@ -649,26 +624,4 @@ $(function() {
         placement: "top"
     });
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

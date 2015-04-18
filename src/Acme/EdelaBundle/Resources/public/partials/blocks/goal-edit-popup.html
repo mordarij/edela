@@ -1,0 +1,78 @@
+<div style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; z-index: 1000; opacity: .6;background-color: black;"></div>
+<div class="pop-up pop-up-history-problems pop-setting-goals new-pop-setting-goals"
+     id="pop-up-setting-goals"
+     style=" position: absolute; left: 30%; z-index: 555; top: 0; /*display: none;*/">
+
+<form>
+<fieldset>
+<ul class="nav-setting" id="goal_edit_nav">
+    <li><a href="javascript:void(0)" class="tab tab-basic" ng-class="{active:settings.tab=='tab1'}" ng-click="settings.tab='tab1'">Основные</a>
+    </li>
+    <li  ng-if="goal.id>0" ><a href="javascript:void(0)" class="tab tab-case-type" ng-class="{active:settings.tab=='tab2'}" ng-click="settings.tab='tab2'">Ежедневные дела для этой цели</a>
+    </li>
+</ul>
+<div class="tabs-area">
+<div id="tab1" class="box-tab" ng-show="settings.tab=='tab1'">
+    <div class="heading-title">
+        Основные
+    </div>
+    <div class="row upload-img-box" style="width:94%;">
+        <label><span>Название</span></label>
+        <div class="row-content" style="margin-bottom:10px;">        
+           <input ng-if="!goal.id" type="text" class="form-input" placeholder="Название цели" ng-model="newGoal.name" id="name_goal">
+           <input ng-if="goal.id > 0" type="text" class="form-input" placeholder="Название цели" ng-model="goal.name" id="name_goal">
+        </div>
+        <div class="clear-bord"></div>
+        <label style="margin-bottom:10px;"><span>Изображение цели</span></label>
+        <div class="clear"></div>
+        <div ng-if="goal.id > 0" class="img-upload-row">
+            <div class="img-upload" style="position: relative;">
+                <input type="file" ng-file-select style="position: absolute; top:0; left: 0; width: 100%; height:100%; opacity: 0;z-index: 1000;" />
+                 <div class="box new_goal_box"  ng-if="goal.images.length < 1" style="height:296px;width:560px;">
+                 <div  class="new_goal">        		 	
+       		     	<div class="box-content box-case upload-case">
+            		    <a href="javascript:void(0)" class="add-case" style="position:static;"><span>+ Добавить<br/> изображение для цели</span></a>                
+            		</div>
+            	</div>
+            	</div>     
+            	<img src="/{{ goal.images[0].webPath }}" ng-if="goal.images.length > 0">
+            </div>
+       </div>
+       <div ng-if="!goal.id" class="img-upload-row">
+            <div class="img-upload" style="position: relative;">
+                <input type="file" ng-file-select style="position: absolute; top:0; left: 0; width: 100%; height:100%; opacity: 0;z-index: 1000;" />
+                 <div class="box new_goal_box"  ng-if="newGoal.images.length < 1" style="height:296px;width:560px;">
+                 <div  class="new_goal">        		 	
+       		     	<div class="box-content box-case upload-case">
+            		    <a href="javascript:void(0)" class="add-case" style="position:static;"><span>+ Добавить<br/> изображение для цели</span></a>                
+            		</div>
+            	</div>
+            	</div>              	
+            	<img src="/{{ newGoal.images[0].webPath }}" ng-if="newGoal.images.length > 0">               	
+            </div>
+       </div>
+     </div>
+</div>
+<div id="tab2" class="box-tab" ng-show="settings.tab=='tab2'">
+    <div class="heading-title">
+        Ежедневные дела для этой цели
+    </div>
+   <div ng-controller="GoalsActionsController"
+     ng-include="'/bundles/acmeedela/partials/goal-actions-list.html'"></div>
+    
+</div>
+</div>
+<div class="row-btn-holder">
+    <ul ng-if="goal.id > 0"  class="row-btn-serv">
+        <li><a href="javascript:void(0)" ng-click="deleteGoal()" class="red-mark">Удалить цель</a></li>
+    </ul>
+    <div class="btn-row">
+    	<button ng-if="!goal.id" type="button" class="btn btn-blue" ng-click="addGoal()">Сохранить</button>
+    	<button ng-if="!goal.id" type="button" ng-click="cancelAdd()" class="btn btn-white">Отмена</button>
+        <button ng-if="goal.id > 0" type="button" class="btn btn-blue" ng-click="editGoal()">Сохранить</button>
+        <button ng-if="goal.id > 0" type="button" ng-click="cancelEdit()" class="btn btn-white">Отмена</button>
+    </div>
+</div>
+</fieldset>
+</form>
+</div>

@@ -5,11 +5,14 @@ edelaControllers.controller('HelpListController', ['$scope', '$http', '$rootScop
         $scope.loading = true;
         $http.get('api/help/list').success(function (data) {
             $scope.topics = data;
-            var currentId = !$routeParams.id ? data[0]['id'] : $routeParams.id;
-            $scope.changeTopic(currentId);
+            $scope.loading = false;
+            $("#hover").removeClass("active");
+            $("#hover1").removeClass("active");
+            //var currentId = !$routeParams.id ? data[0]['id'] : $routeParams.id;
+            //$scope.changeTopic(currentId);
         });
 
-        var hot = [];
+      /*  var hot = [];
         var currentHot = 0;
         $http.get('api/help/hot').success(function(data){
             hot = data;
@@ -48,7 +51,7 @@ edelaControllers.controller('HelpListController', ['$scope', '$http', '$rootScop
                 // Will not load only if my view use the same controller
                 $route.current = lastRoute;
             }
-        });
+        });*/
 
     }]);
 
@@ -64,23 +67,21 @@ edelaControllers.controller('FaqListController', ['$scope', '$http', '$rootScope
 
 edelaControllers.controller('StaticLicenseController', ['$scope', '$http',
     function ($scope, $http) {
-
-
         $scope.loading = true;
 
         $http.get('api/help/static/license').success(function (data) {
             $scope.currentTopic = data;
             $scope.loading = false;
+            $(".menu-center a").each(function(){
+            	$(this).removeClass("active");
+            })
         });
 
     }]);
 
 edelaControllers.controller('StaticAboutController', ['$scope', '$http',
     function ($scope, $http) {
-
-
-        $scope.loading = true;
-
+      $scope.loading = true;
         $http.get('api/help/static/about').success(function (data) {
             $scope.currentTopic = data;
             $scope.loading = false;

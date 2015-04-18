@@ -31,15 +31,16 @@ class User extends BaseUser
      * @Assert\Length(min="3", max="50", minMessage="The name is too short.", maxMessage="The name is too long.", groups={"Registration", "Profile"})
      */
     protected $fullname;
-
-    /**
-     * @var integer
+       
+	
+	/**
+     * @var Timezone
      *
-     * @ORM\Column(type="integer")
-     *
-     * @Assert\Range(min="-12", max="12", groups={"Registration", "Profile"})
+     * @ORM\JoinColumn(name="timezone_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Acme\EdelaBundle\Entity\City", inversedBy="users")
      */
-    protected $timezone;
+     private $timezone;
+           
 
     /**
      * @ORM\Column(name="photo", type="string", length=255, nullable=true)
@@ -204,6 +205,38 @@ class User extends BaseUser
      * @Serializer\Exclude
      */
     protected $facebookAccessToken;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="google_id", type="string", nullable=true)
+     * @Serializer\Exclude
+     */
+    protected $googleId;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="google_access_token", type="string", nullable=true)
+     * @Serializer\Exclude
+     */
+    protected $googleAccessToken;
+    
+     /**
+     * @var string
+     *
+     * @ORM\Column(name="odnoklassniki_id", type="string", nullable=true)
+     * @Serializer\Exclude
+     */
+    protected $odnoklassnikiId;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="odnoklassniki_access_token", type="string", nullable=true)
+     * @Serializer\Exclude
+     */
+    protected $odnoklassnikiAccessToken;
 
     /**
      * @ORM\Column(name="exp_total", type="integer")
@@ -264,7 +297,6 @@ class User extends BaseUser
     {
         parent::__construct();
         $this->language = 'ru';
-        $this->timezone = 0;
         $this->exp_total = 0;
         $this->exp_bill = 0;
         $this->userAchievements = new ArrayCollection();
@@ -306,29 +338,6 @@ class User extends BaseUser
     public function getFullname()
     {
         return $this->fullname;
-    }
-
-    /**
-     * Set timezone
-     *
-     * @param integer $timezone
-     * @return User
-     */
-    public function setTimezone($timezone)
-    {
-        $this->timezone = $timezone;
-
-        return $this;
-    }
-
-    /**
-     * Get timezone
-     *
-     * @return integer 
-     */
-    public function getTimezone()
-    {
-        return $this->timezone;
     }
 
     /**
@@ -1378,8 +1387,99 @@ class User extends BaseUser
         return $this->facebookAccessToken;
     }
 
+ /**
+     * Set googleId
+     *
+     * @param string $googleId
+     * @return User
+     */
+    public function setGoogleId($googleId)
+    {
+        $this->googleId = $googleId;
+
+        return $this;
+    }
+
+    /**
+     * Get googleId
+     *
+     * @return string 
+     */
+    public function getGoogleId()
+    {
+        return $this->googleId;
+    }
+
+    /**
+     * Set facebookAccessToken
+     *
+     * @param string $facebookAccessToken
+     * @return User
+     */
+    public function setGoogleAccessToken($googleAccessToken)
+    {
+        $this->googleAccessToken = $googleAccessToken;
+
+        return $this;
+    }
+
+    /**
+     * Get facebookAccessToken
+     *
+     * @return string 
+     */
+    public function getGoogleAccessToken()
+    {
+        return $this->googleAccessToken;
+    }
+    
+ /**
+     * Set odnoklassnikiId
+     *
+     * @param string $odnoklassnikiId
+     * @return User
+     */
+    public function setOdnoklassnikiId($odnoklassnikiId)
+    {
+        $this->odnoklassnikiId = $odnoklassnikiId;
+
+        return $this;
+    }
+
+    /**
+     * Get odnoklassnikiId
+     *
+     * @return string 
+     */
+    public function getOdnoklassnikiId()
+    {
+        return $this->odnoklassnikiId;
+    }
+
+    /**
+     * SetodnoklassnikiAccessToken
+     *
+     * @param string $odnoklassnikiAccessToken
+     * @return User
+     */
+    public function setOdnoklassnikiAccessToken($odnoklassnikiAccessToken)
+    {
+        $this->odnoklassnikiAccessToken = $odnoklassnikiAccessToken;
+
+        return $this;
+    }
+
+    /**
+     * Get facebookAccessToken
+     *
+     * @return string 
+     */
+    public function getOdnoklassnikiAccessToken()
+    {
+        return $this->odnoklassnikiAccessToken;
+    }
     public function getCurrentDateTime(){
-        return (new \DateTime())->setTimezone(new \DateTimeZone('+' . $this->getTimezone()));
+        return (new \DateTime())->setTimezone(new \DateTimeZone('+' . $this->getTimezone()->getTimezone()));
     }
 
 
@@ -1414,5 +1514,30 @@ class User extends BaseUser
     public function getSettings()
     {
         return $this->settings;
+    }
+
+    
+
+    /**
+     * Set timezone
+     *
+     * @param \Acme\EdelaBundle\Entity\City $timezone
+     * @return User
+     */
+    public function setTimezone(\Acme\EdelaBundle\Entity\City $timezone = null)
+    {
+        $this->timezone = $timezone;
+
+        return $this;
+    }
+
+    /**
+     * Get timezone
+     *
+     * @return \Acme\EdelaBundle\Entity\City 
+     */
+    public function getTimezone()
+    {
+        return $this->timezone;
     }
 }

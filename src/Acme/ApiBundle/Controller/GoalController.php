@@ -20,25 +20,34 @@ class GoalController extends FOSRestController
      */
     public function postGoalAction(Request $request)
     {
-        $currentUser = $this->container->get('security.context')->getToken()->getUser();
+         $currentUser = $this->container->get('security.context')->getToken()->getUser();
         $form = $this->get('form.factory')->createNamedBuilder('', 'form', null, array('csrf_protection' => false))
             ->add('name', 'text', array('label' => 'goal.new.short_label'))
+            ->add('images', 'text', array('label' => 'goal.new.short_label'))
             ->getForm();
+            
         $form->handleRequest($request);
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $existingGoal = $this->getDoctrine()->getRepository('AcmeEdelaBundle:Goal')->findOneBy(array(
                 'name' => $form->getData()['name'],
-                'user' => $currentUser
+                'user' => $currentUser,
+            	'isDeleted'=>0
             ));
 
             if (!$existingGoal) {
                 $newGoal = new Goal();
                 $newGoal->setName($form->getData()['name'])
                     ->setUser($this->container->get('security.context')->getToken()->getUser());
-
-                $em->persist($newGoal);
+                    
+		        $em->persist($newGoal);
                 $em->flush();
+                if(isset($form->getData()['images']) && count($form->getData()['images'])>0){
+                 	$image = $this->getDoctrine()->getRepository('AcmeEdelaBundle:GoalImage')->find($form->getData()['images'][0]['id']);            			
+            		$image->setGoal($newGoal);
+            		$em->persist($image);
+            		$em->flush();
+                }
                 return $newGoal;
             }
             return ['error' => ['message' => 'existing goal']];
@@ -51,7 +60,7 @@ class GoalController extends FOSRestController
      * @Rest\Get("/goals")
      */
     public function getGoalsAction(Request $request)
-    {
+    {    	
         $user_id = $request->get('user_id');
         if ($user_id == 0) {
             $user = $this->container->get('security.context')->getToken()->getUser();
@@ -125,18 +134,16 @@ class GoalController extends FOSRestController
     public function patchGoalAction(Request $request, $goal_id){
         $em = $this->getDoctrine()->getManager();
         $goal = $em->getRepository('AcmeEdelaBundle:Goal')->find($goal_id);
-
-        if (!$goal || $goal->getUser() != $this->container->get('security.context')->getToken()->getUser()) {
+    	if (!$goal || $goal->getUser() != $this->container->get('security.context')->getToken()->getUser()) {
             throw $this->createNotFoundException('goal.not_found');
-        }
-
+        }        
         $form = $this->createForm(new GoalEditFormType(), $goal, array('csrf_protection'   => false, 'method' => 'PATCH'));
         $form->handleRequest($request);
         if ($form->isValid()){
             $goal->setIsSaved(true);
             $em->persist($goal);
             $em->flush();
-            return $goal;
+            return "success";
         }
         return $form->getErrors();
     }
@@ -158,7 +165,7 @@ class GoalController extends FOSRestController
             $goalImage->upload();
             $em->persist($goalImage);
             $em->flush();
-            return ['webPath' => $goalImage->getWebPath()];
+            return ['webPath' => $goalImage->getWebPath(),'id'=>$goalImage->getId()];
         }
         return $form->isSubmitted();
     }

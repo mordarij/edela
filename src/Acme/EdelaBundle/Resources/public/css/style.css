@@ -381,10 +381,10 @@ div.scroll-up{
 }
 
 .checkbox label:hover:after, .checkbox input[type="checkbox"]:hover + label:after {
-    background-position: 0 -17px !important;
+    background-position: 0 0 !important;
 }
 .checkbox input[type="checkbox"]:checked + label:after {
-    background-position: 0 -36px !important;
+    background-position: 0 0 !important;
 }
 .row-partners img {
     border: none;

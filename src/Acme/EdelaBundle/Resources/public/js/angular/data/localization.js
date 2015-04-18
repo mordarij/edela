@@ -1,1 +1,1 @@
-$.fn.selectpicker.defaults.noneSelectedText = 'Не выбрано';
+$.fn.selectpicker.defaults.noneSelectedText = 'Цель не выбрана';

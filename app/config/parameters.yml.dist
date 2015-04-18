@@ -21,6 +21,9 @@ parameters:
     google_app_secret: ''
     vk_app_id: ''
     vk_app_secret: ''
+    odnoklassniki_app_id: ''
+    odnoklassniki_app_secret: ''
+    odnoklassniki_app_public: ''
 
     sms:
         login: 'LOGIN'

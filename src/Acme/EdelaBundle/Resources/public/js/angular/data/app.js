@@ -55,12 +55,21 @@ var edelaApp = angular.module('edelaApp', [
             return {
                 restrict: 'A',
                 link: function (scope, element, attrs) {
-                    angular.element($window).bind('scroll', function () {
-                        if (this.pageYOffset > 200) {
+                    angular.element($window).bind('scroll', function () {                    	
+                        /*if (this.pageYOffset > 200) {
                             angular.element('.scroll-up').show();
                         } else {
                             angular.element('.scroll-up').hide();
-                        }
+                        }*/
+                    	if (this.pageYOffset > 1) {
+                    		$(".header-row").hide();
+                    		$(".menu-top").attr("style","position:fixed");
+                    		$(".menu-top .user-menu").show();
+                    	}else{
+                    		$(".header-row").show();
+                    		$(".menu-top").attr("style","");
+                    		$(".menu-top .user-menu").hide();
+                    	}
                     });
                 }
             };
@@ -83,7 +92,7 @@ var edelaApp = angular.module('edelaApp', [
             return {
                 link: function (scope) {
                     angular.element($window).on('keypress', function (e) {
-                        console.log(e.ctrlKey, e.keyCode);
+                        //console.log(e.ctrlKey, e.keyCode);
                         if (e.ctrlKey && e.keyCode == 10) {
                             $rootScope.$emit('SEND_ERROR_PRESSED', e);
                         }
@@ -153,8 +162,8 @@ var edelaApp = angular.module('edelaApp', [
                     $(element).datepicker(opts);
                 }
             }
-        })
-        .directive('gridster', function(){
+        });
+       /* .directive('gridster', function(){
             return {
                 restrict: 'A',
                 link: function (scope, element, attrs) {
@@ -185,9 +194,9 @@ var edelaApp = angular.module('edelaApp', [
             return {
                 restrict: 'A',
                 link: function (scope, element, attrs) {
-                    console.log(123);
+                    //console.log(123);
                     var handler = attrs.shapeshift;
-                    console.log(handler);
+                    //console.log(handler);
                     $(element).shapeshift({
                         handle: handler,
                         enableDrag: false,
@@ -200,8 +209,7 @@ var edelaApp = angular.module('edelaApp', [
                     });
                 }
             }
-        })
-    ;
+        });*/
 
 
 edelaApp.config(['cfpLoadingBarProvider', function (cfpLoadingBarProvider) {
@@ -313,7 +321,7 @@ edelaApp.service('currentUser', ['$http', 'globalVars', '$filter', function ($ht
             return level;
         },
         saveProfile: function (data) {
-            console.log(data.birthday);
+            //console.log(data.birthday);
             if (typeof data.birthday == 'object') {
                 data.birthday = data.birthday.format('dd/mm/yyyy');
             } else if (typeof data.birthday !== 'undefined'){

@@ -68,12 +68,13 @@ class ActionsController extends Controller
         if ($form->isValid()) {
             $userAction = new UserAction();
             $userAction->setUser($user);
+            $userAction->setIsDeleted(false);
             $action->addUserAction($userAction);
             $em = $this->getDoctrine()->getManager();
             $em->persist($action);
             $em->flush();
             $success = true;
-        }
+        }        
         if ($success) {
             if ($request->isXmlHttpRequest()) {
                 return new JsonResponse(['success' => true, 'text' => $this->renderView('AcmeEdelaBundle:Actions:_one_block.html.twig', array('action' => $action, 'progress' => null))]);
@@ -83,7 +84,7 @@ class ActionsController extends Controller
         } else {
             return new JsonResponse(['success' => false]);
         }
-    }
+    }  
 
     public function executeAction($action_id)
     {
@@ -216,7 +217,6 @@ class ActionsController extends Controller
         foreach ($action->getSubactions() as $subaction) {
             $originalSubactions->add($subaction);
         }
-
         $form = $this->createForm(new UserActionOwnerEditFormType(), $userAction);
         $form->handleRequest($request);
         if ($form->isValid()) {

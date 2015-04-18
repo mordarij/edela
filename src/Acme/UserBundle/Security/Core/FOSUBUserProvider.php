@@ -41,27 +41,41 @@ class FOSUBUserProvider extends BaseClass
     /**
      * {@inheritdoc}
      */
-    public function loadUserByOAuthUserResponse(UserResponseInterface $response)
+    public function loadUserByOAuthUserResponse(UserResponseInterface $response,$email="")
     {
-        $username = $response->getUsername();
-     //  echo $username;die();
-        /** @var User $user */
-        $user = $this->userManager->findUserBy(array($this->getProperty($response) => $username));
+        $useremail = $response->getEmail(); 
+		
+        if($useremail=="") $useremail=$email;
         
+		if($useremail!=""){
+        	 $username = $useremail;
+        }
+        else $username = $response->getUsername();          
+
+        /** @var User $user */
+        $user = $this->userManager->findUserByUsernameOrEmail($username);
+        
+        $service = $response->getResourceOwner()->getName();
+        $setterID = $service."Id";
+        $setter = 'set'.ucfirst($service);
+        $setter_id = $setter.'Id';
+        $setter_token = $setter.'AccessToken';
+        $getter = 'get'.ucfirst($service);
+        $getter_id = $getter.'Id';
         //when the user is registrating
         if (null === $user) {
-            $service = $response->getResourceOwner()->getName();
-            $setter = 'set'.ucfirst($service);
-            $setter_id = $setter.'Id';
-            $setter_token = $setter.'AccessToken';
-            // create new user here
+        	 if($this->userManager->findUserBy(array($setterID  => $response->getUsername()))!=null){
+        	 	$user = $this->userManager->findUserBy(array($setterID  => $response->getUsername()));
+        	 	return $user;
+        	 }else{
+           		 // create new user here
             $user = $this->userManager->createUser();
             $user->$setter_id($username);
             $user->$setter_token($response->getAccessToken());
             $user->setUsername($username);
             $user->setFullname($response->getRealName());
             if ($response->getResourceOwner()->getName() == 'facebook'){
-$user->setPhoto('https://graph.facebook.com/' . $username . '/picture?type=large');
+				$user->setPhoto('https://graph.facebook.com/' .  $response->getUsername() . '/picture?type=large');
             } else {
                 $user->setPhoto($response->getProfilePicture());
             }
@@ -75,21 +89,13 @@ $user->setPhoto('https://graph.facebook.com/' . $username . '/picture?type=large
             }
             $this->userManager->updateUser($user);
             return $user;
-        }else if($user->getEmail() != $response->getEmail() && filter_var($response->getEmail(), FILTER_VALIDATE_EMAIL)){
-            $user->setEmail($response->getEmail());
-            $this->userManager->updateUser($user);
-        }
-
-        //if user exists - go with the HWIOAuth way
-        $user = parent::loadUserByOAuthUserResponse($response);
-
-        $serviceName = $response->getResourceOwner()->getName();
-        $setter = 'set' . ucfirst($serviceName) . 'AccessToken';
-
-        //update access token
-        $user->$setter($response->getAccessToken());
-
-        return $user;
+        	}
+        }else{
+        	$user->$setter_id($response->getUsername());
+        	$user-> $setter_token($response->getAccessToken());        	
+         	$this->userManager->updateUser($user);
+         	return $user;
+        }		        
     }
 
 }
